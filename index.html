@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hofelid Haus — a courtyard house by Haldern</title>
+  <meta name="description" content="Hofelid Haus — a single-storey courtyard house, perfected over twenty years.">
+
+  <!-- Шрифт Inter (вариативный) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200..600&display=swap" rel="stylesheet">
+
+  <!-- Первый кадр hero — грузим раньше всего, чтобы экран не был пустым -->
+  <link rel="preload" as="image" href="assets/hero/frames/001.webp" fetchpriority="high">
+
+  <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.13/dist/lenis.css">
+  <link rel="stylesheet" href="css/base.css?v=8d0934fa">
+  <link rel="stylesheet" href="css/header.css?v=8d0934fa">
+  <link rel="stylesheet" href="css/hero.css?v=8d0934fa">
+  <link rel="stylesheet" href="css/assembly.css?v=8d0934fa">
+  <link rel="stylesheet" href="css/manifest.css?v=8d0934fa">
+  <link rel="stylesheet" href="css/rooms.css?v=8d0934fa">
+</head>
+<body class="is-loading">
+
+  <!-- ============ 0. Шапка ============ -->
+  <header class="header" data-header>
+    <a class="header__logo" href="#top">Haldern</a>
+    <nav class="header__nav" aria-label="Main">
+      <a class="pill" href="#house">The House</a>
+      <a class="pill" href="#inside">Inside</a>
+      <a class="pill" href="#packages">Packages</a>
+      <a class="pill" href="#process">Process</a>
+      <a class="pill" href="#reserve">Reserve</a>
+    </nav>
+    <a class="btn btn--light header__cta" href="#master-plan">Get the master plan</a>
+  </header>
+
+  <main>
+    <!-- ============ 1. Первый экран: видео по скроллу ============ -->
+    <section class="hero" id="top" data-hero data-theme="dark">
+      <div class="hero__sticky">
+        <!-- Кадры видео рисуются в canvas; poster — подложка до загрузки -->
+        <img class="hero__poster" src="assets/hero/frames/001.webp" alt="" aria-hidden="true">
+        <canvas class="hero__canvas" data-hero-canvas aria-label="Aerial view of Hofelid Haus" role="img"></canvas>
+        <div class="hero__shade" aria-hidden="true"></div>
+
+        <!-- Вся раскладка — по кадру Figma 1920×960, размеры в единицах --u -->
+        <div class="hero__ui">
+          <h1 class="hero__name">
+            <span class="hero__name-line">HOFELID</span>
+            <span class="hero__name-line hero__name-line--shift">HAUS</span>
+          </h1>
+
+          <div class="hero__intro">
+            <span class="hero__since">Since 2006</span>
+            <p class="hero__lead">A single-storey courtyard house, perfected over twenty years</p>
+          </div>
+
+          <div class="hero__cards">
+            <div class="glass-card">
+              <span class="glass-card__value">185 m²</span>
+              <span class="glass-card__text">Living area on one level, around a private courtyard.</span>
+            </div>
+            <div class="glass-card">
+              <span class="glass-card__value">7 months</span>
+              <span class="glass-card__text">From contract to keys, anywhere in Europe.</span>
+            </div>
+          </div>
+
+          <p class="hero__note hero__note--left">Single-storey<br>L-shaped · Courtyard</p>
+          <p class="hero__note hero__note--europe">Building homes<br>across Europe</p>
+          <a class="btn btn--light btn--arrow hero__cta" href="#master-plan">
+            Get the master plan
+            <span class="btn__icon" aria-hidden="true">
+              <svg viewBox="0 0 16 16" width="14" height="14"><path d="M4 12 12 4M5.5 4H12v6.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+            </span>
+          </a>
+          <p class="hero__note hero__note--scroll">Scroll to explore</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 2. Сборка дома ============ -->
+    <section class="assembly" id="house" data-assembly>
+      <div class="assembly__pin" data-assembly-pin>
+        <div class="assembly__top">
+          <h2 class="assembly__title">Built layer<br>by layer</h2>
+
+          <div class="assembly__info">
+            <div class="assembly__meta">
+              <span class="assembly__counter">
+                <span class="assembly__counter-track" data-counter>
+                  <span>01</span><span>02</span><span>03</span><span>04</span>
+                </span>
+              </span>
+              <span class="assembly__counter-total">/ 04</span>
+            </div>
+
+            <!-- Тексты этапов лежат стопкой, видим только активный -->
+            <div class="assembly__stages" data-stages>
+              <article class="stage" data-stage>
+                <h3 class="stage__name">The roof</h3>
+                <p class="stage__text">Flat concrete slabs with deep overhangs shade the glass in summer and let the low winter sun in. 250 mm of insulation and hidden drainage keep the silhouette clean.</p>
+              </article>
+              <article class="stage" data-stage>
+                <h3 class="stage__name">The walls</h3>
+                <p class="stage__text">Monolithic reinforced concrete holds warmth in winter and keeps the rooms cool in summer. Ceilings rise to 3 metres throughout the house.</p>
+              </article>
+              <article class="stage" data-stage>
+                <h3 class="stage__name">Glass and interior</h3>
+                <p class="stage__text">Floor-to-ceiling triple glazing in oak frames, shaded by thermowood fins. Every room opens onto the garden or the courtyard.</p>
+              </article>
+              <article class="stage" data-stage>
+                <h3 class="stage__name">The foundation</h3>
+                <p class="stage__text">An insulated concrete slab, engineered for every European climate — from Nordic frost to Mediterranean heat.</p>
+              </article>
+            </div>
+
+            <a class="btn btn--dark" href="#master-plan">Get the master plan</a>
+          </div>
+        </div>
+
+        <!-- Сцена: все слои одного размера и совпадают пиксель в пиксель -->
+        <div class="assembly__scene">
+          <div class="house" data-house>
+            <div class="house__shadow" data-layer="shadow" aria-hidden="true"></div>
+            <picture class="house__layer house__layer--foundation" data-layer="foundation">
+              <source srcset="assets/assembly/4-fundament.webp" type="image/webp">
+              <img src="assets/assembly/4-fundament.png" alt="" width="2200" height="659" decoding="async">
+            </picture>
+            <picture class="house__layer house__layer--walls" data-layer="walls">
+              <source srcset="assets/assembly/2-steny.webp" type="image/webp">
+              <img src="assets/assembly/2-steny.png" alt="" width="2200" height="659" decoding="async">
+            </picture>
+            <picture class="house__layer house__layer--glass" data-layer="glass">
+              <source srcset="assets/assembly/3-steny-steklo-interier.webp" type="image/webp">
+              <img src="assets/assembly/3-steny-steklo-interier.png" alt="" width="2200" height="659" decoding="async">
+            </picture>
+            <picture class="house__layer house__layer--roof" data-layer="roof">
+              <source srcset="assets/assembly/1-krysha.webp" type="image/webp">
+              <img src="assets/assembly/1-krysha.png" alt="" width="2200" height="659" decoding="async">
+            </picture>
+            <picture class="house__layer house__layer--full" data-layer="full">
+              <source srcset="assets/assembly/5-dom-celikom.webp" type="image/webp">
+              <img src="assets/assembly/5-dom-celikom.png" alt="Hofelid Haus, fully assembled" width="2200" height="659" decoding="async">
+            </picture>
+          </div>
+        </div>
+
+        <!-- Финальная строка цифр: data-count — до какого числа досчитывать -->
+        <ul class="facts" data-facts>
+          <li class="facts__item"><b><span data-count="185">185</span> m²</b> living area</li>
+          <li class="facts__item"><b data-count="3">3</b> bedrooms</li>
+          <li class="facts__item"><b data-count="7">7</b> months to keys</li>
+          <li class="facts__item"><b>A</b> energy class</li>
+          <li class="facts__item"><b><span data-count="10">10</span>-year</b> structural warranty</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ 3. Манифест ============ -->
+    <section class="manifest" data-manifest>
+      <p class="manifest__p">For twenty years we<br>have built twenty models.</p>
+      <p class="manifest__p">Thousands of families.<br>Hundreds of plots.</p>
+      <p class="manifest__p">Every climate in Europe.<br>We kept what worked.<br>We removed what didn’t.</p>
+      <p class="manifest__p">Hofelid Haus is the result —<br>a house where nothing<br>is accidental, so nothing<br>needs to be changed.</p>
+    </section>
+
+    <!-- ============ 4. Прогулка по дому: 4 видео по скроллу ============ -->
+    <section class="rooms" id="inside" data-rooms data-theme="dark">
+      <div class="rooms__pin" data-rooms-pin>
+        <!-- Сцены лежат стопкой: каждая следующая въезжает снизу шторкой.
+             data-frames — сколько кадров в папке assets/rooms/0N -->
+        <div class="rooms__scene" data-room-scene data-frames="193">
+          <canvas class="rooms__canvas" aria-label="The living room and kitchen" role="img"></canvas>
+        </div>
+        <div class="rooms__scene" data-room-scene data-frames="193">
+          <canvas class="rooms__canvas" aria-label="The master suite" role="img"></canvas>
+        </div>
+        <div class="rooms__scene" data-room-scene data-frames="145">
+          <canvas class="rooms__canvas" aria-label="The study" role="img"></canvas>
+        </div>
+        <div class="rooms__scene" data-room-scene data-frames="193">
+          <canvas class="rooms__canvas" aria-label="The courtyard and the pool" role="img"></canvas>
+        </div>
+        <div class="rooms__shade" aria-hidden="true"></div>
+
+        <div class="rooms__ui">
+          <div class="rooms__top">
+            <h2 class="rooms__label">Step inside</h2>
+            <div class="rooms__meta">
+              <span class="rooms__counter">
+                <span class="rooms__counter-track" data-rooms-counter>
+                  <span>01</span><span>02</span><span>03</span><span>04</span>
+                </span>
+              </span>
+              <span>/ 04</span>
+            </div>
+          </div>
+
+          <!-- Тексты комнат — стопкой, виден один; не исчезают, пока идёт видео -->
+          <div class="rooms__texts">
+            <article class="room" data-room-text>
+              <span class="room__num">01</span>
+              <p class="room__title">The living room and kitchen, open to the courtyard.</p>
+              <span class="room__area">55 m²</span>
+            </article>
+            <article class="room" data-room-text>
+              <span class="room__num">02</span>
+              <p class="room__title">The master suite, with its own dressing room and bath.</p>
+              <span class="room__area">32 m²</span>
+            </article>
+            <article class="room" data-room-text>
+              <span class="room__num">03</span>
+              <p class="room__title">A quiet study facing the trees.</p>
+              <span class="room__area">12 m²</span>
+            </article>
+            <article class="room" data-room-text>
+              <span class="room__num">04</span>
+              <p class="room__title">The courtyard and the pool — the heart of the house.</p>
+              <span class="room__area">10 × 3 m pool</span>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Библиотеки: GSAP + ScrollTrigger + Lenis -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script type="module" src="js/main.js?v=8d0934fa"></script>
+</body>
+</html>

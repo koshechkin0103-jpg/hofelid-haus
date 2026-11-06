@@ -1,0 +1,129 @@
+/* ===== Прогулка по дому: закреплённый экран, 4 видео сменяют друг друга шторкой ===== */
+.rooms { background: #151412; }
+
+.rooms__pin {
+  position: relative;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  color: var(--white);
+}
+
+/* Сцены одна над другой; следующая стартует за нижним краем и въезжает вверх */
+.rooms__scene {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #151412;
+  will-change: transform;
+}
+/* Лёгкая тень по верхней кромке шторки — край читается, как в референсе */
+.rooms__scene + .rooms__scene::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 1px;
+  z-index: 1;
+  box-shadow: 0 0 calc(60 * var(--u)) calc(14 * var(--u)) rgba(0, 0, 0, .35);
+}
+
+.rooms__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Затемнение снизу слева — под текстом комнаты */
+.rooms__shade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(10, 10, 9, .45) 0%, rgba(10, 10, 9, 0) 26%),
+    linear-gradient(20deg, rgba(10, 10, 9, .55) 0%, rgba(10, 10, 9, 0) 52%);
+}
+
+.rooms__ui {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Верхняя строка под шапкой: название блока и счётчик */
+.rooms__top {
+  position: absolute;
+  top: calc(116 * var(--u));
+  left: calc(30 * var(--u));
+  right: calc(30 * var(--u));
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.rooms__label {
+  font-size: calc(42 * var(--u));
+  line-height: 1;
+  font-weight: 400;
+  letter-spacing: -.01em;
+}
+.rooms__meta {
+  display: flex;
+  gap: 6px;
+  font-size: max(12px, calc(18 * var(--u)));
+  font-variant-numeric: tabular-nums;
+  color: rgba(255, 255, 255, .7);
+}
+.rooms__counter { display: block; height: 1.3em; overflow: hidden; color: var(--white); }
+.rooms__counter-track { display: flex; flex-direction: column; will-change: transform; }
+.rooms__counter-track span { display: block; height: 1.3em; line-height: 1.3em; }
+.rooms__meta > span:last-child { line-height: 1.3em; }
+
+/* Тексты комнат: стопкой в левом нижнем углу */
+.rooms__texts {
+  position: absolute;
+  left: calc(30 * var(--u));
+  bottom: calc(60 * var(--u));
+  display: grid;
+}
+.room {
+  grid-area: 1 / 1;
+  align-self: end;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  will-change: transform, opacity;
+}
+.room__num {
+  font-size: calc(160 * var(--u));
+  line-height: .9;
+  font-weight: 300;
+  letter-spacing: -.04em;
+  font-variant-numeric: tabular-nums;
+}
+.room__title {
+  max-width: calc(760 * var(--u));
+  margin-top: calc(18 * var(--u));
+  font-size: calc(48 * var(--u));
+  line-height: 1.05;
+  letter-spacing: -.02em;
+}
+.room__area {
+  margin-top: calc(24 * var(--u));
+  padding: calc(8 * var(--u)) calc(16 * var(--u));
+  border: 1px solid rgba(255, 255, 255, .5);
+  border-radius: 999px;
+  font-size: max(12px, calc(18 * var(--u)));
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  background: rgba(255, 255, 255, .08);
+}
+
+/* ===== prefers-reduced-motion: комнаты идут подряд, первый кадр каждой ===== */
+.is-reduced .rooms__pin { height: auto; }
+.is-reduced .rooms__scene {
+  position: relative;
+  height: 100vh;
+  transform: none !important;
+}
+.is-reduced .rooms__ui,
+.is-reduced .rooms__shade { display: none; }

@@ -1,0 +1,149 @@
+/* ===== Сборка дома: закреплённая секция на время скролла ===== */
+.assembly { background: var(--bg); }
+
+.assembly__pin {
+  position: relative;
+  height: 100vh;
+  height: 100svh;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(96px, 13vh, 140px) var(--gutter) clamp(28px, 4vh, 48px);
+  overflow: hidden;
+}
+
+/* Верхняя строка: заголовок слева, текст этапа справа (как в макете) */
+.assembly__top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gutter);
+  align-items: start;
+}
+
+.assembly__title {
+  font-size: clamp(48px, 5.6vw, 96px);
+  line-height: .98;
+  font-weight: 400;
+  letter-spacing: -.035em;
+}
+
+.assembly__info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+  max-width: 560px;
+  padding-top: 10px;
+}
+
+/* Счётчик 01 / 04: цифры лежат столбиком, видна одна */
+.assembly__meta {
+  display: flex;
+  gap: 6px;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+}
+.assembly__counter {
+  display: block;
+  height: 1.5em;
+  overflow: hidden;
+  color: var(--ink);
+}
+.assembly__counter-track { display: flex; flex-direction: column; will-change: transform; }
+.assembly__counter-track span { display: block; height: 1.5em; line-height: 1.5em; }
+.assembly__counter-total { line-height: 1.5em; }
+
+/* Тексты этапов — стопкой в одной ячейке грида */
+.assembly__stages {
+  display: grid;
+  width: 100%;
+}
+.stage {
+  grid-area: 1 / 1;
+  will-change: transform, opacity;
+}
+.stage + .stage { opacity: 0; }
+.stage__name {
+  margin-bottom: 8px;
+  font-size: clamp(15px, 1.15vw, 18px);
+  font-weight: 500;
+  letter-spacing: -.01em;
+}
+.stage__text {
+  font-size: clamp(14px, 1.05vw, 17px);
+  line-height: 1.45;
+  color: #3b3934;
+}
+
+/* Сцена: дом занимает всё оставшееся место, по центру */
+.assembly__scene {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  container-type: size;
+}
+
+.house {
+  position: relative;
+  /* вписываем по ширине или по высоте — пропорции слоя 2200×659 */
+  width: min(100cqw, 100cqh * 2200 / 659);
+  aspect-ratio: 2200 / 659;
+}
+
+/* Порядок слоёв снизу вверх: фундамент → стены → стекло → крыша → дом целиком */
+.house__layer {
+  position: absolute;
+  inset: 0;
+  will-change: transform, opacity;
+}
+.house__layer img { width: 100%; height: 100%; }
+.house__layer--foundation { z-index: 1; }
+.house__layer--walls      { z-index: 2; }
+.house__layer--glass      { z-index: 3; }
+.house__layer--roof       { z-index: 4; }
+.house__layer--full       { z-index: 5; }
+
+/* Мягкая тень под собранным домом */
+.house__shadow {
+  position: absolute;
+  z-index: 0;
+  left: 6%;
+  right: 6%;
+  bottom: -7%;
+  height: 26%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(60, 48, 34, .28), rgba(60, 48, 34, 0));
+  filter: blur(14px);
+  will-change: transform, opacity;
+}
+
+/* Финальная строка цифр */
+.facts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 0;
+  margin: clamp(16px, 3vh, 36px) 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: clamp(13px, 1vw, 16px);
+  color: var(--muted);
+}
+.facts__item { padding: 0 clamp(14px, 1.8vw, 30px); will-change: transform, opacity; }
+.facts__item + .facts__item { border-left: 1px solid var(--line); }
+.facts__item b {
+  margin-right: 4px;
+  font-weight: 500;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ===== prefers-reduced-motion: дом сразу собран, все тексты видны ===== */
+.is-reduced .assembly__pin { height: auto; min-height: 100vh; }
+.is-reduced .assembly__scene { flex: none; height: 52vh; }
+.is-reduced .assembly__meta { display: none; }
+.is-reduced .assembly__stages { display: flex; flex-direction: column; gap: 22px; }
+.is-reduced .stage { opacity: 1 !important; }

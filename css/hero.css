@@ -1,0 +1,132 @@
+/* ===== Первый экран: canvas с кадрами видео + типографика по макету Figma 1920×960 ===== */
+.hero {
+  position: relative;
+  height: 340vh;              /* длина прокрутки, за которую проигрывается видео */
+}
+
+.hero__sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  background: #c9cfd3;
+}
+
+.hero__poster,
+.hero__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.hero__poster { max-width: none; }
+
+/* Лёгкое затемнение у краёв — белый текст читается на светлом небе и дороге */
+.hero__shade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(20, 24, 28, .22) 0%, rgba(20, 24, 28, 0) 30%),
+    linear-gradient(0deg, rgba(20, 24, 28, .28) 0%, rgba(20, 24, 28, 0) 32%);
+}
+
+/* Слой интерфейса. Верхние элементы привязаны к верху, нижние — к низу кадра */
+.hero__ui {
+  position: absolute;
+  inset: 0;
+  color: var(--white);
+}
+.hero__ui > * { position: absolute; }
+
+/* HOFELID / HAUS — x30 y115, вторая строка со сдвигом x234 */
+.hero__name {
+  top: calc(115 * var(--u));
+  left: calc(30 * var(--u));
+  display: flex;
+  flex-direction: column;
+  font-size: calc(100 * var(--u));
+  line-height: .95;
+  font-weight: 600;
+  letter-spacing: -.012em;
+}
+.hero__name-line--shift { padding-left: calc(204 * var(--u)); }
+
+/* Since 2006 + подзаголовок: блок заканчивается на y826 */
+.hero__intro {
+  left: calc(30 * var(--u));
+  bottom: calc(134 * var(--u));
+  display: flex;
+  flex-direction: column;
+  gap: calc(30 * var(--u));
+}
+.hero__since {
+  font-size: calc(24 * var(--u));
+  line-height: 1;
+}
+.hero__lead {
+  width: calc(560 * var(--u));
+  font-size: calc(42 * var(--u));
+  line-height: 1.09;
+  font-weight: 400;
+  letter-spacing: -.01em;
+}
+
+/* Стеклянные карточки: x1640, ширина 250, низ на y842 */
+.hero__cards {
+  right: calc(30 * var(--u));
+  bottom: calc(118 * var(--u));
+  display: flex;
+  flex-direction: column;
+  gap: calc(12 * var(--u));
+  width: calc(250 * var(--u));
+}
+.glass-card {
+  display: flex;
+  flex-direction: column;
+  gap: calc(18 * var(--u));
+  padding: calc(19 * var(--u)) calc(21 * var(--u)) calc(21 * var(--u));
+  border-radius: calc(16 * var(--u));
+  border: 1px solid rgba(255, 255, 255, .3);
+  background: rgba(255, 255, 255, .14);
+  backdrop-filter: blur(18px) saturate(1.2);
+  -webkit-backdrop-filter: blur(18px) saturate(1.2);
+}
+.glass-card__value {
+  font-size: calc(38 * var(--u));
+  line-height: 1;
+  letter-spacing: -.02em;
+}
+.glass-card__text {
+  font-size: calc(18 * var(--u));
+  line-height: .9;
+  opacity: .92;
+}
+
+/* Нижняя строка: подписи, кнопка, Scroll to explore */
+.hero__note {
+  bottom: calc(30 * var(--u));
+  font-size: calc(18 * var(--u));
+  line-height: 1.17;
+  letter-spacing: .01em;
+  opacity: .92;
+}
+.hero__note--left   { left: calc(30 * var(--u)); }
+.hero__note--europe { left: calc(314 * var(--u)); }
+.hero__note--scroll { right: calc(30 * var(--u)); }
+
+.hero__cta {
+  left: calc(860.5 * var(--u));
+  bottom: calc(32 * var(--u));
+  height: calc(52 * var(--u));
+  padding: 0 calc(5 * var(--u)) 0 calc(24 * var(--u));
+  gap: calc(16 * var(--u));
+  font-size: calc(19 * var(--u));
+  font-weight: 400;
+}
+.hero__cta .btn__icon {
+  width: calc(42 * var(--u));
+  height: calc(42 * var(--u));
+}
