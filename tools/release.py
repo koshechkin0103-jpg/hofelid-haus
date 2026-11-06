@@ -16,7 +16,7 @@ import zipfile
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Что попадает на сайт (для архива; deploy.sh берёт тот же список)
-INCLUDE = ['index.html', '.htaccess', 'css', 'js', 'assets/hero/frames', 'assets/assembly', 'assets/rooms', 'assets/packages', 'assets/process', 'assets/guarantees']
+INCLUDE = ['index.html', '.htaccess', 'css', 'js', 'assets/hero/frames', 'assets/assembly', 'assets/rooms', 'assets/packages', 'assets/process', 'assets/guarantees', 'assets/architecture']
 
 # Ссылки на локальные .css/.js: href="css/x.css", src="js/main.js", from './x.js' — с версией или без
 REF = re.compile(r'''((?:href|src)="(?:css|js)/[^"?]+\.(?:css|js)|from '\.{1,2}/[^'?]+\.js)(?:\?v=[\w-]+)?''')
