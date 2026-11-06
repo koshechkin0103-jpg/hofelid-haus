@@ -15,15 +15,16 @@
   <link rel="preload" as="image" href="assets/hero/frames/001.webp" fetchpriority="high">
 
   <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.13/dist/lenis.css">
-  <link rel="stylesheet" href="css/base.css?v=046b9225">
-  <link rel="stylesheet" href="css/header.css?v=046b9225">
-  <link rel="stylesheet" href="css/hero.css?v=046b9225">
-  <link rel="stylesheet" href="css/assembly.css?v=046b9225">
-  <link rel="stylesheet" href="css/manifest.css?v=046b9225">
-  <link rel="stylesheet" href="css/rooms.css?v=046b9225">
-  <link rel="stylesheet" href="css/packages.css?v=046b9225">
-  <link rel="stylesheet" href="css/process.css?v=046b9225">
-  <link rel="stylesheet" href="css/guarantees.css?v=046b9225">
+  <link rel="stylesheet" href="css/base.css?v=072c3163">
+  <link rel="stylesheet" href="css/header.css?v=072c3163">
+  <link rel="stylesheet" href="css/hero.css?v=072c3163">
+  <link rel="stylesheet" href="css/assembly.css?v=072c3163">
+  <link rel="stylesheet" href="css/manifest.css?v=072c3163">
+  <link rel="stylesheet" href="css/rooms.css?v=072c3163">
+  <link rel="stylesheet" href="css/packages.css?v=072c3163">
+  <link rel="stylesheet" href="css/process.css?v=072c3163">
+  <link rel="stylesheet" href="css/guarantees.css?v=072c3163">
+  <link rel="stylesheet" href="css/closing.css?v=072c3163">
 </head>
 <body class="is-loading">
 
@@ -472,12 +473,98 @@
         </div>
       </div>
     </section>
+
+    <!-- ============ 8. Бронь места в графике ============ -->
+    <section class="reserve" id="reserve" data-reserve>
+      <div class="reserve__intro">
+        <h2 class="reserve__title">We build 24<br>houses a year</h2>
+        <!-- 24 штриха — по одному на дом в году; создаются в reserve.js -->
+        <div class="reserve__ticks" data-reserve-ticks aria-hidden="true"></div>
+        <p class="reserve__lead">Reserve your place in the build schedule for 2027.</p>
+      </div>
+
+      <form class="form reserve__form" data-form>
+        <div class="form__fields">
+          <label class="field">
+            <span class="field__label">Name</span>
+            <input class="field__input" type="text" name="name" autocomplete="name" required>
+          </label>
+          <label class="field">
+            <span class="field__label">Country</span>
+            <input class="field__input" type="text" name="country" autocomplete="country-name" required>
+          </label>
+          <label class="field">
+            <span class="field__label">Preferred start date</span>
+            <select class="field__input field__input--select" name="start" required>
+              <option value="" selected disabled hidden></option>
+              <option>Early 2027</option>
+              <option>Spring 2027</option>
+              <option>Summer 2027</option>
+              <option>Autumn 2027</option>
+            </select>
+          </label>
+          <label class="field">
+            <span class="field__label">Email or phone</span>
+            <input class="field__input" type="text" name="contact" autocomplete="email" required>
+          </label>
+        </div>
+        <div class="form__foot">
+          <button class="btn btn--dark form__submit" type="submit">Reserve a place</button>
+          <p class="form__note">No payment required. We’ll call you within one working day.</p>
+        </div>
+        <p class="form__success" data-form-success tabindex="-1" hidden>Thank you. We’ll call you within one working day.</p>
+      </form>
+    </section>
+
+    <!-- ============ 9. Финал: получить master plan — сюда ведут все кнопки сайта ============ -->
+    <section class="final" id="master-plan" data-final data-theme="dark">
+      <picture class="final__photo" data-final-photo>
+        <source srcset="assets/packages/1.webp" type="image/webp">
+        <img src="assets/packages/1.jpg" alt="Hofelid Haus in the evening light" width="2000" height="1116">
+      </picture>
+      <div class="final__shade" aria-hidden="true"></div>
+
+      <h2 class="final__title">Your evenings<br>start here</h2>
+
+      <form class="form final__panel" data-form data-final-panel>
+        <p class="final__text">Floor plans, all three packages and prices — in one master plan.</p>
+        <div class="form__fields">
+          <label class="field">
+            <span class="field__label">Name</span>
+            <input class="field__input" type="text" name="name" autocomplete="name" required>
+          </label>
+          <label class="field">
+            <span class="field__label">Email</span>
+            <input class="field__input" type="email" name="email" autocomplete="email" required>
+          </label>
+        </div>
+        <div class="form__foot">
+          <button class="btn btn--light form__submit" type="submit">Get the master plan</button>
+        </div>
+        <p class="form__success" data-form-success tabindex="-1" hidden>Thank you. The master plan is on its way.</p>
+      </form>
+    </section>
   </main>
+
+  <!-- ============ 10. Подвал ============ -->
+  <footer class="footer" data-theme="dark">
+    <div class="footer__top">
+      <p class="footer__brand">Haldern</p>
+      <p class="footer__about">Building homes across Europe since 2006.</p>
+      <nav class="footer__links" aria-label="Footer">
+        <a href="#">Contact</a>
+        <a href="#">Instagram</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">Privacy policy</a>
+      </nav>
+    </div>
+    <p class="footer__note">Portfolio concept. Haldern is a fictional developer, and the forms on this page send no data.</p>
+  </footer>
 
   <!-- Библиотеки: GSAP + ScrollTrigger + Lenis -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-  <script type="module" src="js/main.js?v=046b9225"></script>
+  <script type="module" src="js/main.js?v=072c3163"></script>
 </body>
 </html>

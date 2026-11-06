@@ -1,0 +1,202 @@
+/* ===== Формы: поля с линией снизу, цвет наследуется от блока ===== */
+.form__fields {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: calc(28 * var(--u)) calc(24 * var(--u));
+}
+.field { display: block; }
+.field__label {
+  display: block;
+  font-size: max(12px, calc(18 * var(--u)));
+  line-height: 1.2;
+  opacity: .7;
+}
+.field__input {
+  display: block;
+  width: 100%;
+  height: max(38px, calc(52 * var(--u)));
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid currentColor;
+  border-radius: 0;
+  outline: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: max(15px, calc(24 * var(--u)));
+  letter-spacing: -.01em;
+  transition: border-color .3s, box-shadow .3s;
+}
+.field__input:focus { box-shadow: 0 1px 0 0 currentColor; }
+.field__input--select {
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  padding-right: 24px;
+  background: no-repeat right center / 12px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5 6 6.5l5-5' fill='none' stroke='%231c1b19' stroke-width='1.3'/%3E%3C/svg%3E");
+}
+.field__input--select option { color: var(--ink); }
+
+.form__foot {
+  display: flex;
+  align-items: center;
+  gap: calc(24 * var(--u));
+  margin-top: calc(40 * var(--u));
+}
+.form__submit {
+  height: max(44px, calc(52 * var(--u)));
+  padding: 0 calc(28 * var(--u));
+  border: 0;
+  font-family: inherit;
+  font-size: max(13px, calc(19 * var(--u)));
+  font-weight: 400;
+  cursor: pointer;
+}
+.form__note {
+  font-size: max(12px, calc(18 * var(--u)));
+  line-height: 1.25;
+  opacity: .7;
+}
+
+/* После отправки вместо полей остаётся благодарность */
+.form__success {
+  font-size: max(20px, calc(36 * var(--u)));
+  line-height: 1.1;
+  letter-spacing: -.025em;
+  outline: 0;
+}
+.form.is-sent .form__fields,
+.form.is-sent .form__foot,
+.form.is-sent .final__text { display: none; }
+
+/* ===== Бронь места: светлый блок, та же сетка, что в сборке дома ===== */
+.reserve {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gutter);
+  padding: clamp(120px, 20vh, 220px) calc(30 * var(--u));
+  background: var(--bg);
+}
+.reserve__title {
+  font-size: clamp(48px, 5.6vw, 110px);
+  line-height: .98;
+  font-weight: 400;
+  letter-spacing: -.035em;
+}
+.reserve__ticks {
+  display: flex;
+  gap: calc(10 * var(--u));
+  height: calc(44 * var(--u));
+  margin-top: calc(44 * var(--u));
+}
+.reserve__ticks i {
+  display: block;
+  width: 1px;
+  height: 100%;
+  background: var(--ink);
+  transform-origin: bottom;
+  will-change: transform;
+}
+.reserve__lead {
+  margin-top: calc(28 * var(--u));
+  font-size: max(15px, calc(24 * var(--u)));
+  line-height: 1.2;
+  letter-spacing: -.01em;
+}
+.reserve__form { padding-top: calc(14 * var(--u)); }
+
+/* ===== Финал: фото на весь экран, заголовок слева, стеклянная плашка справа ===== */
+.final {
+  position: relative;
+  height: 100vh;
+  height: 100svh;
+  min-height: 560px;
+  overflow: hidden;
+  color: var(--white);
+  background: #151412;
+}
+.final__photo {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+.final__photo img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+}
+.final__shade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(10, 10, 9, .38) 0%, rgba(10, 10, 9, 0) 20%),
+    linear-gradient(0deg, rgba(10, 10, 9, .5) 0%, rgba(10, 10, 9, 0) 50%);
+}
+.final__title {
+  position: absolute;
+  left: calc(30 * var(--u));
+  bottom: calc(30 * var(--u));
+  font-size: clamp(48px, 7vw, 134px);
+  line-height: .96;
+  font-weight: 400;
+  letter-spacing: -.035em;
+}
+.final__panel {
+  position: absolute;
+  right: calc(30 * var(--u));
+  bottom: calc(30 * var(--u));
+  width: max(380px, calc(620 * var(--u)));
+  padding: calc(30 * var(--u));
+  border-radius: calc(16 * var(--u));
+  border: 1px solid rgba(255, 255, 255, .3);
+  background: rgba(58, 54, 48, .34);
+  backdrop-filter: blur(22px) saturate(1.2);
+  -webkit-backdrop-filter: blur(22px) saturate(1.2);
+  will-change: transform, opacity;
+}
+.final__text {
+  margin-bottom: calc(30 * var(--u));
+  font-size: max(18px, calc(32 * var(--u)));
+  line-height: 1.12;
+  letter-spacing: -.02em;
+}
+
+/* ===== Подвал ===== */
+.footer {
+  padding: calc(50 * var(--u)) calc(30 * var(--u)) calc(30 * var(--u));
+  background: var(--ink);
+  color: var(--white);
+}
+.footer__top {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  align-items: end;
+  gap: var(--gutter);
+}
+.footer__brand {
+  font-size: clamp(36px, 4vw, 76px);
+  line-height: 1;
+  letter-spacing: -.03em;
+}
+.footer__about {
+  font-size: max(14px, calc(21 * var(--u)));
+  line-height: 1.2;
+}
+.footer__links {
+  display: flex;
+  gap: calc(24 * var(--u));
+  font-size: max(14px, calc(21 * var(--u)));
+  line-height: 1.2;
+}
+.footer__links a { transition: opacity .3s; }
+.footer__links a:hover { opacity: .6; }
+.footer__note {
+  margin-top: calc(40 * var(--u));
+  padding-top: calc(16 * var(--u));
+  border-top: 1px solid rgba(255, 255, 255, .2);
+  font-size: max(12px, calc(16 * var(--u)));
+  line-height: 1.3;
+  opacity: .65;
+}
