@@ -1,13 +1,13 @@
-import { waitForImages } from './utils/preload.js?v=ca232493';
-import { initHeader } from './components/header.js?v=ca232493';
-import { initHero } from './components/hero.js?v=ca232493';
-import { initAssembly } from './components/assembly.js?v=ca232493';
-import { initManifest } from './components/manifest.js?v=ca232493';
-import { initRooms } from './components/rooms.js?v=ca232493';
-import { initPackages } from './components/packages.js?v=ca232493';
-import { initProcess } from './components/process.js?v=ca232493';
-import { initGuarantees } from './components/guarantees.js?v=ca232493';
-import { initClosing } from './components/closing.js?v=ca232493';
+import { waitForImages } from './utils/preload.js?v=801385ac';
+import { initHeader } from './components/header.js?v=801385ac';
+import { initHero } from './components/hero.js?v=801385ac';
+import { initAssembly } from './components/assembly.js?v=801385ac';
+import { initManifest } from './components/manifest.js?v=801385ac';
+import { initRooms } from './components/rooms.js?v=801385ac';
+import { initPackages } from './components/packages.js?v=801385ac';
+import { initProcess } from './components/process.js?v=801385ac';
+import { initGuarantees } from './components/guarantees.js?v=801385ac';
+import { initClosing } from './components/closing.js?v=801385ac';
 
 // Точка входа: предзагрузка → плавный скролл → компоненты → показ интерфейса
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

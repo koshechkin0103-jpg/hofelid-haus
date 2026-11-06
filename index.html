@@ -15,16 +15,16 @@
   <link rel="preload" as="image" href="assets/hero/frames/001.webp" fetchpriority="high">
 
   <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.13/dist/lenis.css">
-  <link rel="stylesheet" href="css/base.css?v=ca232493">
-  <link rel="stylesheet" href="css/header.css?v=ca232493">
-  <link rel="stylesheet" href="css/hero.css?v=ca232493">
-  <link rel="stylesheet" href="css/assembly.css?v=ca232493">
-  <link rel="stylesheet" href="css/manifest.css?v=ca232493">
-  <link rel="stylesheet" href="css/rooms.css?v=ca232493">
-  <link rel="stylesheet" href="css/packages.css?v=ca232493">
-  <link rel="stylesheet" href="css/process.css?v=ca232493">
-  <link rel="stylesheet" href="css/guarantees.css?v=ca232493">
-  <link rel="stylesheet" href="css/closing.css?v=ca232493">
+  <link rel="stylesheet" href="css/base.css?v=801385ac">
+  <link rel="stylesheet" href="css/header.css?v=801385ac">
+  <link rel="stylesheet" href="css/hero.css?v=801385ac">
+  <link rel="stylesheet" href="css/assembly.css?v=801385ac">
+  <link rel="stylesheet" href="css/manifest.css?v=801385ac">
+  <link rel="stylesheet" href="css/rooms.css?v=801385ac">
+  <link rel="stylesheet" href="css/packages.css?v=801385ac">
+  <link rel="stylesheet" href="css/process.css?v=801385ac">
+  <link rel="stylesheet" href="css/guarantees.css?v=801385ac">
+  <link rel="stylesheet" href="css/closing.css?v=801385ac">
 </head>
 <body class="is-loading">
 
@@ -152,24 +152,13 @@
             </picture>
           </div>
         </div>
-
-        <!-- Финальная строка цифр: data-count — до какого числа досчитывать -->
-        <ul class="facts" data-facts>
-          <li class="facts__item"><b><span data-count="185">185</span> m²</b> living area</li>
-          <li class="facts__item"><b data-count="3">3</b> bedrooms</li>
-          <li class="facts__item"><b><span data-count="3">3</span> m</b> ceilings</li>
-          <li class="facts__item"><b>A</b> energy class</li>
-          <li class="facts__item"><b><span data-count="10">10</span>-year</b> structural warranty</li>
-        </ul>
       </div>
     </section>
 
     <!-- ============ 3. Манифест ============ -->
     <section class="manifest" data-manifest>
-      <p class="manifest__p">For twenty years we<br>have built twenty models.</p>
-      <p class="manifest__p">Thousands of families.<br>Hundreds of plots.</p>
-      <p class="manifest__p">Every climate in Europe.<br>We kept what worked.<br>We removed what didn’t.</p>
-      <p class="manifest__p">Hofelid Haus is the result —<br>a house where nothing<br>is accidental, so nothing<br>needs to be changed.</p>
+      <p class="manifest__p">Twenty years of experience,<br>refined into one home.</p>
+      <p class="manifest__p">Hofelid Haus — every detail<br>has a purpose.</p>
     </section>
 
     <!-- ============ 4. Прогулка по дому: 4 видео по скроллу ============ -->
@@ -177,16 +166,16 @@
       <div class="rooms__pin" data-rooms-pin>
         <!-- Сцены лежат стопкой: каждая следующая въезжает снизу шторкой.
              data-frames — сколько кадров в папке assets/rooms/0N -->
-        <div class="rooms__scene" data-room-scene data-frames="193">
+        <div class="rooms__scene" data-room-scene data-frames="160">
           <canvas class="rooms__canvas" aria-label="The living room and kitchen" role="img"></canvas>
         </div>
-        <div class="rooms__scene" data-room-scene data-frames="193">
+        <div class="rooms__scene" data-room-scene data-frames="121">
           <canvas class="rooms__canvas" aria-label="The master suite" role="img"></canvas>
         </div>
-        <div class="rooms__scene" data-room-scene data-frames="145">
+        <div class="rooms__scene" data-room-scene data-frames="120">
           <canvas class="rooms__canvas" aria-label="The study" role="img"></canvas>
         </div>
-        <div class="rooms__scene" data-room-scene data-frames="193">
+        <div class="rooms__scene" data-room-scene data-frames="120">
           <canvas class="rooms__canvas" aria-label="The courtyard and the pool" role="img"></canvas>
         </div>
         <div class="rooms__shade" aria-hidden="true"></div>
@@ -207,24 +196,20 @@
           <!-- Тексты комнат — стопкой, виден один; не исчезают, пока идёт видео -->
           <div class="rooms__texts">
             <article class="room" data-room-text>
-              <span class="room__num">01</span>
               <p class="room__title">The living room and kitchen, open to the courtyard.</p>
-              <span class="room__area">55 m²</span>
+              <div class="room__tags"><span class="room__area">55 m²</span><span class="room__area">3 m ceilings</span><span class="room__area">Opens to the courtyard</span></div>
             </article>
             <article class="room" data-room-text>
-              <span class="room__num">02</span>
               <p class="room__title">The master suite, with its own dressing room and bath.</p>
-              <span class="room__area">32 m²</span>
+              <div class="room__tags"><span class="room__area">32 m²</span><span class="room__area">Dressing room</span><span class="room__area">Private bath</span></div>
             </article>
             <article class="room" data-room-text>
-              <span class="room__num">03</span>
               <p class="room__title">A quiet study facing the trees.</p>
-              <span class="room__area">12 m²</span>
+              <div class="room__tags"><span class="room__area">12 m²</span><span class="room__area">Facing the trees</span><span class="room__area">Triple glazing</span></div>
             </article>
             <article class="room" data-room-text>
-              <span class="room__num">04</span>
               <p class="room__title">The courtyard and the pool — the heart of the house.</p>
-              <span class="room__area">10 × 3 m pool</span>
+              <div class="room__tags"><span class="room__area">10 × 3 m pool</span><span class="room__area">Terrace</span><span class="room__area">Garden</span></div>
             </article>
           </div>
         </div>
@@ -370,6 +355,7 @@
           </picture>
         </div>
         <div class="process__shade" aria-hidden="true"></div>
+        <p class="process__heading" data-process-heading aria-hidden="true">Seven months from<br>contract to keys</p>
 
         <!-- Та же стеклянная плашка, что в комплектациях; здесь сжимается в полосу внизу -->
         <div class="panel process__panel" data-process-panel>
@@ -424,13 +410,9 @@
         <div class="guarantees__shade" aria-hidden="true"></div>
 
         <div class="guarantees__intro" data-guarantees-intro>
-          <h2 class="guarantees__title">Written into the contract,<br>not into the brochure</h2>
+          <p class="guarantees__eyebrow">Hofelid Haus</p>
+          <h2 class="guarantees__title">Written into<br>the contract, not<br>into the brochure</h2>
           <p class="guarantees__lead">Trust is earned on paper. These are the promises we sign.</p>
-        </div>
-
-        <div class="guarantees__name" aria-hidden="true">
-          <span class="guarantees__line"><span data-guarantees-line>HOFELID</span></span>
-          <span class="guarantees__line guarantees__line--shift"><span data-guarantees-line>HAUS</span></span>
         </div>
 
         <!-- Карточки стоят лесенкой, ниже свободное место занимает подпись -->
@@ -522,8 +504,8 @@
     <!-- ============ 9. Финал: получить master plan — сюда ведут все кнопки сайта ============ -->
     <section class="final" id="master-plan" data-final data-theme="dark">
       <picture class="final__photo" data-final-photo>
-        <source srcset="assets/packages/1.webp" type="image/webp">
-        <img src="assets/packages/1.jpg" alt="Hofelid Haus in the evening light" width="2000" height="1116">
+        <source srcset="assets/final/photo.webp" type="image/webp">
+        <img src="assets/final/photo.jpg" alt="Hofelid Haus seen across the lawn" width="2000" height="1117">
       </picture>
       <div class="final__shade" aria-hidden="true"></div>
 
@@ -553,21 +535,52 @@
   <footer class="footer" data-theme="dark">
     <div class="footer__top">
       <p class="footer__brand">Haldern</p>
-      <p class="footer__about">Building homes across Europe since 2006.</p>
-      <nav class="footer__links" aria-label="Footer">
-        <a href="#">Contact</a>
-        <a href="#">Instagram</a>
-        <a href="#">LinkedIn</a>
-        <a href="#">Privacy policy</a>
-      </nav>
+      <a class="footer__cta" href="#reserve">
+        <span>A plot in mind?<br>Let’s talk</span>
+        <span class="footer__arrow" aria-hidden="true">
+          <svg viewBox="0 0 16 16" width="16" height="16"><path d="M4 12 12 4M5.5 4H12v6.5" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
+        </span>
+      </a>
     </div>
-    <p class="footer__note">Portfolio concept. Haldern is a fictional developer, and the forms on this page send no data.</p>
+
+    <div class="footer__columns">
+      <div class="footer__col">
+        <h2 class="footer__label">Contact</h2>
+        <p class="footer__text">Building homes across Europe since 2006.</p>
+        <p class="footer__text"><a href="mailto:hello@haldern.example">hello@haldern.example</a><br>+00 000 000 00 00</p>
+      </div>
+      <nav class="footer__col" aria-label="Footer">
+        <h2 class="footer__label">Navigation</h2>
+        <a class="footer__nav" href="#house">The House</a>
+        <a class="footer__nav" href="#inside">Inside</a>
+        <a class="footer__nav" href="#packages">Packages</a>
+        <a class="footer__nav" href="#process">Process</a>
+        <a class="footer__nav" href="#reserve">Reserve</a>
+      </nav>
+      <div class="footer__col">
+        <h2 class="footer__label">Social</h2>
+        <a class="footer__link" href="#">Instagram</a>
+        <a class="footer__link" href="#">LinkedIn</a>
+      </div>
+      <div class="footer__col">
+        <h2 class="footer__label">Master plan</h2>
+        <p class="footer__text">Floor plans, all three packages and prices in one document.</p>
+        <a class="btn btn--light footer__button" href="#master-plan">Get the master plan</a>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <span>© 2026 Haldern</span>
+      <a href="#">Privacy policy</a>
+      <a href="#">Legal notice</a>
+      <span class="footer__note">Portfolio concept. Haldern is a fictional developer, and the forms on this page send no data.</span>
+    </div>
   </footer>
 
   <!-- Библиотеки: GSAP + ScrollTrigger + Lenis -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-  <script type="module" src="js/main.js?v=ca232493"></script>
+  <script type="module" src="js/main.js?v=801385ac"></script>
 </body>
 </html>

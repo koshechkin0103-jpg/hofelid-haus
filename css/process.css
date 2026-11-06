@@ -31,7 +31,15 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(180deg, rgba(10, 10, 9, .38) 0%, rgba(10, 10, 9, 0) 20%);
+  background: linear-gradient(180deg, rgba(10, 10, 9, .5) 0%, rgba(10, 10, 9, 0) 42%);
+}
+
+/* Заголовок остаётся над шкалой, пока идут этапы */
+.process__heading {
+  position: absolute;
+  top: calc(96 * var(--u));
+  left: calc(30 * var(--u));
+  will-change: transform, opacity;
 }
 
 /* Шкала: колонки на всю ширину плашки, прижаты к её низу */
@@ -56,20 +64,20 @@
 .timeline__month {
   display: block;
   margin-top: calc(18 * var(--u));
-  font-size: max(12px, calc(18 * var(--u)));
+  font-size: var(--fs-small);
   line-height: 1.2;
   opacity: .8;
 }
 .timeline__title {
   margin-top: calc(10 * var(--u));
-  font-size: max(16px, calc(30 * var(--u)));
+  font-size: var(--fs-h4);
   line-height: 1.08;
   font-weight: 400;
   letter-spacing: -.02em;
 }
 .timeline__text {
   margin-top: calc(12 * var(--u));
-  font-size: max(13px, calc(19 * var(--u)));
+  font-size: var(--fs-body);
   line-height: 1.25;
 }
 
@@ -77,3 +85,4 @@
 .is-reduced .process__pin { height: auto; min-height: 100vh; }
 .is-reduced .process__photo + .process__photo { display: none; }
 .is-reduced .process__panel .timeline { position: static; margin-top: 32px; opacity: 1; visibility: visible; }
+.is-reduced .process__heading { display: none; }

@@ -15,10 +15,8 @@ export function initAssembly({ reduced }) {
   const shadow = layer('shadow');
   const stages = [...section.querySelectorAll('[data-stage]')];
   const counter = section.querySelector('[data-counter]');
-  const facts = [...section.querySelectorAll('.facts__item')];
-  const counts = [...section.querySelectorAll('[data-count]')];
 
-  // Без анимации: дом сразу собран, видны все тексты и цифры
+  // Без анимации: дом сразу собран, видны все тексты
   if (reduced) {
     gsap.set([roof, walls, glass, foundation], { opacity: 0 });
     gsap.set([full, shadow], { opacity: 1 });
@@ -33,8 +31,6 @@ export function initAssembly({ reduced }) {
   gsap.set([glass, full], { opacity: 0 });
   gsap.set(shadow, { opacity: 0, scaleX: 0.8 });
   gsap.set(stages.slice(1), { opacity: 0, yPercent: 40 });
-  gsap.set(facts, { opacity: 0, y: 16 });
-  counts.forEach((el) => (el.textContent = '0'));
 
   const tl = gsap.timeline({
     defaults: { ease: EASE },
@@ -70,22 +66,10 @@ export function initAssembly({ reduced }) {
   swapText(2, 3, 4.6);
   tl.to(foundation, { opacity: 1, y: 0, duration: 1.2 }, 4.6);
 
-  // Финал — незаметный crossfade в цельный дом, тень, затем строка цифр
+  // Финал — незаметный crossfade в цельный дом и тень
   tl.to(full, { opacity: 1, duration: 0.5 }, 6.2)
     .to([roof, walls, glass, foundation], { opacity: 0, duration: 0.3 }, 6.7)
-    .to(shadow, { opacity: 1, scaleX: 1, duration: 0.8 }, 6.4)
-    .to(facts, { opacity: 1, y: 0, duration: 0.6, stagger: 0.1 }, 7);
-
-  // Цифры досчитываются от 0
-  counts.forEach((el) => {
-    const target = Number(el.dataset.count);
-    const value = { v: 0 };
-    tl.to(value, {
-      v: target,
-      duration: 1.2,
-      onUpdate: () => (el.textContent = Math.round(value.v)),
-    }, 7);
-  });
+    .to(shadow, { opacity: 1, scaleX: 1, duration: 0.8 }, 6.4);
 
   // Небольшая пауза на собранном доме перед следующим блоком
   tl.to({}, { duration: 0.8 });

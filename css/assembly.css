@@ -20,18 +20,14 @@
 }
 
 .assembly__title {
-  font-size: clamp(48px, 5.6vw, 96px);
-  line-height: .98;
-  font-weight: 400;
-  letter-spacing: -.035em;
 }
 
 .assembly__info {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 18px;
-  max-width: 560px;
+  gap: calc(16 * var(--u));
+  max-width: calc(800 * var(--u));
   padding-top: 10px;
 }
 
@@ -39,7 +35,7 @@
 .assembly__meta {
   display: flex;
   gap: 6px;
-  font-size: 12px;
+  font-size: var(--fs-small);
   font-variant-numeric: tabular-nums;
   color: var(--muted);
 }
@@ -65,12 +61,12 @@
 .stage + .stage { opacity: 0; }
 .stage__name {
   margin-bottom: 8px;
-  font-size: clamp(15px, 1.15vw, 18px);
-  font-weight: 500;
+  font-size: var(--fs-h4);
+  font-weight: 400;
   letter-spacing: -.01em;
 }
 .stage__text {
-  font-size: clamp(14px, 1.05vw, 17px);
+  font-size: var(--fs-body);
   line-height: 1.45;
   color: #3b3934;
 }
@@ -81,15 +77,16 @@
   flex: 1;
   min-height: 0;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
   container-type: size;
+  margin-top: calc(24 * var(--u));
 }
 
 .house {
   position: relative;
   /* вписываем по ширине или по высоте — пропорции слоя 2200×659 */
-  width: min(100cqw, 100cqh * 2200 / 659);
+  width: min(100cqw, (100cqh - max(48px, 7vh)) * 2200 / 659);  /* сверху остаётся воздух до кнопки */
   aspect-ratio: 2200 / 659;
 }
 
@@ -118,27 +115,6 @@
   background: radial-gradient(closest-side, rgba(60, 48, 34, .28), rgba(60, 48, 34, 0));
   filter: blur(14px);
   will-change: transform, opacity;
-}
-
-/* Финальная строка цифр */
-.facts {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px 0;
-  margin: clamp(16px, 3vh, 36px) 0 0;
-  padding: 0;
-  list-style: none;
-  font-size: clamp(13px, 1vw, 16px);
-  color: var(--muted);
-}
-.facts__item { padding: 0 clamp(14px, 1.8vw, 30px); will-change: transform, opacity; }
-.facts__item + .facts__item { border-left: 1px solid var(--line); }
-.facts__item b {
-  margin-right: 4px;
-  font-weight: 500;
-  color: var(--ink);
-  font-variant-numeric: tabular-nums;
 }
 
 /* ===== prefers-reduced-motion: дом сразу собран, все тексты видны ===== */

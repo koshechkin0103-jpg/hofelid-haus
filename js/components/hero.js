@@ -1,7 +1,7 @@
-import { FrameSequence } from '../utils/frames.js?v=ca232493';
+import { FrameSequence } from '../utils/frames.js?v=801385ac';
 
 // Первый экран: видео подлёта разложено на кадры и рисуется в canvas по прогрессу скролла
-const FRAME_COUNT = 145;
+const FRAME_COUNT = 120;
 const framePath = (i) => `assets/hero/frames/${String(i + 1).padStart(3, '0')}.webp`;
 
 // Возвращает промис полной загрузки кадров — после него начинают грузиться комнаты

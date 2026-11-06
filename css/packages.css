@@ -61,17 +61,13 @@
   will-change: opacity;
 }
 .panel__title {
-  font-size: clamp(48px, 5.6vw, 110px);
-  line-height: .98;
-  font-weight: 400;
-  letter-spacing: -.035em;
 }
 .panel__note {
   position: absolute;
   right: 0;
   bottom: 0;
   width: calc(640 * var(--u));
-  font-size: max(14px, calc(24 * var(--u)));
+  font-size: var(--fs-lead);
   line-height: 1.2;
   letter-spacing: -.01em;
 }
@@ -116,14 +112,14 @@
 }
 .package__name {
   margin-top: calc(24 * var(--u));
-  font-size: max(30px, calc(56 * var(--u)));
+  font-size: var(--fs-h3);
   line-height: 1;
   font-weight: 400;
   letter-spacing: -.03em;
 }
 .package__text {
   margin-top: calc(16 * var(--u));
-  font-size: max(14px, calc(22 * var(--u)));
+  font-size: var(--fs-body);
   line-height: 1.25;
 }
 
@@ -155,7 +151,7 @@
   height: max(44px, calc(52 * var(--u)));
   padding: 0 calc(5 * var(--u)) 0 calc(24 * var(--u));
   gap: calc(16 * var(--u));
-  font-size: max(13px, calc(19 * var(--u)));
+  font-size: var(--fs-small);
   font-weight: 400;
 }
 .panel__cta .btn__icon {

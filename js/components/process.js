@@ -11,6 +11,7 @@ export function initProcess({ reduced }) {
   const photos = [...section.querySelectorAll('[data-process-photo]')];
   const panel = section.querySelector('[data-process-panel]');
   const intro = section.querySelector('[data-process-intro]');
+  const heading = section.querySelector('[data-process-heading]');
   const timeline = section.querySelector('[data-timeline]');
   const steps = [...section.querySelectorAll('[data-step]')];
   const bars = [...section.querySelectorAll('[data-step-bar]')];
@@ -26,6 +27,7 @@ export function initProcess({ reduced }) {
   gsap.set(photos.slice(2), { autoAlpha: 0 });
   gsap.set(photos.slice(2).map((p) => p.firstElementChild), { scale: 1.05 });
   gsap.set(steps, { opacity: DIMMED });
+  gsap.set(heading, { opacity: 0, y: 24 });
 
   const tl = gsap.timeline({
     defaults: { ease: EASE },
@@ -54,6 +56,7 @@ export function initProcess({ reduced }) {
     .to(panel, { height: stripHeight, duration: 1.1 }, SHRINK)
     .to(photos[1], { yPercent: 0, duration: 1.1 }, SHRINK)
     .to(photos[1].firstElementChild, { yPercent: 0, duration: 1.1 }, SHRINK)
+    .to(heading, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, SHRINK + 0.6)
     .to(timeline, { autoAlpha: 1, duration: 0.45, ease: 'power2.out' }, SHRINK + 0.75)
     .to(steps[0], { opacity: 1, duration: 0.45, ease: 'power2.out' }, SHRINK + 0.75);
 

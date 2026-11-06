@@ -11,7 +11,6 @@ export function initGuarantees({ reduced }) {
   const pin = section.querySelector('[data-guarantees-pin]');
   const photo = section.querySelector('[data-guarantees-photo]');
   const intro = section.querySelector('[data-guarantees-intro]');
-  const lines = [...section.querySelectorAll('[data-guarantees-line]')];
   const pledges = [...section.querySelectorAll('[data-pledge]')];
   const signature = section.querySelector('[data-signature]');
   const path = section.querySelector('[data-signature-path]');
@@ -21,7 +20,6 @@ export function initGuarantees({ reduced }) {
   // Стартовое состояние: на экране только фото
   gsap.set(photo, { scale: 1.08 });
   gsap.set(intro, { opacity: 0, y: 24 });
-  gsap.set(lines, { yPercent: 110 });
   gsap.set(pledges, { opacity: 0, y: 70 });
   gsap.set(path, { strokeDasharray: 1, strokeDashoffset: 1 });
   gsap.set(caption, { opacity: 0 });
@@ -43,9 +41,8 @@ export function initGuarantees({ reduced }) {
   const STEP = 1.3;    // пауза между карточками
   const SIGN = FIRST + STEP * pledges.length + 0.2;   // когда начинается подпись
 
-  // Заголовок и название
-  tl.to(intro, { opacity: 1, y: 0, duration: 0.7 }, 0.1)
-    .to(lines, { yPercent: 0, duration: 0.8, stagger: 0.12 }, 0.1);
+  // Заголовок с подзаголовком
+  tl.to(intro, { opacity: 1, y: 0, duration: 0.7 }, 0.1);
 
   // Карточки: каждая поднимается снизу и становится белой, предыдущая возвращается в стекло
   pledges.forEach((pledge, i) => {

@@ -1,13 +1,14 @@
 /* ===== Манифест: крупная типографика, слова проявляются из серого в чёрный ===== */
 .manifest {
-  padding: clamp(120px, 20vh, 220px) var(--gutter) clamp(160px, 30vh, 320px);
+  padding: clamp(140px, 24vh, 260px) var(--gutter);
   display: flex;
   flex-direction: column;
-  gap: 1.05em;
-  font-size: clamp(36px, 5.4vw, 92px);
-  line-height: 1;
+  gap: .55em;
+  font-size: var(--fs-display);
+  line-height: 1.02;
   letter-spacing: -.035em;
   font-weight: 400;
+  text-align: center;
 }
 
 /* Каждое слово — отдельный span; стартовая «серость» задаётся прозрачностью */

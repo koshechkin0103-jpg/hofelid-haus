@@ -14,7 +14,7 @@
 
 .header__logo {
   justify-self: start;
-  font-size: max(18px, calc(24 * var(--u)));
+  font-size: var(--fs-lead);
   font-weight: 400;
   letter-spacing: -.01em;
 }
@@ -28,7 +28,7 @@
   padding: 0 calc(17 * var(--u));
   border: 1px solid rgba(255, 255, 255, .6);
   border-radius: 999px;
-  font-size: max(12px, calc(18 * var(--u)));
+  font-size: var(--fs-small);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   background: rgba(255, 255, 255, .06);
@@ -40,7 +40,7 @@
   justify-self: end;
   height: max(32px, calc(40 * var(--u)));
   padding: 0 calc(20 * var(--u));
-  font-size: max(12px, calc(18 * var(--u)));
+  font-size: var(--fs-small);
   font-weight: 400;
 }
 
