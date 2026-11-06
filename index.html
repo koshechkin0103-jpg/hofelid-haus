@@ -15,13 +15,14 @@
   <link rel="preload" as="image" href="assets/hero/frames/001.webp" fetchpriority="high">
 
   <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.13/dist/lenis.css">
-  <link rel="stylesheet" href="css/base.css?v=222254cc">
-  <link rel="stylesheet" href="css/header.css?v=222254cc">
-  <link rel="stylesheet" href="css/hero.css?v=222254cc">
-  <link rel="stylesheet" href="css/assembly.css?v=222254cc">
-  <link rel="stylesheet" href="css/manifest.css?v=222254cc">
-  <link rel="stylesheet" href="css/rooms.css?v=222254cc">
-  <link rel="stylesheet" href="css/packages.css?v=222254cc">
+  <link rel="stylesheet" href="css/base.css?v=0f0e552f">
+  <link rel="stylesheet" href="css/header.css?v=0f0e552f">
+  <link rel="stylesheet" href="css/hero.css?v=0f0e552f">
+  <link rel="stylesheet" href="css/assembly.css?v=0f0e552f">
+  <link rel="stylesheet" href="css/manifest.css?v=0f0e552f">
+  <link rel="stylesheet" href="css/rooms.css?v=0f0e552f">
+  <link rel="stylesheet" href="css/packages.css?v=0f0e552f">
+  <link rel="stylesheet" href="css/process.css?v=0f0e552f">
 </head>
 <body class="is-loading">
 
@@ -322,12 +323,97 @@
         </div>
       </div>
     </section>
+
+    <!-- ============ 6. Как мы строим: фото этапов и шкала из пяти колонок ============ -->
+    <section class="process" id="process" data-process data-theme="dark">
+      <div class="process__pin" data-process-pin>
+        <!-- 0 — готовый дом, 1–5 — этапы строительства -->
+        <div class="process__photo" data-process-photo>
+          <picture class="process__image">
+            <source srcset="assets/process/0.webp" type="image/webp">
+            <img src="assets/process/0.jpg" alt="The finished Hofelid Haus with its pool" width="2000" height="1116">
+          </picture>
+        </div>
+        <div class="process__photo" data-process-photo>
+          <picture class="process__image">
+            <source srcset="assets/process/1.webp" type="image/webp">
+            <img src="assets/process/1.jpg" alt="A plot staked out for construction" width="2000" height="1116">
+          </picture>
+        </div>
+        <div class="process__photo" data-process-photo>
+          <picture class="process__image">
+            <source srcset="assets/process/2.webp" type="image/webp">
+            <img src="assets/process/2.jpg" alt="The concrete foundation slab" width="2000" height="1116">
+          </picture>
+        </div>
+        <div class="process__photo" data-process-photo>
+          <picture class="process__image">
+            <source srcset="assets/process/3.webp" type="image/webp">
+            <img src="assets/process/3.jpg" alt="The house with walls, roof and glazing on a bare site" width="2000" height="1116">
+          </picture>
+        </div>
+        <div class="process__photo" data-process-photo>
+          <picture class="process__image">
+            <source srcset="assets/process/4.webp" type="image/webp">
+            <img src="assets/process/4.jpg" alt="Underfloor heating pipes laid in a concrete room" width="2000" height="1116">
+          </picture>
+        </div>
+        <div class="process__photo" data-process-photo>
+          <picture class="process__image">
+            <source srcset="assets/process/5.webp" type="image/webp">
+            <img src="assets/process/5.jpg" alt="A finished, furnished room" width="2000" height="1117">
+          </picture>
+        </div>
+        <div class="process__shade" aria-hidden="true"></div>
+
+        <!-- Та же стеклянная плашка, что в комплектациях; здесь сжимается в полосу внизу -->
+        <div class="panel process__panel" data-process-panel>
+          <div class="panel__intro" data-process-intro>
+            <h2 class="panel__title">Seven months from<br>contract to keys</h2>
+            <p class="panel__note">We build across Europe. All you need is a plot of at least 900 m² (25 × 36 m).</p>
+          </div>
+
+          <ol class="timeline" data-timeline>
+            <li class="timeline__step" data-step>
+              <span class="panel__bar"><i data-step-bar></i></span>
+              <span class="timeline__month">Month 1</span>
+              <h3 class="timeline__title">Contract and site survey</h3>
+              <p class="timeline__text">We fix the price and the date, then survey your plot and stake out the house.</p>
+            </li>
+            <li class="timeline__step" data-step>
+              <span class="panel__bar"><i data-step-bar></i></span>
+              <span class="timeline__month">Month 2</span>
+              <h3 class="timeline__title">Foundation</h3>
+              <p class="timeline__text">An insulated concrete slab is poured and left to cure.</p>
+            </li>
+            <li class="timeline__step" data-step>
+              <span class="panel__bar"><i data-step-bar></i></span>
+              <span class="timeline__month">Months 3–4</span>
+              <h3 class="timeline__title">Walls, roof and glazing</h3>
+              <p class="timeline__text">Concrete walls and the flat roof go up, and triple glazing closes the house.</p>
+            </li>
+            <li class="timeline__step" data-step>
+              <span class="panel__bar"><i data-step-bar></i></span>
+              <span class="timeline__month">Months 5–6</span>
+              <h3 class="timeline__title">Engineering and finishing</h3>
+              <p class="timeline__text">Heating, plumbing and electrics, then floors, bathrooms and the kitchen.</p>
+            </li>
+            <li class="timeline__step" data-step>
+              <span class="panel__bar"><i data-step-bar></i></span>
+              <span class="timeline__month">Month 7</span>
+              <h3 class="timeline__title">Interior and handover</h3>
+              <p class="timeline__text">We finish the interior you chose and hand over the keys.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
   </main>
 
   <!-- Библиотеки: GSAP + ScrollTrigger + Lenis -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-  <script type="module" src="js/main.js?v=222254cc"></script>
+  <script type="module" src="js/main.js?v=0f0e552f"></script>
 </body>
 </html>

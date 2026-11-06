@@ -1,4 +1,4 @@
-import { loadImage } from './preload.js?v=222254cc';
+import { loadImage } from './preload.js?v=0f0e552f';
 
 // Последовательность кадров видео, которая рисуется в canvas (object-fit: cover)
 export class FrameSequence {

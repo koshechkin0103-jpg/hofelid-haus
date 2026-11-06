@@ -1,0 +1,79 @@
+/* ===== Как мы строим: фото этапов и шкала из пяти колонок. Сама плашка — .panel из packages.css ===== */
+.process { background: #151412; }
+
+.process__pin {
+  position: relative;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  color: var(--white);
+}
+
+.process__photo {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  will-change: transform, opacity;
+}
+.process__image {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+.process__image img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+}
+
+.process__shade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(10, 10, 9, .38) 0%, rgba(10, 10, 9, 0) 20%);
+}
+
+/* Шкала: колонки на всю ширину плашки, прижаты к её низу */
+.timeline {
+  position: absolute;
+  left: var(--pad);
+  right: var(--pad);
+  bottom: var(--pad);
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: calc(24 * var(--u));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  opacity: 0;
+  visibility: hidden;
+  will-change: opacity;
+}
+.timeline__step { will-change: opacity; }
+.timeline__step .panel__bar { display: block; }
+
+.timeline__month {
+  display: block;
+  margin-top: calc(18 * var(--u));
+  font-size: max(12px, calc(18 * var(--u)));
+  line-height: 1.2;
+  opacity: .8;
+}
+.timeline__title {
+  margin-top: calc(10 * var(--u));
+  font-size: max(16px, calc(30 * var(--u)));
+  line-height: 1.08;
+  font-weight: 400;
+  letter-spacing: -.02em;
+}
+.timeline__text {
+  margin-top: calc(12 * var(--u));
+  font-size: max(13px, calc(19 * var(--u)));
+  line-height: 1.25;
+}
+
+/* ===== prefers-reduced-motion: первое фото и сразу вся шкала ===== */
+.is-reduced .process__pin { height: auto; min-height: 100vh; }
+.is-reduced .process__photo + .process__photo { display: none; }
+.is-reduced .process__panel .timeline { position: static; margin-top: 32px; opacity: 1; visibility: visible; }
