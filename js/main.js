@@ -1,12 +1,12 @@
-import { waitForImages } from './utils/preload.js?v=5d04ca52';
-import { initHeader } from './components/header.js?v=5d04ca52';
-import { initHero } from './components/hero.js?v=5d04ca52';
-import { initAssembly } from './components/assembly.js?v=5d04ca52';
-import { initManifest } from './components/manifest.js?v=5d04ca52';
-import { initRooms } from './components/rooms.js?v=5d04ca52';
-import { initPackages } from './components/packages.js?v=5d04ca52';
-import { initProcess } from './components/process.js?v=5d04ca52';
-import { initGuarantees } from './components/guarantees.js?v=5d04ca52';
+import { waitForImages } from './utils/preload.js?v=046b9225';
+import { initHeader } from './components/header.js?v=046b9225';
+import { initHero } from './components/hero.js?v=046b9225';
+import { initAssembly } from './components/assembly.js?v=046b9225';
+import { initManifest } from './components/manifest.js?v=046b9225';
+import { initRooms } from './components/rooms.js?v=046b9225';
+import { initPackages } from './components/packages.js?v=046b9225';
+import { initProcess } from './components/process.js?v=046b9225';
+import { initGuarantees } from './components/guarantees.js?v=046b9225';
 
 // Точка входа: предзагрузка → плавный скролл → компоненты → показ интерфейса
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
