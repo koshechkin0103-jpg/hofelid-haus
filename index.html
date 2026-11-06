@@ -15,14 +15,15 @@
   <link rel="preload" as="image" href="assets/hero/frames/001.webp" fetchpriority="high">
 
   <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.13/dist/lenis.css">
-  <link rel="stylesheet" href="css/base.css?v=0f0e552f">
-  <link rel="stylesheet" href="css/header.css?v=0f0e552f">
-  <link rel="stylesheet" href="css/hero.css?v=0f0e552f">
-  <link rel="stylesheet" href="css/assembly.css?v=0f0e552f">
-  <link rel="stylesheet" href="css/manifest.css?v=0f0e552f">
-  <link rel="stylesheet" href="css/rooms.css?v=0f0e552f">
-  <link rel="stylesheet" href="css/packages.css?v=0f0e552f">
-  <link rel="stylesheet" href="css/process.css?v=0f0e552f">
+  <link rel="stylesheet" href="css/base.css?v=5d04ca52">
+  <link rel="stylesheet" href="css/header.css?v=5d04ca52">
+  <link rel="stylesheet" href="css/hero.css?v=5d04ca52">
+  <link rel="stylesheet" href="css/assembly.css?v=5d04ca52">
+  <link rel="stylesheet" href="css/manifest.css?v=5d04ca52">
+  <link rel="stylesheet" href="css/rooms.css?v=5d04ca52">
+  <link rel="stylesheet" href="css/packages.css?v=5d04ca52">
+  <link rel="stylesheet" href="css/process.css?v=5d04ca52">
+  <link rel="stylesheet" href="css/guarantees.css?v=5d04ca52">
 </head>
 <body class="is-loading">
 
@@ -408,12 +409,75 @@
         </div>
       </div>
     </section>
+
+    <!-- ============ 7. Гарантии: обещания появляются по одному и скрепляются подписью ============ -->
+    <section class="guarantees" id="guarantees" data-guarantees data-theme="dark">
+      <div class="guarantees__pin" data-guarantees-pin>
+        <picture class="guarantees__photo" data-guarantees-photo>
+          <source srcset="assets/guarantees/photo.webp" type="image/webp">
+          <img src="assets/guarantees/photo.jpg" alt="Hofelid Haus: a concrete overhang and oak fins above the terrace" width="2000" height="1116">
+        </picture>
+        <div class="guarantees__shade" aria-hidden="true"></div>
+
+        <div class="guarantees__intro" data-guarantees-intro>
+          <h2 class="guarantees__title">Written into the contract,<br>not into the brochure</h2>
+          <p class="guarantees__lead">Trust is earned on paper. These are the promises we sign.</p>
+        </div>
+
+        <div class="guarantees__name" aria-hidden="true">
+          <span class="guarantees__line"><span data-guarantees-line>HOFELID</span></span>
+          <span class="guarantees__line guarantees__line--shift"><span data-guarantees-line>HAUS</span></span>
+        </div>
+
+        <!-- Карточки стоят лесенкой, ниже свободное место занимает подпись -->
+        <ol class="pledges">
+          <li class="pledge" data-pledge>
+            <span class="pledge__num">01</span>
+            <h3 class="pledge__title">Fixed price</h3>
+            <p class="pledge__text">The price in your contract is the price you pay. No hidden extras.</p>
+          </li>
+          <li class="pledge" data-pledge>
+            <span class="pledge__num">02</span>
+            <h3 class="pledge__title">Fixed timeline</h3>
+            <p class="pledge__text">Seven months to keys. If we are late, we pay a penalty for every week.</p>
+          </li>
+          <li class="pledge" data-pledge>
+            <span class="pledge__num">03</span>
+            <h3 class="pledge__title">10-year warranty</h3>
+            <p class="pledge__text">Foundation, walls and roof for ten years. Engineering and finishes for two.</p>
+          </li>
+          <li class="pledge" data-pledge>
+            <span class="pledge__num">04</span>
+            <h3 class="pledge__title">Pay by stages</h3>
+            <p class="pledge__text">You pay only for work that is done and accepted, stage by stage.</p>
+          </li>
+        </ol>
+
+        <!-- Росчерк от руки: рисуется по скроллу -->
+        <div class="signature" data-signature aria-hidden="true">
+          <svg class="signature__svg" viewBox="0 0 360 110">
+            <path data-signature-path pathLength="1" d="M12 78C30 44 46 14 58 14c9 0-6 62-14 74-3 4-3-6 2-16 8-16 22-26 28-22 6 5-8 28-2 28 7 0 15-22 24-22 7 0-4 20 3 20 9 0 14-20 23-20 8 0-5 19 2 19 10 0 24-48 34-58 6-6 7 4 3 14-6 16-16 38-12 44 4 5 15-16 25-18 9-2 2 16 11 15 12-2 21-22 33-20 7 1-3 16 5 17 16 2 44-16 124-26"/>
+          </svg>
+          <span class="signature__caption">Signed by Haldern</span>
+        </div>
+
+        <div class="guarantees__foot" data-guarantees-foot>
+          <p class="guarantees__note">All guarantees are part of the standard contract.</p>
+          <a class="btn btn--light btn--arrow guarantees__cta" href="#master-plan">
+            Get the master plan
+            <span class="btn__icon" aria-hidden="true">
+              <svg viewBox="0 0 16 16" width="14" height="14"><path d="M4 12 12 4M5.5 4H12v6.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
   </main>
 
   <!-- Библиотеки: GSAP + ScrollTrigger + Lenis -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-  <script type="module" src="js/main.js?v=0f0e552f"></script>
+  <script type="module" src="js/main.js?v=5d04ca52"></script>
 </body>
 </html>

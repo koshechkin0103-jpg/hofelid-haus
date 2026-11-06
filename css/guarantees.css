@@ -1,0 +1,169 @@
+/* ===== Гарантии: закреплённый экран, раскладка в единицах кадра 1920 (--u) ===== */
+.guarantees { background: #151412; }
+
+.guarantees__pin {
+  position: relative;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  color: var(--white);
+}
+
+.guarantees__photo {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+.guarantees__photo img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+}
+
+/* Короткое затемнение только под шапкой, чтобы не спорить с тёмным заголовком на небе */
+.guarantees__shade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(10, 10, 9, .34) 0%, rgba(10, 10, 9, 0) calc(76 * var(--u))),
+    linear-gradient(0deg, rgba(10, 10, 9, .42) 0%, rgba(10, 10, 9, 0) 30%);
+}
+
+/* Заголовок на светлом небе — тёмный */
+.guarantees__intro {
+  position: absolute;
+  top: calc(96 * var(--u));
+  left: calc(30 * var(--u));
+  color: var(--ink);
+}
+.guarantees__title {
+  font-size: calc(54 * var(--u));
+  line-height: 1.02;
+  font-weight: 400;
+  letter-spacing: -.03em;
+}
+.guarantees__lead {
+  margin-top: calc(12 * var(--u));
+  font-size: max(13px, calc(21 * var(--u)));
+  line-height: 1.2;
+  letter-spacing: -.01em;
+}
+
+/* HOFELID / HAUS — как на первом экране, строки выезжают из-под маски */
+.guarantees__name {
+  position: absolute;
+  left: calc(30 * var(--u));
+  bottom: calc(100 * var(--u));
+  display: flex;
+  flex-direction: column;
+  font-size: calc(122 * var(--u));
+  line-height: .95;
+  font-weight: 600;
+  letter-spacing: -.012em;
+}
+.guarantees__line { display: block; overflow: hidden; }
+.guarantees__line > span { display: block; will-change: transform; }
+.guarantees__line--shift { padding-left: calc(250 * var(--u)); }
+
+/* Лесенка: две колонки, правая сдвинута вниз на половину карточки */
+.pledges {
+  --card: calc(390 * var(--u));
+  --card-h: calc(258 * var(--u));
+  --gap: calc(16 * var(--u));
+  position: absolute;
+  top: calc(140 * var(--u));
+  right: calc(30 * var(--u));
+  width: calc(var(--card) * 2 + var(--gap));
+  display: grid;
+  grid-template-columns: repeat(2, var(--card));
+  grid-auto-rows: var(--card-h);
+  gap: var(--gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pledge {
+  display: flex;
+  flex-direction: column;
+  padding: calc(22 * var(--u)) calc(24 * var(--u));
+  border-radius: calc(16 * var(--u));
+  border: 1px solid rgba(255, 255, 255, .3);
+  background-color: rgba(58, 54, 48, .34);
+  backdrop-filter: blur(22px) saturate(1.2);
+  -webkit-backdrop-filter: blur(22px) saturate(1.2);
+  will-change: transform, opacity;
+}
+.pledge:nth-child(even) { margin-top: calc((var(--card-h) + var(--gap)) / 2); margin-bottom: calc((var(--card-h) + var(--gap)) / -2); }
+.pledge__num {
+  font-size: max(12px, calc(18 * var(--u)));
+  line-height: 1;
+  opacity: .8;
+}
+.pledge__title {
+  margin-top: auto;
+  font-size: max(20px, calc(36 * var(--u)));
+  line-height: 1.05;
+  font-weight: 400;
+  letter-spacing: -.025em;
+}
+.pledge__text {
+  margin-top: calc(12 * var(--u));
+  font-size: max(13px, calc(20 * var(--u)));
+  line-height: 1.25;
+}
+
+/* Подпись — в свободном месте под левой колонкой лесенки */
+.signature {
+  position: absolute;
+  top: calc(140 * var(--u) + 258 * var(--u) * 2 + 16 * var(--u) * 2);
+  right: calc(30 * var(--u) + 390 * var(--u) + 16 * var(--u));
+  width: calc(390 * var(--u));
+  height: calc(129 * var(--u) - 16 * var(--u) / 2);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.signature__svg {
+  width: calc(300 * var(--u));
+  height: auto;
+  overflow: visible;
+  fill: none;
+  stroke: var(--white);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.signature__caption {
+  margin-top: calc(6 * var(--u));
+  font-size: max(12px, calc(16 * var(--u)));
+  line-height: 1;
+  opacity: .85;
+}
+
+/* Строка под карточками */
+.guarantees__foot {
+  position: absolute;
+  right: calc(30 * var(--u));
+  bottom: calc(30 * var(--u));
+  display: flex;
+  align-items: center;
+  gap: calc(24 * var(--u));
+}
+.guarantees__note {
+  font-size: max(13px, calc(21 * var(--u)));
+  line-height: 1.2;
+  letter-spacing: -.01em;
+}
+.guarantees__cta {
+  height: max(44px, calc(52 * var(--u)));
+  padding: 0 calc(5 * var(--u)) 0 calc(24 * var(--u));
+  gap: calc(16 * var(--u));
+  font-size: max(13px, calc(19 * var(--u)));
+  font-weight: 400;
+}
+.guarantees__cta .btn__icon {
+  width: max(34px, calc(42 * var(--u)));
+  height: max(34px, calc(42 * var(--u)));
+}
