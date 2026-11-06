@@ -70,11 +70,13 @@
   position: absolute;
   right: 0;
   bottom: 0;
-  width: calc(460 * var(--u));
+  width: calc(640 * var(--u));
   font-size: max(14px, calc(24 * var(--u)));
   line-height: 1.2;
   letter-spacing: -.01em;
 }
+
+.panel__note p + p { margin-top: calc(12 * var(--u)); }
 
 /* Карточка комплектации. Ширина задана заранее, чтобы текст не переносился при сжатии плашки */
 .panel__card {

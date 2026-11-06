@@ -15,17 +15,16 @@
   <link rel="preload" as="image" href="assets/hero/frames/001.webp" fetchpriority="high">
 
   <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.13/dist/lenis.css">
-  <link rel="stylesheet" href="css/base.css?v=b47b3ccb">
-  <link rel="stylesheet" href="css/header.css?v=b47b3ccb">
-  <link rel="stylesheet" href="css/hero.css?v=b47b3ccb">
-  <link rel="stylesheet" href="css/assembly.css?v=b47b3ccb">
-  <link rel="stylesheet" href="css/manifest.css?v=b47b3ccb">
-  <link rel="stylesheet" href="css/rooms.css?v=b47b3ccb">
-  <link rel="stylesheet" href="css/packages.css?v=b47b3ccb">
-  <link rel="stylesheet" href="css/process.css?v=b47b3ccb">
-  <link rel="stylesheet" href="css/guarantees.css?v=b47b3ccb">
-  <link rel="stylesheet" href="css/closing.css?v=b47b3ccb">
-  <link rel="stylesheet" href="css/architecture.css?v=b47b3ccb">
+  <link rel="stylesheet" href="css/base.css?v=ca232493">
+  <link rel="stylesheet" href="css/header.css?v=ca232493">
+  <link rel="stylesheet" href="css/hero.css?v=ca232493">
+  <link rel="stylesheet" href="css/assembly.css?v=ca232493">
+  <link rel="stylesheet" href="css/manifest.css?v=ca232493">
+  <link rel="stylesheet" href="css/rooms.css?v=ca232493">
+  <link rel="stylesheet" href="css/packages.css?v=ca232493">
+  <link rel="stylesheet" href="css/process.css?v=ca232493">
+  <link rel="stylesheet" href="css/guarantees.css?v=ca232493">
+  <link rel="stylesheet" href="css/closing.css?v=ca232493">
 </head>
 <body class="is-loading">
 
@@ -266,7 +265,10 @@
         <div class="panel" data-panel>
           <div class="panel__intro" data-panel-intro>
             <h2 class="panel__title">Three ways<br>to move in</h2>
-            <p class="panel__note">Prices for all three packages are in the master plan.</p>
+            <div class="panel__note">
+              <p>The architecture is the same in all three: facade, floor plan, structure and glazing, tested on every site we have built. You decide how far we take the interior.</p>
+              <p>Prices are in the master plan.</p>
+            </div>
           </div>
 
           <div class="panel__card" data-panel-card>
@@ -291,7 +293,7 @@
                   <path d="M60 36h36M132 36h30"/>
                 </svg>
                 <h3 class="package__name">Finished</h3>
-                <p class="package__text">Everything in Shell, plus heating, plumbing, electrics, flooring, bathrooms and the kitchen.</p>
+                <p class="package__text">Everything in Shell, plus heating, plumbing, electrics, flooring, bathrooms and the kitchen. You choose the finishes and colours.</p>
               </article>
               <article class="package" data-package>
                 <svg class="package__icon" viewBox="0 0 220 120" aria-hidden="true">
@@ -323,48 +325,6 @@
               <svg viewBox="0 0 16 16" width="14" height="14"><path d="M4 12 12 4M5.5 4H12v6.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
             </span>
           </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ Архитектура неизменна: бетон на весь экран, по скроллу половину занимает дуб ============ -->
-    <section class="arch" id="architecture" data-arch data-theme="dark">
-      <div class="arch__pin" data-arch-pin>
-        <div class="arch__side arch__side--fixed">
-          <picture class="arch__texture">
-            <source srcset="assets/architecture/concrete.webp" type="image/webp">
-            <img src="assets/architecture/concrete.jpg" alt="" width="1900" height="1143">
-          </picture>
-          <h2 class="arch__title" data-arch-title>The architecture<br>is fixed</h2>
-          <div class="arch__plate" data-arch-plate>
-            <h3 class="arch__name">What stays the same</h3>
-            <ul class="arch__tags">
-              <li>Facade</li>
-              <li>Floor plan</li>
-              <li>Structure</li>
-              <li>Glazing</li>
-            </ul>
-            <p class="arch__text">Tested on every site we have built, so it works on yours.</p>
-          </div>
-        </div>
-
-        <div class="arch__side arch__side--yours" data-arch-yours>
-          <picture class="arch__texture">
-            <source srcset="assets/architecture/oak.webp" type="image/webp">
-            <img src="assets/architecture/oak.jpg" alt="" width="708" height="1281">
-          </picture>
-          <h2 class="arch__title" data-arch-title-yours>The interior<br>is yours</h2>
-          <div class="arch__plate" data-arch-plate-yours>
-            <h3 class="arch__name">What you choose</h3>
-            <ul class="arch__tags">
-              <li>Finishes</li>
-              <li>Colours</li>
-              <li>Furniture</li>
-              <li>Lighting</li>
-              <li>Textiles</li>
-            </ul>
-            <p class="arch__text">We agree the interior with you at the final stage, when you can already walk through your house.</p>
-          </div>
         </div>
       </div>
     </section>
@@ -447,7 +407,7 @@
               <span class="panel__bar"><i data-step-bar></i></span>
               <span class="timeline__month">Month 7</span>
               <h3 class="timeline__title">You move in</h3>
-              <p class="timeline__text">You walk through your house, we agree the interior and hand over the keys.</p>
+              <p class="timeline__text">You walk through your house and we hand over the keys.</p>
             </li>
           </ol>
         </div>
@@ -608,6 +568,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-  <script type="module" src="js/main.js?v=b47b3ccb"></script>
+  <script type="module" src="js/main.js?v=ca232493"></script>
 </body>
 </html>
