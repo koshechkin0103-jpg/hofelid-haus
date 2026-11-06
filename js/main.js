@@ -1,13 +1,13 @@
-import { waitForImages } from './utils/preload.js?v=801385ac';
-import { initHeader } from './components/header.js?v=801385ac';
-import { initHero } from './components/hero.js?v=801385ac';
-import { initAssembly } from './components/assembly.js?v=801385ac';
-import { initManifest } from './components/manifest.js?v=801385ac';
-import { initRooms } from './components/rooms.js?v=801385ac';
-import { initPackages } from './components/packages.js?v=801385ac';
-import { initProcess } from './components/process.js?v=801385ac';
-import { initGuarantees } from './components/guarantees.js?v=801385ac';
-import { initClosing } from './components/closing.js?v=801385ac';
+import { waitForImages } from './utils/preload.js?v=14aa2bea';
+import { initHeader } from './components/header.js?v=14aa2bea';
+import { initHero } from './components/hero.js?v=14aa2bea';
+import { initAssembly } from './components/assembly.js?v=14aa2bea';
+import { initManifest } from './components/manifest.js?v=14aa2bea';
+import { initRooms } from './components/rooms.js?v=14aa2bea';
+import { initPackages } from './components/packages.js?v=14aa2bea';
+import { initProcess } from './components/process.js?v=14aa2bea';
+import { initGuarantees } from './components/guarantees.js?v=14aa2bea';
+import { initClosing } from './components/closing.js?v=14aa2bea';
 
 // Точка входа: предзагрузка → плавный скролл → компоненты → показ интерфейса
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -41,6 +41,10 @@ async function boot() {
     initHero({ reduced }),
   ]);
 
+  // Сначала запускаем скролл: остановленный Lenis скрывает полосу прокрутки,
+  // и закреплённые блоки иначе запомнили бы ширину вместе с местом под неё
+  lenis?.start();
+
   // ScrollTrigger-ы создаём в порядке секций на странице
   initAssembly({ reduced });
   initManifest({ reduced });
@@ -53,7 +57,6 @@ async function boot() {
 
   ScrollTrigger.refresh();
   document.body.classList.remove('is-loading');
-  lenis?.start();
 }
 
 boot();

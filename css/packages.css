@@ -43,7 +43,7 @@
   position: absolute;
   right: calc(30 * var(--u));
   bottom: calc(30 * var(--u));
-  width: calc(100vw - 60 * var(--u));
+  width: calc(100% - 60 * var(--u));
   height: 50vh;
   overflow: hidden;
   border-radius: calc(16 * var(--u));

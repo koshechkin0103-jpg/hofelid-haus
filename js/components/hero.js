@@ -1,4 +1,4 @@
-import { FrameSequence } from '../utils/frames.js?v=801385ac';
+import { FrameSequence } from '../utils/frames.js?v=14aa2bea';
 
 // Первый экран: видео подлёта разложено на кадры и рисуется в canvas по прогрессу скролла
 const FRAME_COUNT = 120;

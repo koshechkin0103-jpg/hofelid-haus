@@ -61,7 +61,16 @@ export function initPackages({ reduced }) {
   // Шаг 2 — плашка сжимается в карточку, открывается коробка
   const SHRINK = 2.2;
   tl.to(intro, { opacity: 0, duration: 0.35, ease: 'power2.out' }, SHRINK)
-    .to(panel, { width: () => cardSize().width, height: () => cardSize().height, duration: 1.1 }, SHRINK)
+    .fromTo(panel, {
+      // старт считаем от реальной ширины секции: она зависит от полосы прокрутки
+      width: () => pin.clientWidth - (60 * window.innerWidth) / 1920,
+      height: () => window.innerHeight * 0.5,
+    }, {
+      width: () => cardSize().width,
+      height: () => cardSize().height,
+      duration: 1.1,
+      immediateRender: false,
+    }, SHRINK)
     .to(card, { autoAlpha: 1, duration: 0.45, ease: 'power2.out' }, SHRINK + 0.75);
   revealPhoto(1, SHRINK, 1.1);
 
