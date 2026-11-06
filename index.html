@@ -15,12 +15,13 @@
   <link rel="preload" as="image" href="assets/hero/frames/001.webp" fetchpriority="high">
 
   <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.13/dist/lenis.css">
-  <link rel="stylesheet" href="css/base.css?v=8d0934fa">
-  <link rel="stylesheet" href="css/header.css?v=8d0934fa">
-  <link rel="stylesheet" href="css/hero.css?v=8d0934fa">
-  <link rel="stylesheet" href="css/assembly.css?v=8d0934fa">
-  <link rel="stylesheet" href="css/manifest.css?v=8d0934fa">
-  <link rel="stylesheet" href="css/rooms.css?v=8d0934fa">
+  <link rel="stylesheet" href="css/base.css?v=222254cc">
+  <link rel="stylesheet" href="css/header.css?v=222254cc">
+  <link rel="stylesheet" href="css/hero.css?v=222254cc">
+  <link rel="stylesheet" href="css/assembly.css?v=222254cc">
+  <link rel="stylesheet" href="css/manifest.css?v=222254cc">
+  <link rel="stylesheet" href="css/rooms.css?v=222254cc">
+  <link rel="stylesheet" href="css/packages.css?v=222254cc">
 </head>
 <body class="is-loading">
 
@@ -226,12 +227,107 @@
         </div>
       </div>
     </section>
+
+    <!-- ============ 5. Комплектации: фото сменяются снизу вверх, плашка сжимается в карточку ============ -->
+    <section class="packages" id="packages" data-packages data-theme="dark">
+      <div class="packages__pin" data-packages-pin>
+        <!-- Первое фото лежит снизу, остальные открываются поверх него -->
+        <div class="packages__photo" data-package-photo>
+          <picture class="packages__image">
+            <source srcset="assets/packages/1.webp" type="image/webp">
+            <img src="assets/packages/1.jpg" alt="Hofelid Haus seen from the garden" width="2000" height="1116">
+          </picture>
+        </div>
+        <div class="packages__photo" data-package-photo>
+          <picture class="packages__image">
+            <source srcset="assets/packages/2.webp" type="image/webp">
+            <img src="assets/packages/2.jpg" alt="Shell: bare concrete rooms" width="2000" height="1116">
+          </picture>
+        </div>
+        <div class="packages__photo" data-package-photo>
+          <picture class="packages__image">
+            <source srcset="assets/packages/3.webp" type="image/webp">
+            <img src="assets/packages/3.jpg" alt="Finished: oak floors and panelling" width="2000" height="1116">
+          </picture>
+        </div>
+        <div class="packages__photo" data-package-photo>
+          <picture class="packages__image">
+            <source srcset="assets/packages/4.webp" type="image/webp">
+            <img src="assets/packages/4.jpg" alt="Turnkey: a fully furnished bedroom" width="2000" height="1116">
+          </picture>
+        </div>
+        <div class="packages__shade" aria-hidden="true"></div>
+
+        <!-- Стеклянная плашка: сначала большая, по скроллу сжимается в карточку справа -->
+        <div class="panel" data-panel>
+          <div class="panel__intro" data-panel-intro>
+            <h2 class="panel__title">Three ways<br>to move in</h2>
+            <p class="panel__note">Prices for all three packages are in the master plan.</p>
+          </div>
+
+          <div class="panel__card" data-panel-card>
+            <div class="panel__stages">
+              <article class="package" data-package>
+                <svg class="package__icon" viewBox="0 0 220 120" aria-hidden="true">
+                  <!-- Коробка: плита, стены, кровля и пустые проёмы -->
+                  <path d="M6 30h208M24 30V20h172v10"/>
+                  <path d="M28 30v76M192 30v76M14 106h192"/>
+                  <path d="M52 44h52v62M52 106V44M124 44h46v62M124 106V44" stroke-dasharray="3 4"/>
+                </svg>
+                <h3 class="package__name">Shell</h3>
+                <p class="package__text">Foundation, walls, roof, windows and facade. The house, ready for your own finishing team.</p>
+              </article>
+              <article class="package" data-package>
+                <svg class="package__icon" viewBox="0 0 220 120" aria-hidden="true">
+                  <!-- С отделкой: окна в рамах, пол, свет и инженерия -->
+                  <path d="M6 30h208M24 30V20h172v10"/>
+                  <path d="M28 30v76M192 30v76M14 106h192"/>
+                  <path d="M52 44h52v62H52zM78 44v62M124 44h46v62h-46zM147 44v62"/>
+                  <path d="M34 98h14M34 90h14M174 98h14M174 90h14"/>
+                  <path d="M60 36h36M132 36h30"/>
+                </svg>
+                <h3 class="package__name">Finished</h3>
+                <p class="package__text">Everything in Shell, plus heating, plumbing, electrics, flooring, bathrooms and the kitchen.</p>
+              </article>
+              <article class="package" data-package>
+                <svg class="package__icon" viewBox="0 0 220 120" aria-hidden="true">
+                  <!-- Под ключ: мебель и свет в окнах, чемодан у входа -->
+                  <path d="M6 30h208M24 30V20h172v10"/>
+                  <path d="M28 30v76M192 30v76M14 106h192"/>
+                  <path d="M52 44h52v62H52zM124 44h46v62h-46z"/>
+                  <path d="M58 106V92c0-3 2-5 5-5h30c3 0 5 2 5 5v14M58 96h40"/>
+                  <path d="M147 44v14M139 66c0-6 3-8 8-8s8 2 8 8zM138 106V88h18v18M138 96h18"/>
+                  <path d="M205 106V92h-11v14M197 92v-4h5v4"/>
+                </svg>
+                <h3 class="package__name">Turnkey</h3>
+                <p class="package__text">Everything in Finished, plus furniture, lighting and textiles — chosen with our interior team. You arrive with your suitcases.</p>
+              </article>
+            </div>
+
+            <!-- Полоски прогресса: по одной на комплектацию -->
+            <div class="panel__bars" aria-hidden="true">
+              <span class="panel__bar"><i data-package-bar></i></span>
+              <span class="panel__bar"><i data-package-bar></i></span>
+              <span class="panel__bar"><i data-package-bar></i></span>
+            </div>
+          </div>
+
+          <!-- Кнопка одна и остаётся на месте при обоих размерах плашки -->
+          <a class="btn btn--light btn--arrow panel__cta" href="#master-plan">
+            Get the master plan
+            <span class="btn__icon" aria-hidden="true">
+              <svg viewBox="0 0 16 16" width="14" height="14"><path d="M4 12 12 4M5.5 4H12v6.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
   </main>
 
   <!-- Библиотеки: GSAP + ScrollTrigger + Lenis -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-  <script type="module" src="js/main.js?v=8d0934fa"></script>
+  <script type="module" src="js/main.js?v=222254cc"></script>
 </body>
 </html>

@@ -1,0 +1,174 @@
+/* ===== Комплектации: закреплённый экран, фото сменяются снизу вверх ===== */
+.packages { background: #151412; }
+
+.packages__pin {
+  position: relative;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  color: var(--white);
+}
+
+/* Фото на весь экран: обёртка едет вверх, картинка внутри — вниз, поэтому кадр стоит на месте */
+.packages__photo {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  will-change: transform;
+}
+.packages__image {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+.packages__image img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+}
+
+/* Затемнение сверху — под шапкой */
+.packages__shade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(10, 10, 9, .38) 0%, rgba(10, 10, 9, 0) 20%);
+}
+
+/* Стеклянная плашка, как карточки на первом экране; привязана к правому нижнему углу,
+   поэтому при сжатии остаётся на месте и уменьшается влево и вниз */
+.panel {
+  --pad: calc(30 * var(--u));
+  position: absolute;
+  right: calc(30 * var(--u));
+  bottom: calc(30 * var(--u));
+  width: calc(100vw - 60 * var(--u));
+  height: 50vh;
+  overflow: hidden;
+  border-radius: calc(16 * var(--u));
+  border: 1px solid rgba(255, 255, 255, .3);
+  background: rgba(58, 54, 48, .34);
+  backdrop-filter: blur(22px) saturate(1.2);
+  -webkit-backdrop-filter: blur(22px) saturate(1.2);
+  will-change: transform, width, height;
+}
+
+/* Большая плашка: заголовок и фраза про цены */
+.panel__intro {
+  position: absolute;
+  inset: var(--pad);
+  will-change: opacity;
+}
+.panel__title {
+  font-size: clamp(48px, 5.6vw, 110px);
+  line-height: .98;
+  font-weight: 400;
+  letter-spacing: -.035em;
+}
+.panel__note {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: calc(460 * var(--u));
+  font-size: max(14px, calc(24 * var(--u)));
+  line-height: 1.2;
+  letter-spacing: -.01em;
+}
+
+/* Карточка комплектации. Ширина задана заранее, чтобы текст не переносился при сжатии плашки */
+.panel__card {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: var(--card-width, 400px);
+  display: flex;
+  flex-direction: column;
+  padding: var(--pad) var(--pad) calc(var(--pad) + max(44px, calc(52 * var(--u))) + 24 * var(--u));
+  opacity: 0;
+  visibility: hidden;
+  will-change: opacity;
+}
+.panel__stages {
+  position: relative;
+  display: grid;
+  flex: 1;
+  min-height: 0;
+}
+.package {
+  grid-area: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  will-change: transform, opacity;
+}
+.package__icon {
+  width: calc(240 * var(--u));
+  height: auto;
+  margin-bottom: auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.package__name {
+  margin-top: calc(24 * var(--u));
+  font-size: max(30px, calc(56 * var(--u)));
+  line-height: 1;
+  font-weight: 400;
+  letter-spacing: -.03em;
+}
+.package__text {
+  margin-top: calc(16 * var(--u));
+  font-size: max(14px, calc(22 * var(--u)));
+  line-height: 1.25;
+}
+
+.panel__bars {
+  display: flex;
+  gap: calc(8 * var(--u));
+  margin-top: calc(28 * var(--u));
+}
+.panel__bar {
+  position: relative;
+  flex: 1;
+  height: 2px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, .28);
+}
+.panel__bar i {
+  position: absolute;
+  inset: 0;
+  background: var(--white);
+  transform: scaleX(0);
+  transform-origin: left;
+  will-change: transform;
+}
+
+.panel__cta {
+  position: absolute;
+  left: var(--pad);
+  bottom: var(--pad);
+  height: max(44px, calc(52 * var(--u)));
+  padding: 0 calc(5 * var(--u)) 0 calc(24 * var(--u));
+  gap: calc(16 * var(--u));
+  font-size: max(13px, calc(19 * var(--u)));
+  font-weight: 400;
+}
+.panel__cta .btn__icon {
+  width: max(34px, calc(42 * var(--u)));
+  height: max(34px, calc(42 * var(--u)));
+}
+
+/* ===== prefers-reduced-motion: первое фото и сразу все комплектации ===== */
+.is-reduced .packages__pin { height: auto; min-height: 100vh; }
+.is-reduced .packages__photo + .packages__photo { display: none; }
+.is-reduced .panel { position: relative; right: auto; bottom: auto; width: auto; height: auto; margin: 45vh calc(30 * var(--u)) calc(30 * var(--u)); padding: var(--pad); }
+.is-reduced .panel__intro,
+.is-reduced .panel__card { position: static; width: auto; padding: 0; opacity: 1; visibility: visible; }
+.is-reduced .panel__note { position: static; margin-top: 16px; width: auto; }
+.is-reduced .panel__stages { display: flex; flex-direction: column; gap: 32px; margin-top: 32px; }
+.is-reduced .package__icon { margin-bottom: 0; }
+.is-reduced .panel__bars { display: none; }
+.is-reduced .panel__cta { position: static; margin-top: 32px; }

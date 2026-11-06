@@ -1,9 +1,10 @@
-import { waitForImages } from './utils/preload.js?v=8d0934fa';
-import { initHeader } from './components/header.js?v=8d0934fa';
-import { initHero } from './components/hero.js?v=8d0934fa';
-import { initAssembly } from './components/assembly.js?v=8d0934fa';
-import { initManifest } from './components/manifest.js?v=8d0934fa';
-import { initRooms } from './components/rooms.js?v=8d0934fa';
+import { waitForImages } from './utils/preload.js?v=222254cc';
+import { initHeader } from './components/header.js?v=222254cc';
+import { initHero } from './components/hero.js?v=222254cc';
+import { initAssembly } from './components/assembly.js?v=222254cc';
+import { initManifest } from './components/manifest.js?v=222254cc';
+import { initRooms } from './components/rooms.js?v=222254cc';
+import { initPackages } from './components/packages.js?v=222254cc';
 
 // Точка входа: предзагрузка → плавный скролл → компоненты → показ интерфейса
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -41,6 +42,7 @@ async function boot() {
   initAssembly({ reduced });
   initManifest({ reduced });
   initRooms({ reduced, after: hero.loaded });
+  initPackages({ reduced });
   initHeader({ lenis });
 
   ScrollTrigger.refresh();
