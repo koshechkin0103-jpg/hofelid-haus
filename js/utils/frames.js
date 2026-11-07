@@ -1,5 +1,5 @@
-import { loadImage } from './preload.js?v=218f62ec';
-import { compact } from './mode.js?v=218f62ec';
+import { loadImage } from './preload.js?v=5ad267f4';
+import { compact } from './mode.js?v=5ad267f4';
 
 // Последовательность кадров видео, которая рисуется в canvas (object-fit: cover)
 export class FrameSequence {

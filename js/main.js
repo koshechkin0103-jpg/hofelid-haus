@@ -1,14 +1,15 @@
-import { waitForImages } from './utils/preload.js?v=218f62ec';
-import { watchModeChange } from './utils/mode.js?v=218f62ec';
-import { initHeader } from './components/header.js?v=218f62ec';
-import { initHero } from './components/hero.js?v=218f62ec';
-import { initAssembly } from './components/assembly.js?v=218f62ec';
-import { initManifest } from './components/manifest.js?v=218f62ec';
-import { initRooms } from './components/rooms.js?v=218f62ec';
-import { initPackages } from './components/packages.js?v=218f62ec';
-import { initProcess } from './components/process.js?v=218f62ec';
-import { initGuarantees } from './components/guarantees.js?v=218f62ec';
-import { initClosing } from './components/closing.js?v=218f62ec';
+import { waitForImages } from './utils/preload.js?v=5ad267f4';
+import { resuming, watchModeChange } from './utils/mode.js?v=5ad267f4';
+import { initPreloader } from './components/preloader.js?v=5ad267f4';
+import { initHeader } from './components/header.js?v=5ad267f4';
+import { initHero } from './components/hero.js?v=5ad267f4';
+import { initAssembly } from './components/assembly.js?v=5ad267f4';
+import { initManifest } from './components/manifest.js?v=5ad267f4';
+import { initRooms } from './components/rooms.js?v=5ad267f4';
+import { initPackages } from './components/packages.js?v=5ad267f4';
+import { initProcess } from './components/process.js?v=5ad267f4';
+import { initGuarantees } from './components/guarantees.js?v=5ad267f4';
+import { initClosing } from './components/closing.js?v=5ad267f4';
 
 // Точка входа: предзагрузка → плавный скролл → компоненты → показ интерфейса
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -34,16 +35,23 @@ async function boot() {
   if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
   window.scrollTo(0, 0);
 
+  const preloader = initPreloader({ skip: reduced || resuming });
+
   const lenis = initSmoothScroll();
   lenis?.stop();
 
   // Все слои дома, шрифт и первые кадры видео — до старта анимаций, чтобы ничего не мигало
   const layerImgs = [...document.querySelectorAll('.house__layer img')];
-  const [, , hero] = await Promise.all([
-    waitForImages(layerImgs),
+  // Каждая завершённая задача двигает счётчик прелоадера
+  const tasks = [
+    ...layerImgs.map((img) => waitForImages([img])),
     document.fonts ? document.fonts.ready : Promise.resolve(),
     initHero({ reduced }),
-  ]);
+  ];
+  let done = 0;
+  tasks.forEach((task) => task.then(() => preloader.progress(++done / tasks.length)));
+  const results = await Promise.all(tasks);
+  const hero = results[results.length - 1];
 
   // Сначала запускаем скролл: остановленный Lenis скрывает полосу прокрутки,
   // и закреплённые блоки иначе запомнили бы ширину вместе с местом под неё
@@ -60,6 +68,7 @@ async function boot() {
   initHeader({ lenis });
 
   ScrollTrigger.refresh();
+  await preloader.finish();
   document.body.classList.remove('is-loading');
   watchModeChange();
 }

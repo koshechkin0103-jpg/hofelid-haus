@@ -18,10 +18,20 @@ export function sceneTrigger(section, pin, length) {
   return { trigger: section, pin, start: 'top top', end: `+=${length}%`, scrub: 0.6, anticipatePin: 1, invalidateOnRefresh: true };
 }
 
+const KEY = 'hof-scroll';
+
+// Страницу перезагрузили из-за смены режима — заставка в этот раз не нужна
+export const resuming = (() => {
+  try {
+    return sessionStorage.getItem(KEY) !== null;
+  } catch (_) {
+    return false;
+  }
+})();
+
 // При переходе через границу режимов страницу нужно собрать заново: другая раскладка и кадры.
 // Положение на странице сохраняем, чтобы человек не оказался наверху
 export function watchModeChange() {
-  const KEY = 'hof-scroll';
   ['(max-width: 1199.98px)', '(max-width: 999.98px)', '(orientation: portrait)'].forEach((query) => {
     matchMedia(query).addEventListener('change', () => {
       try {

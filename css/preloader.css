@@ -1,0 +1,69 @@
+/* ===== Прелоадер: квадрат с фото стройки и счётчик, затем первый кадр раскрывается на весь экран ===== */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: var(--ink);
+  color: var(--white);
+  /* Страховка: если скрипт не сработал, сайт всё равно откроется */
+  animation: preloader-failsafe .4s linear 15s forwards;
+}
+@keyframes preloader-failsafe {
+  to { opacity: 0; visibility: hidden; }
+}
+
+.preloader__square {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: clamp(160px, 18vw, 340px);
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+.preloader__frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.preloader__frame + .preloader__frame { clip-path: inset(100% 0 0 0); }
+
+/* Последний кадр лежит на весь экран и совпадает с первым кадром видео подлёта */
+.preloader__final {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(100% 0 0 0);
+}
+.preloader__final img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+}
+
+/* Счётчик: цифры катятся в окошке высотой в одну строку */
+.preloader__counter {
+  position: absolute;
+  left: 50%;
+  bottom: calc(max(24px, calc(40 * var(--u))) + env(safe-area-inset-bottom, 0px));
+  translate: -50% 0;
+  display: flex;
+  height: 1.2em;
+  overflow: hidden;
+  font-size: var(--fs-lead);
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+}
+.preloader__digit {
+  display: flex;
+  flex-direction: column;
+  will-change: transform;
+}
+.preloader__digit span { display: block; height: 1.2em; }
+
+@media (prefers-reduced-motion: reduce) {
+  .preloader { display: none; }
+}

@@ -16,19 +16,38 @@
   <link rel="preload" as="image" href="assets/hero/frames-m/001.webp" fetchpriority="high" media="(max-width: 1199.98px) and (orientation: portrait)">
 
   <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.13/dist/lenis.css">
-  <link rel="stylesheet" href="css/base.css?v=218f62ec">
-  <link rel="stylesheet" href="css/header.css?v=218f62ec">
-  <link rel="stylesheet" href="css/hero.css?v=218f62ec">
-  <link rel="stylesheet" href="css/assembly.css?v=218f62ec">
-  <link rel="stylesheet" href="css/manifest.css?v=218f62ec">
-  <link rel="stylesheet" href="css/rooms.css?v=218f62ec">
-  <link rel="stylesheet" href="css/packages.css?v=218f62ec">
-  <link rel="stylesheet" href="css/process.css?v=218f62ec">
-  <link rel="stylesheet" href="css/guarantees.css?v=218f62ec">
-  <link rel="stylesheet" href="css/closing.css?v=218f62ec">
-  <link rel="stylesheet" href="css/adaptive.css?v=218f62ec">
+  <link rel="stylesheet" href="css/base.css?v=5ad267f4">
+  <link rel="stylesheet" href="css/header.css?v=5ad267f4">
+  <link rel="stylesheet" href="css/hero.css?v=5ad267f4">
+  <link rel="stylesheet" href="css/assembly.css?v=5ad267f4">
+  <link rel="stylesheet" href="css/manifest.css?v=5ad267f4">
+  <link rel="stylesheet" href="css/rooms.css?v=5ad267f4">
+  <link rel="stylesheet" href="css/packages.css?v=5ad267f4">
+  <link rel="stylesheet" href="css/process.css?v=5ad267f4">
+  <link rel="stylesheet" href="css/guarantees.css?v=5ad267f4">
+  <link rel="stylesheet" href="css/closing.css?v=5ad267f4">
+  <link rel="stylesheet" href="css/preloader.css?v=5ad267f4">
+  <link rel="stylesheet" href="css/adaptive.css?v=5ad267f4">
 </head>
 <body class="is-loading">
+
+  <!-- ============ Прелоадер: фото стройки в квадрате, затем первый кадр на весь экран ============ -->
+  <div class="preloader" data-preloader aria-hidden="true">
+    <div class="preloader__square" data-preloader-square>
+      <img class="preloader__frame" src="assets/preloader/1.webp" alt="" width="720" height="720">
+      <img class="preloader__frame" src="assets/preloader/2.webp" alt="" width="720" height="720">
+      <img class="preloader__frame" src="assets/preloader/3.webp" alt="" width="720" height="720">
+      <img class="preloader__frame" src="assets/preloader/4.webp" alt="" width="720" height="720">
+    </div>
+    <picture class="preloader__final" data-preloader-final>
+      <source srcset="assets/hero/frames-m/001.webp" media="(max-width: 1199.98px) and (orientation: portrait)">
+      <img src="assets/hero/frames/001.webp" alt="">
+    </picture>
+    <div class="preloader__counter" data-preloader-counter>
+      <span class="preloader__digit" data-preloader-digit><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></span>
+      <span class="preloader__digit" data-preloader-digit><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></span>
+    </div>
+  </div>
 
   <!-- ============ 0. Шапка ============ -->
   <header class="header" data-header>
@@ -608,6 +627,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-  <script type="module" src="js/main.js?v=218f62ec"></script>
+  <script type="module" src="js/main.js?v=5ad267f4"></script>
 </body>
 </html>
