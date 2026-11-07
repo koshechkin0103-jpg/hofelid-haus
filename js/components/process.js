@@ -1,3 +1,5 @@
+import { compact, narrow, sceneTrigger } from '../utils/mode.js?v=618b3359';
+
 // Как мы строим: секция закреплена; большая плашка поднимается снизу и сжимается в полосу,
 // первое фото этапа открывается снизу вверх, следующие плавно проявляются
 const EASE = 'power3.inOut';
@@ -15,31 +17,28 @@ export function initProcess({ reduced }) {
   const timeline = section.querySelector('[data-timeline]');
   const steps = [...section.querySelectorAll('[data-step]')];
   const bars = [...section.querySelectorAll('[data-step-bar]')];
+  // На узких экранах виден один этап за раз, на широких — все пять, текущий ярче
+  const targets = narrow ? [...section.querySelectorAll('[data-step-body]')] : steps;
+  const idle = narrow ? 0 : DIMMED;
 
   // Высота полосы = высота шкалы + поля плашки
-  const stripHeight = () => timeline.offsetHeight + ((30 * window.innerWidth) / 1920) * 2;
+  const stripHeight = () => timeline.offsetHeight + parseFloat(getComputedStyle(timeline).bottom) * 2;
 
   // Стартовое состояние: плашка за нижним краем, этапы ждут своей очереди
   gsap.set(panel, { yPercent: 115 });
+  // В компактном режиме большая плашка — по содержимому
+  if (compact) gsap.set(panel, { height: intro.offsetTop * 2 + intro.offsetHeight });
   gsap.set(photos[0].firstElementChild, { scale: 1.1 });
   gsap.set(photos[1], { yPercent: 100 });
   gsap.set(photos[1].firstElementChild, { yPercent: -100 });
   gsap.set(photos.slice(2), { autoAlpha: 0 });
   gsap.set(photos.slice(2).map((p) => p.firstElementChild), { scale: 1.05 });
-  gsap.set(steps, { opacity: DIMMED });
+  gsap.set(targets, { opacity: idle });
   gsap.set(heading, { opacity: 0, y: 24 });
 
   const tl = gsap.timeline({
     defaults: { ease: EASE },
-    scrollTrigger: {
-      trigger: section,
-      pin,
-      start: 'top top',
-      end: '+=850%',
-      scrub: 0.6,
-      anticipatePin: 1,
-      invalidateOnRefresh: true,
-    },
+    scrollTrigger: sceneTrigger(section, pin, 850),
   });
 
   const SHRINK = 2.2;     // когда плашка сжимается в полосу
@@ -58,7 +57,7 @@ export function initProcess({ reduced }) {
     .to(photos[1].firstElementChild, { yPercent: 0, duration: 1.1 }, SHRINK)
     .to(heading, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, SHRINK + 0.6)
     .to(timeline, { autoAlpha: 1, duration: 0.45, ease: 'power2.out' }, SHRINK + 0.75)
-    .to(steps[0], { opacity: 1, duration: 0.45, ease: 'power2.out' }, SHRINK + 0.75);
+    .to(targets[0], { opacity: 1, duration: 0.45, ease: 'power2.out' }, SHRINK + 0.75);
 
   // Начало смены на этап i (i = 1…4); для первого этапа — появление шкалы
   const switchAt = (i) => STAGES + STEP * i - FADE;
@@ -69,8 +68,8 @@ export function initProcess({ reduced }) {
       // Фото плавно проявляется поверх предыдущего, колонка становится активной
       tl.to(photos[i + 1], { autoAlpha: 1, duration: FADE, ease: 'power1.inOut' }, at)
         .to(photos[i + 1].firstElementChild, { scale: 1, duration: STEP, ease: 'none' }, at)
-        .to(steps[i - 1], { opacity: DIMMED, duration: FADE, ease: 'power1.inOut' }, at)
-        .to(step, { opacity: 1, duration: FADE, ease: 'power1.inOut' }, at);
+        .to(targets[i - 1], { opacity: idle, duration: narrow ? FADE / 2 : FADE, ease: 'power1.inOut' }, at)
+        .to(targets[i], { opacity: 1, duration: FADE, ease: 'power1.inOut' }, narrow ? at + FADE / 2 : at);
     }
     // Полоска заполняется, пока этап активен, и доходит до конца к началу следующей смены
     const start = i ? switchAt(i) + FADE / 2 : SHRINK + 0.75;

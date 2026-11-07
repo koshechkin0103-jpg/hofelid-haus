@@ -152,3 +152,6 @@
   width: max(34px, calc(42 * var(--u)));
   height: max(34px, calc(42 * var(--u)));
 }
+
+/* Обёртка фото и затемнения нужна только в компактном режиме */
+.guarantees__media { display: contents; }

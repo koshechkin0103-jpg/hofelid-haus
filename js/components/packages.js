@@ -1,15 +1,10 @@
+import { compact, sceneTrigger } from '../utils/mode.js?v=618b3359';
+
 // Комплектации: секция закреплена; большая плашка поднимается снизу, затем сжимается в карточку,
 // а фото комплектаций открываются снизу вверх поверх дома
 const EASE = 'power3.inOut';
 
-// Размеры карточки в единицах кадра 1920, с ограничением по высоте экрана
-const cardSize = () => {
-  const u = window.innerWidth / 1920;
-  return {
-    width: Math.max(380, 620 * u),
-    height: Math.min(Math.max(460, 720 * u), window.innerHeight - Math.max(100, 130 * u)),
-  };
-};
+// Ширина большой плашки и отступ от края считаются от секции: они зависят от полосы прокрутки
 
 export function initPackages({ reduced }) {
   const section = document.querySelector('[data-packages]');
@@ -23,13 +18,30 @@ export function initPackages({ reduced }) {
   const packages = [...section.querySelectorAll('[data-package]')];
   const bars = [...section.querySelectorAll('[data-package-bar]')];
 
+  const edge = () => parseFloat(getComputedStyle(panel).right);
+  const bigWidth = () => pin.clientWidth - edge() * 2;
+
+  // Размеры карточки: в полном режиме от кадра 1920, в компактном — по содержимому
+  const cardWidth = () => {
+    if (!compact) return Math.max(380, (620 * window.innerWidth) / 1920);
+    return pin.clientWidth < 700 ? bigWidth() : Math.min(440, bigWidth());
+  };
+  const cardHeight = () => {
+    if (compact) return card.offsetHeight;
+    const u = window.innerWidth / 1920;
+    return Math.min(Math.max(460, 720 * u), window.innerHeight - Math.max(100, 130 * u));
+  };
+  // Большая плашка: в компактном режиме по содержимому, чтобы текст точно поместился
+  const bigHeight = () => (compact ? intro.offsetTop + intro.offsetHeight : window.innerHeight * 0.5);
+
   // Ширина текста карточки задаётся заранее и обновляется при изменении окна
-  const setCardWidth = () => panel.style.setProperty('--card-width', `${cardSize().width}px`);
+  const setCardWidth = () => panel.style.setProperty('--card-width', `${cardWidth()}px`);
   setCardWidth();
   ScrollTrigger.addEventListener('refreshInit', setCardWidth);
 
   // Стартовое состояние: плашка за нижним краем, комплектации ждут снизу
   gsap.set(panel, { yPercent: 115 });
+  if (compact) gsap.set(panel, { height: bigHeight() });
   gsap.set(packages.slice(1), { opacity: 0, y: 28 });
   photos.slice(1).forEach((photo) => {
     gsap.set(photo, { yPercent: 100 });
@@ -38,15 +50,7 @@ export function initPackages({ reduced }) {
 
   const tl = gsap.timeline({
     defaults: { ease: EASE },
-    scrollTrigger: {
-      trigger: section,
-      pin,
-      start: 'top top',
-      end: '+=700%',
-      scrub: 0.6,
-      anticipatePin: 1,
-      invalidateOnRefresh: true,
-    },
+    scrollTrigger: sceneTrigger(section, pin, 700),
   });
 
   // Открытие фото снизу вверх: обёртка и картинка движутся навстречу, кадр стоит на месте
@@ -62,12 +66,11 @@ export function initPackages({ reduced }) {
   const SHRINK = 2.2;
   tl.to(intro, { opacity: 0, duration: 0.35, ease: 'power2.out' }, SHRINK)
     .fromTo(panel, {
-      // старт считаем от реальной ширины секции: она зависит от полосы прокрутки
-      width: () => pin.clientWidth - (60 * window.innerWidth) / 1920,
-      height: () => window.innerHeight * 0.5,
+      width: bigWidth,
+      height: bigHeight,
     }, {
-      width: () => cardSize().width,
-      height: () => cardSize().height,
+      width: cardWidth,
+      height: cardHeight,
       duration: 1.1,
       immediateRender: false,
     }, SHRINK)

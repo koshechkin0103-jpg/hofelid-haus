@@ -1,10 +1,12 @@
-import { FrameSequence } from '../utils/frames.js?v=14aa2bea';
+import { FrameSequence } from '../utils/frames.js?v=618b3359';
+import { compact, portraitFrames, sceneTrigger } from '../utils/mode.js?v=618b3359';
 
 // Прогулка по дому: секция закреплена; в каждой комнате сначала появляется текст,
 // потом по скроллу играет видео, по окончании следующее видео въезжает снизу шторкой
 const EASE = 'power3.out';
+const FOLDER = portraitFrames ? 'assets/rooms-m' : 'assets/rooms';
 const roomPath = (room, i) =>
-  `assets/rooms/${String(room + 1).padStart(2, '0')}/${String(i + 1).padStart(3, '0')}.webp`;
+  `${FOLDER}/${String(room + 1).padStart(2, '0')}/${String(i + 1).padStart(3, '0')}.webp`;
 
 export function initRooms({ reduced, after }) {
   const section = document.querySelector('[data-rooms]');
@@ -24,12 +26,18 @@ export function initRooms({ reduced, after }) {
 
   // Загрузка не блокирует показ страницы: после видео подлёта — первые кадры всех комнат
   // (шторка никогда не откроет пустоту), затем остальные кадры комната за комнатой
-  (async () => {
+  const load = async () => {
     await after;
     await Promise.all(seqs.map((s) => s.loadFirst()));
     if (reduced) return;
     for (const s of seqs) await s.loadAll(4);
-  })();
+  };
+  // На телефоне начинаем загрузку, только когда блок близко: кому-то он не понадобится
+  if (compact) {
+    ScrollTrigger.create({ trigger: section, start: 'top 400%', once: true, onEnter: load });
+  } else {
+    load();
+  }
 
   if (reduced) return;
 
@@ -42,14 +50,7 @@ export function initRooms({ reduced, after }) {
 
   const tl = gsap.timeline({
     defaults: { ease: EASE },
-    scrollTrigger: {
-      trigger: section,
-      pin,
-      start: 'top top',
-      end: '+=1500%',
-      scrub: 0.6,
-      anticipatePin: 1,
-    },
+    scrollTrigger: sceneTrigger(section, pin, 1500),
   });
 
   let t = 0;

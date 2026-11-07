@@ -1,23 +1,27 @@
-import { waitForImages } from './utils/preload.js?v=14aa2bea';
-import { initHeader } from './components/header.js?v=14aa2bea';
-import { initHero } from './components/hero.js?v=14aa2bea';
-import { initAssembly } from './components/assembly.js?v=14aa2bea';
-import { initManifest } from './components/manifest.js?v=14aa2bea';
-import { initRooms } from './components/rooms.js?v=14aa2bea';
-import { initPackages } from './components/packages.js?v=14aa2bea';
-import { initProcess } from './components/process.js?v=14aa2bea';
-import { initGuarantees } from './components/guarantees.js?v=14aa2bea';
-import { initClosing } from './components/closing.js?v=14aa2bea';
+import { waitForImages } from './utils/preload.js?v=618b3359';
+import { watchModeChange } from './utils/mode.js?v=618b3359';
+import { initHeader } from './components/header.js?v=618b3359';
+import { initHero } from './components/hero.js?v=618b3359';
+import { initAssembly } from './components/assembly.js?v=618b3359';
+import { initManifest } from './components/manifest.js?v=618b3359';
+import { initRooms } from './components/rooms.js?v=618b3359';
+import { initPackages } from './components/packages.js?v=618b3359';
+import { initProcess } from './components/process.js?v=618b3359';
+import { initGuarantees } from './components/guarantees.js?v=618b3359';
+import { initClosing } from './components/closing.js?v=618b3359';
 
 // Точка входа: предзагрузка → плавный скролл → компоненты → показ интерфейса
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 if (reduced) document.documentElement.classList.add('is-reduced');
 
 gsap.registerPlugin(ScrollTrigger);
+// Появление панели браузера на телефоне не должно пересчитывать всю страницу
+ScrollTrigger.config({ ignoreMobileResize: true });
 
 // Плавный скролл Lenis, синхронизированный с ScrollTrigger
 function initSmoothScroll() {
-  if (reduced) return null;
+  // Только на десктопе с мышью: на телефоне и планшете родная инерция браузера лучше
+  if (reduced || !matchMedia('(min-width: 1200px) and (hover: hover) and (pointer: fine)').matches) return null;
   const lenis = new Lenis({ lerp: 0.09, smoothWheel: true });
   lenis.on('scroll', ScrollTrigger.update);
   gsap.ticker.add((time) => lenis.raf(time * 1000));
@@ -57,6 +61,7 @@ async function boot() {
 
   ScrollTrigger.refresh();
   document.body.classList.remove('is-loading');
+  watchModeChange();
 }
 
 boot();

@@ -1,3 +1,5 @@
+import { compact, sceneTrigger } from '../utils/mode.js?v=618b3359';
+
 // Гарантии: секция закреплена, обещания появляются по одному лесенкой,
 // текущее становится белым, в конце их скрепляет росчерк-подпись
 const EASE = 'power3.out';
@@ -17,6 +19,27 @@ export function initGuarantees({ reduced }) {
   const caption = signature.querySelector('.signature__caption');
   const foot = section.querySelector('[data-guarantees-foot]');
 
+  // На телефоне и планшете карточки идут друг за другом поверх липкого фото
+  if (compact) {
+    pledges.forEach((pledge) => {
+      gsap.fromTo(pledge, { opacity: 0, y: 40 }, {
+        opacity: 1,
+        y: 0,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: pledge, start: 'top 92%', end: 'top 70%', scrub: 0.3 },
+      });
+      // Карточка в середине экрана становится белой
+      ScrollTrigger.create({ trigger: pledge, start: 'top 55%', end: 'bottom 45%', toggleClass: 'is-active' });
+    });
+    gsap.set(path, { strokeDasharray: 1, strokeDashoffset: 1 });
+    gsap.to(path, {
+      strokeDashoffset: 0,
+      ease: 'none',
+      scrollTrigger: { trigger: signature, start: 'top 90%', end: 'top 55%', scrub: 0.3 },
+    });
+    return;
+  }
+
   // Стартовое состояние: на экране только фото
   gsap.set(photo, { scale: 1.08 });
   gsap.set(intro, { opacity: 0, y: 24 });
@@ -27,14 +50,7 @@ export function initGuarantees({ reduced }) {
 
   const tl = gsap.timeline({
     defaults: { ease: EASE },
-    scrollTrigger: {
-      trigger: section,
-      pin,
-      start: 'top top',
-      end: '+=550%',
-      scrub: 0.6,
-      anticipatePin: 1,
-    },
+    scrollTrigger: sceneTrigger(section, pin, 550),
   });
 
   const FIRST = 1;     // когда появляется первая карточка

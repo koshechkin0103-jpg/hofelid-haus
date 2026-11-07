@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Hofelid Haus — a courtyard house by Haldern</title>
   <meta name="description" content="Hofelid Haus — a single-storey courtyard house, perfected over twenty years.">
 
@@ -12,26 +12,28 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200..600&display=swap" rel="stylesheet">
 
   <!-- Первый кадр hero — грузим раньше всего, чтобы экран не был пустым -->
-  <link rel="preload" as="image" href="assets/hero/frames/001.webp" fetchpriority="high">
+  <link rel="preload" as="image" href="assets/hero/frames/001.webp" fetchpriority="high" media="not all and (max-width: 1199.98px) and (orientation: portrait)">
+  <link rel="preload" as="image" href="assets/hero/frames-m/001.webp" fetchpriority="high" media="(max-width: 1199.98px) and (orientation: portrait)">
 
   <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.13/dist/lenis.css">
-  <link rel="stylesheet" href="css/base.css?v=14aa2bea">
-  <link rel="stylesheet" href="css/header.css?v=14aa2bea">
-  <link rel="stylesheet" href="css/hero.css?v=14aa2bea">
-  <link rel="stylesheet" href="css/assembly.css?v=14aa2bea">
-  <link rel="stylesheet" href="css/manifest.css?v=14aa2bea">
-  <link rel="stylesheet" href="css/rooms.css?v=14aa2bea">
-  <link rel="stylesheet" href="css/packages.css?v=14aa2bea">
-  <link rel="stylesheet" href="css/process.css?v=14aa2bea">
-  <link rel="stylesheet" href="css/guarantees.css?v=14aa2bea">
-  <link rel="stylesheet" href="css/closing.css?v=14aa2bea">
+  <link rel="stylesheet" href="css/base.css?v=618b3359">
+  <link rel="stylesheet" href="css/header.css?v=618b3359">
+  <link rel="stylesheet" href="css/hero.css?v=618b3359">
+  <link rel="stylesheet" href="css/assembly.css?v=618b3359">
+  <link rel="stylesheet" href="css/manifest.css?v=618b3359">
+  <link rel="stylesheet" href="css/rooms.css?v=618b3359">
+  <link rel="stylesheet" href="css/packages.css?v=618b3359">
+  <link rel="stylesheet" href="css/process.css?v=618b3359">
+  <link rel="stylesheet" href="css/guarantees.css?v=618b3359">
+  <link rel="stylesheet" href="css/closing.css?v=618b3359">
+  <link rel="stylesheet" href="css/adaptive.css?v=618b3359">
 </head>
 <body class="is-loading">
 
   <!-- ============ 0. Шапка ============ -->
   <header class="header" data-header>
     <a class="header__logo" href="#top">Haldern</a>
-    <nav class="header__nav" aria-label="Main">
+    <nav class="header__nav" id="site-menu" aria-label="Main">
       <a class="pill" href="#house">The House</a>
       <a class="pill" href="#inside">Inside</a>
       <a class="pill" href="#packages">Packages</a>
@@ -39,6 +41,7 @@
       <a class="pill" href="#reserve">Reserve</a>
     </nav>
     <a class="btn btn--light header__cta" href="#master-plan">Get the master plan</a>
+    <button class="header__burger" type="button" data-menu-toggle aria-expanded="false" aria-controls="site-menu">Menu</button>
   </header>
 
   <main>
@@ -46,7 +49,7 @@
     <section class="hero" id="top" data-hero data-theme="dark">
       <div class="hero__sticky">
         <!-- Кадры видео рисуются в canvas; poster — подложка до загрузки -->
-        <img class="hero__poster" src="assets/hero/frames/001.webp" alt="" aria-hidden="true">
+        <picture><source srcset="assets/hero/frames-m/001.webp" media="(max-width: 1199.98px) and (orientation: portrait)"><img class="hero__poster" src="assets/hero/frames/001.webp" alt="" aria-hidden="true"></picture>
         <canvas class="hero__canvas" data-hero-canvas aria-label="Aerial view of Hofelid Haus" role="img"></canvas>
         <div class="hero__shade" aria-hidden="true"></div>
 
@@ -157,8 +160,8 @@
 
     <!-- ============ 3. Манифест ============ -->
     <section class="manifest" data-manifest>
-      <p class="manifest__p">Twenty years of experience,<br>refined into one home.</p>
-      <p class="manifest__p">Hofelid Haus — every detail<br>has a purpose.</p>
+      <p class="manifest__p">Twenty years of experience, <br>refined into one home.</p>
+      <p class="manifest__p">Hofelid Haus — every detail <br>has a purpose.</p>
     </section>
 
     <!-- ============ 4. Прогулка по дому: 4 видео по скроллу ============ -->
@@ -360,40 +363,50 @@
         <!-- Та же стеклянная плашка, что в комплектациях; здесь сжимается в полосу внизу -->
         <div class="panel process__panel" data-process-panel>
           <div class="panel__intro" data-process-intro>
-            <h2 class="panel__title">Seven months from<br>contract to keys</h2>
+            <h2 class="panel__title">Seven months from <br>contract to keys</h2>
             <p class="panel__note">We build across Europe. All you need is a plot of at least 900 m² (25 × 36 m).</p>
           </div>
 
           <ol class="timeline" data-timeline>
             <li class="timeline__step" data-step>
               <span class="panel__bar"><i data-step-bar></i></span>
+              <div class="timeline__body" data-step-body>
               <span class="timeline__month">Month 1</span>
               <h3 class="timeline__title">You sign</h3>
               <p class="timeline__text">The price and the date go into the contract. We survey your plot.</p>
+              </div>
             </li>
             <li class="timeline__step" data-step>
               <span class="panel__bar"><i data-step-bar></i></span>
+              <div class="timeline__body" data-step-body>
               <span class="timeline__month">Month 2</span>
               <h3 class="timeline__title">The ground is ready</h3>
               <p class="timeline__text">You accept the stage first and pay for it only then.</p>
+              </div>
             </li>
             <li class="timeline__step" data-step>
               <span class="panel__bar"><i data-step-bar></i></span>
+              <div class="timeline__body" data-step-body>
               <span class="timeline__month">Months 3–4</span>
               <h3 class="timeline__title">The house stands</h3>
               <p class="timeline__text">You see its full shape on your own plot.</p>
+              </div>
             </li>
             <li class="timeline__step" data-step>
               <span class="panel__bar"><i data-step-bar></i></span>
+              <div class="timeline__body" data-step-body>
               <span class="timeline__month">Months 5–6</span>
               <h3 class="timeline__title">It becomes liveable</h3>
               <p class="timeline__text">Heating, water and light are in. You accept each stage as it ends.</p>
+              </div>
             </li>
             <li class="timeline__step" data-step>
               <span class="panel__bar"><i data-step-bar></i></span>
+              <div class="timeline__body" data-step-body>
               <span class="timeline__month">Month 7</span>
               <h3 class="timeline__title">You move in</h3>
               <p class="timeline__text">You walk through your house and we hand over the keys.</p>
+              </div>
             </li>
           </ol>
         </div>
@@ -403,11 +416,13 @@
     <!-- ============ 7. Гарантии: обещания появляются по одному и скрепляются подписью ============ -->
     <section class="guarantees" id="guarantees" data-guarantees data-theme="dark">
       <div class="guarantees__pin" data-guarantees-pin>
-        <picture class="guarantees__photo" data-guarantees-photo>
+        <div class="guarantees__media">
+          <picture class="guarantees__photo" data-guarantees-photo>
           <source srcset="assets/guarantees/photo.webp" type="image/webp">
           <img src="assets/guarantees/photo.jpg" alt="Hofelid Haus: a concrete overhang and oak fins above the terrace" width="2000" height="1116">
         </picture>
         <div class="guarantees__shade" aria-hidden="true"></div>
+        </div>
 
         <div class="guarantees__intro" data-guarantees-intro>
           <p class="guarantees__eyebrow">Hofelid Haus</p>
@@ -581,6 +596,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-  <script type="module" src="js/main.js?v=14aa2bea"></script>
+  <script type="module" src="js/main.js?v=618b3359"></script>
 </body>
 </html>

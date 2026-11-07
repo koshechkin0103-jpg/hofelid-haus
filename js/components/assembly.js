@@ -1,3 +1,5 @@
+import { sceneTrigger } from '../utils/mode.js?v=618b3359';
+
 // Сборка дома: секция закреплена, слои выезжают по скроллу (scrub, работает в обе стороны)
 const EASE = 'power3.out';
 
@@ -23,7 +25,8 @@ export function initAssembly({ reduced }) {
     return;
   }
 
-  const shift = 300; // сдвиг по Y для деталей, въезжающих снизу
+  // сдвиг по Y для деталей, въезжающих снизу; на телефоне вдвое меньше
+  const shift = matchMedia('(max-width: 767.98px)').matches ? 150 : 300;
 
   // Стартовое состояние: на сцене пусто
   gsap.set(roof, { opacity: 0, y: 40 });
@@ -34,14 +37,7 @@ export function initAssembly({ reduced }) {
 
   const tl = gsap.timeline({
     defaults: { ease: EASE },
-    scrollTrigger: {
-      trigger: section,
-      pin,
-      start: 'top top',
-      end: '+=420%',
-      scrub: 0.6,
-      anticipatePin: 1,
-    },
+    scrollTrigger: sceneTrigger(section, pin, 420),
   });
 
   // Смена текста этапа: старый уезжает вверх и гаснет, новый появляется снизу

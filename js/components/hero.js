@@ -1,8 +1,10 @@
-import { FrameSequence } from '../utils/frames.js?v=14aa2bea';
+import { FrameSequence } from '../utils/frames.js?v=618b3359';
+import { portraitFrames } from '../utils/mode.js?v=618b3359';
 
 // Первый экран: видео подлёта разложено на кадры и рисуется в canvas по прогрессу скролла
 const FRAME_COUNT = 120;
-const framePath = (i) => `assets/hero/frames/${String(i + 1).padStart(3, '0')}.webp`;
+const FOLDER = portraitFrames ? 'assets/hero/frames-m' : 'assets/hero/frames';
+const framePath = (i) => `${FOLDER}/${String(i + 1).padStart(3, '0')}.webp`;
 
 // Возвращает промис полной загрузки кадров — после него начинают грузиться комнаты
 export async function initHero({ reduced }) {

@@ -1,4 +1,4 @@
-import { loadImage } from './preload.js?v=14aa2bea';
+import { loadImage } from './preload.js?v=618b3359';
 
 // Последовательность кадров видео, которая рисуется в canvas (object-fit: cover)
 export class FrameSequence {
@@ -18,8 +18,13 @@ export class FrameSequence {
   // Размер canvas = размер на экране × плотность пикселей (не больше 2)
   resize() {
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    this.canvas.width = Math.round(this.canvas.clientWidth * dpr);
-    this.canvas.height = Math.round(this.canvas.clientHeight * dpr);
+    const w = Math.round(this.canvas.clientWidth * dpr);
+    const h = Math.round(this.canvas.clientHeight * dpr);
+    // Панель браузера на телефоне меняет окно, но не холст: лишняя очистка дала бы мигание
+    if (w !== this.canvas.width || h !== this.canvas.height) {
+      this.canvas.width = w;
+      this.canvas.height = h;
+    }
     this.draw(this.current, true);
   }
 
