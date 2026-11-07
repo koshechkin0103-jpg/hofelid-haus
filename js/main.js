@@ -1,14 +1,14 @@
-import { waitForImages } from './utils/preload.js?v=618b3359';
-import { watchModeChange } from './utils/mode.js?v=618b3359';
-import { initHeader } from './components/header.js?v=618b3359';
-import { initHero } from './components/hero.js?v=618b3359';
-import { initAssembly } from './components/assembly.js?v=618b3359';
-import { initManifest } from './components/manifest.js?v=618b3359';
-import { initRooms } from './components/rooms.js?v=618b3359';
-import { initPackages } from './components/packages.js?v=618b3359';
-import { initProcess } from './components/process.js?v=618b3359';
-import { initGuarantees } from './components/guarantees.js?v=618b3359';
-import { initClosing } from './components/closing.js?v=618b3359';
+import { waitForImages } from './utils/preload.js?v=218f62ec';
+import { watchModeChange } from './utils/mode.js?v=218f62ec';
+import { initHeader } from './components/header.js?v=218f62ec';
+import { initHero } from './components/hero.js?v=218f62ec';
+import { initAssembly } from './components/assembly.js?v=218f62ec';
+import { initManifest } from './components/manifest.js?v=218f62ec';
+import { initRooms } from './components/rooms.js?v=218f62ec';
+import { initPackages } from './components/packages.js?v=218f62ec';
+import { initProcess } from './components/process.js?v=218f62ec';
+import { initGuarantees } from './components/guarantees.js?v=218f62ec';
+import { initClosing } from './components/closing.js?v=218f62ec';
 
 // Точка входа: предзагрузка → плавный скролл → компоненты → показ интерфейса
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

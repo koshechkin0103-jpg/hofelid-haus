@@ -1,4 +1,5 @@
-import { loadImage } from './preload.js?v=618b3359';
+import { loadImage } from './preload.js?v=218f62ec';
+import { compact } from './mode.js?v=218f62ec';
 
 // Последовательность кадров видео, которая рисуется в canvas (object-fit: cover)
 export class FrameSequence {
@@ -17,7 +18,8 @@ export class FrameSequence {
 
   // Размер canvas = размер на экране × плотность пикселей (не больше 2)
   resize() {
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    // На телефонах холст с плотностью экрана до ×3, как на YORU: иначе картинка заметно мягче
+    const dpr = Math.min(window.devicePixelRatio || 1, compact ? 3 : 2);
     const w = Math.round(this.canvas.clientWidth * dpr);
     const h = Math.round(this.canvas.clientHeight * dpr);
     // Панель браузера на телефоне меняет окно, но не холст: лишняя очистка дала бы мигание
@@ -47,6 +49,7 @@ export class FrameSequence {
     const scale = Math.max(cw / img.naturalWidth, ch / img.naturalHeight);
     const w = img.naturalWidth * scale;
     const h = img.naturalHeight * scale;
+    this.ctx.imageSmoothingQuality = 'high';  // сбрасывается при изменении размера холста
     this.ctx.drawImage(img, (cw - w) / 2, (ch - h) / 2, w, h);
   }
 

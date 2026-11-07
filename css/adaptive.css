@@ -427,3 +427,11 @@ p, li { text-wrap: pretty; }
   .room__tags { display: none; }
   .assembly__info .btn { display: none; }
 }
+
+/* На вертикальном экране фото уже обрезаны по главному месту кадра */
+@media (max-width: 1199.98px) and (orientation: portrait) {
+  .packages__photo img,
+  .process__photo img,
+  .guarantees__photo img,
+  .final__photo img { object-position: center !important; }
+}
