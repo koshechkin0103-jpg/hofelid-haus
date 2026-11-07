@@ -1,4 +1,4 @@
-import { compact, narrow, sceneTrigger } from '../utils/mode.js?v=5ad267f4';
+import { compact, narrow, sceneTrigger } from '../utils/mode.js?v=d8598cf1';
 
 // Как мы строим: секция закреплена; большая плашка поднимается снизу и сжимается в полосу,
 // первое фото этапа открывается снизу вверх, следующие плавно проявляются
