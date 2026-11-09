@@ -1,4 +1,4 @@
-import { compact, sceneTrigger } from '../utils/mode.js?v=d6311f48';
+import { compact, sceneTrigger } from '../utils/mode.js?v=94c996b2';
 
 // Сборка дома: секция закреплена, слои выезжают по скроллу (scrub, работает в обе стороны)
 const EASE = 'power3.out';

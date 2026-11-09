@@ -125,7 +125,19 @@ p, li { text-wrap: pretty; }
   .process__pin {
     position: sticky;
     top: 0;
+  }
+  /* Экран сцены — высотой с окно без панелей браузера (lvh): когда панель уезжает,
+     фото и фон доходят до самого низа. Высота постоянная, поэтому ничего не прыгает.
+     Всё, что прижато к низу, поднимаем на высоту панели — оно всегда остаётся на виду */
+  .hero__sticky,
+  .assembly__pin,
+  .rooms__pin,
+  .packages__pin,
+  .process__pin {
     height: 100svh;
+    height: 100lvh;
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+    --safe-bottom: calc(100lvh - 100svh + env(safe-area-inset-bottom, 0px));
   }
 
   /* Кадрирование фото на вертикальном экране */
@@ -251,6 +263,21 @@ p, li { text-wrap: pretty; }
   .panel__cta .btn__icon { width: 36px; height: 36px; }
 
   .process__panel .panel__intro { padding-bottom: 0; }
+  /* Плашка этапов не меняет высоту, а обрезается сверху (--clip): у размытого стекла,
+     которое меняет размер, iPhone оставлял тёмный след прежней большой плашки */
+  .process__panel {
+    border: 0;
+    clip-path: inset(var(--clip, 0px) 0 0 0 round 16px);
+    will-change: transform;
+  }
+  .process__panel::after {
+    content: '';
+    position: absolute;
+    inset: var(--clip, 0px) 0 0 0;
+    border: 1px solid rgba(255, 255, 255, .3);
+    border-radius: 16px;
+    pointer-events: none;
+  }
   .process__panel .panel__title br { display: none; }
   .process__heading {
     top: calc(var(--header-h) + 8px);

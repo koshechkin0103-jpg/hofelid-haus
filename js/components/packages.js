@@ -1,4 +1,4 @@
-import { compact, sceneTrigger } from '../utils/mode.js?v=d6311f48';
+import { compact, sceneTrigger } from '../utils/mode.js?v=94c996b2';
 
 // Комплектации: секция закреплена; большая плашка поднимается снизу, затем сжимается в карточку,
 // а фото комплектаций открываются снизу вверх поверх дома

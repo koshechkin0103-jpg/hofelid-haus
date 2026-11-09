@@ -1,17 +1,17 @@
-import { waitForImages } from './utils/preload.js?v=d6311f48';
-import { resuming, watchModeChange } from './utils/mode.js?v=d6311f48';
-import { initPreloader } from './components/preloader.js?v=d6311f48';
-import { initHeader } from './components/header.js?v=d6311f48';
-import { initHero } from './components/hero.js?v=d6311f48';
-import { initAssembly } from './components/assembly.js?v=d6311f48';
-import { initManifest } from './components/manifest.js?v=d6311f48';
-import { initRooms } from './components/rooms.js?v=d6311f48';
-import { initPackages } from './components/packages.js?v=d6311f48';
-import { initProcess } from './components/process.js?v=d6311f48';
-import { initGuarantees } from './components/guarantees.js?v=d6311f48';
-import { initClosing } from './components/closing.js?v=d6311f48';
-import { initReveal } from './components/reveal.js?v=d6311f48';
-import { compact } from './utils/mode.js?v=d6311f48';
+import { waitForImages } from './utils/preload.js?v=94c996b2';
+import { resuming, watchModeChange } from './utils/mode.js?v=94c996b2';
+import { initPreloader } from './components/preloader.js?v=94c996b2';
+import { initHeader } from './components/header.js?v=94c996b2';
+import { initHero } from './components/hero.js?v=94c996b2';
+import { initAssembly } from './components/assembly.js?v=94c996b2';
+import { initManifest } from './components/manifest.js?v=94c996b2';
+import { initRooms } from './components/rooms.js?v=94c996b2';
+import { initPackages } from './components/packages.js?v=94c996b2';
+import { initProcess } from './components/process.js?v=94c996b2';
+import { initGuarantees } from './components/guarantees.js?v=94c996b2';
+import { initClosing } from './components/closing.js?v=94c996b2';
+import { initReveal } from './components/reveal.js?v=94c996b2';
+import { compact } from './utils/mode.js?v=94c996b2';
 
 // Точка входа: предзагрузка → плавный скролл → компоненты → показ интерфейса
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

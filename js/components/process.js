@@ -1,4 +1,4 @@
-import { compact, narrow, sceneTrigger } from '../utils/mode.js?v=d6311f48';
+import { compact, narrow, sceneTrigger } from '../utils/mode.js?v=94c996b2';
 
 // Как мы строим: секция закреплена; большая плашка поднимается снизу и сжимается в полосу,
 // первое фото этапа открывается снизу вверх, следующие плавно проявляются
@@ -26,8 +26,11 @@ export function initProcess({ reduced }) {
 
   // Стартовое состояние: плашка за нижним краем, этапы ждут своей очереди
   gsap.set(panel, { yPercent: 115 });
-  // В компактном режиме большая плашка — по содержимому
-  if (compact) gsap.set(panel, { height: intro.offsetTop * 2 + intro.offsetHeight });
+  // В компактном режиме плашка не меняет высоту: она сразу высотой с большую, а сжатие
+  // в полосу — это обрезка сверху (--clip, см. adaptive.css)
+  const bigHeight = () => intro.offsetTop * 2 + intro.offsetHeight;
+  const fullHeight = () => Math.max(bigHeight(), stripHeight());
+  if (compact) gsap.set(panel, { height: fullHeight, '--clip': () => `${fullHeight() - bigHeight()}px` });
   gsap.set(photos[0].firstElementChild, { scale: 1.1 });
   gsap.set(photos[1], { yPercent: 100 });
   gsap.set(photos[1].firstElementChild, { yPercent: -100 });
@@ -56,7 +59,11 @@ export function initProcess({ reduced }) {
 
   // Плашка сжимается в полосу, снизу вверх открывается первый этап
   tl.to(intro, { opacity: 0, duration: 0.35, ease: 'power2.out' }, SHRINK)
-    .to(panel, { height: stripHeight, duration: 1.1 }, SHRINK)
+    .add(compact
+      ? gsap.fromTo(panel,
+        { '--clip': () => `${fullHeight() - bigHeight()}px` },
+        { '--clip': () => `${fullHeight() - stripHeight()}px`, duration: 1.1, ease: EASE, immediateRender: false })
+      : gsap.to(panel, { height: stripHeight, duration: 1.1, ease: EASE }), SHRINK)
     .to(photos[1], { yPercent: 0, duration: 1.1 }, SHRINK)
     .to(photos[1].firstElementChild, { yPercent: 0, duration: 1.1 }, SHRINK)
     .to(heading, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, SHRINK + 0.6)
