@@ -38,5 +38,8 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
+      # Кадров много, GitHub иногда раскладывает их дольше 10 минут — ждём до 30
       - id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          timeout: 1800000
