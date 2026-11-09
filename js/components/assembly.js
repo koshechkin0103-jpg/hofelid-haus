@@ -1,4 +1,4 @@
-import { sceneTrigger } from '../utils/mode.js?v=d8598cf1';
+import { sceneTrigger } from '../utils/mode.js?v=df97469c';
 
 // Сборка дома: секция закреплена, слои выезжают по скроллу (scrub, работает в обе стороны)
 const EASE = 'power3.out';
@@ -28,9 +28,10 @@ export function initAssembly({ reduced }) {
   // сдвиг по Y для деталей, въезжающих снизу; на телефоне вдвое меньше
   const shift = matchMedia('(max-width: 767.98px)').matches ? 150 : 300;
 
-  // Стартовое состояние: на сцене пусто
-  gsap.set(roof, { opacity: 0, y: 40 });
-  gsap.set([walls, foundation], { opacity: 0, y: shift });
+  // Стартовое состояние: на сцене пусто. Дом строится как настоящий — снизу вверх:
+  // фундамент поднимается из-под земли, стены и крыша опускаются на место сверху
+  gsap.set(foundation, { opacity: 0, y: shift });
+  gsap.set([walls, roof], { opacity: 0, y: -shift * 0.6 });
   gsap.set([glass, full], { opacity: 0 });
   gsap.set(shadow, { opacity: 0, scaleX: 0.8 });
   gsap.set(stages.slice(1), { opacity: 0, yPercent: 40 });
@@ -47,10 +48,11 @@ export function initAssembly({ reduced }) {
       .to(counter, { yPercent: -25 * to, duration: 0.6 }, at + 0.1);
   };
 
-  // Этап 1 — крыша появляется и чуть поднимается на своё место
-  tl.to(roof, { opacity: 1, y: 0, duration: 1 }, 0);
+  // Этап 1 — фундамент поднимается снизу, под ним появляется тень
+  tl.to(foundation, { opacity: 1, y: 0, duration: 1.2 }, 0)
+    .to(shadow, { opacity: 1, scaleX: 1, duration: 1 }, 0.4);
 
-  // Этап 2 — стены выезжают снизу и встают под крышу
+  // Этап 2 — стены опускаются на фундамент
   swapText(0, 1, 1.6);
   tl.to(walls, { opacity: 1, y: 0, duration: 1.2 }, 1.6);
 
@@ -58,14 +60,13 @@ export function initAssembly({ reduced }) {
   swapText(1, 2, 3.2);
   tl.to(glass, { opacity: 1, duration: 1 }, 3.2);
 
-  // Этап 4 — фундамент поднимается снизу
+  // Этап 4 — крыша опускается и закрывает дом
   swapText(2, 3, 4.6);
-  tl.to(foundation, { opacity: 1, y: 0, duration: 1.2 }, 4.6);
+  tl.to(roof, { opacity: 1, y: 0, duration: 1.2 }, 4.6);
 
   // Финал — незаметный crossfade в цельный дом и тень
   tl.to(full, { opacity: 1, duration: 0.5 }, 6.2)
-    .to([roof, walls, glass, foundation], { opacity: 0, duration: 0.3 }, 6.7)
-    .to(shadow, { opacity: 1, scaleX: 1, duration: 0.8 }, 6.4);
+    .to([roof, walls, glass, foundation], { opacity: 0, duration: 0.3 }, 6.7);
 
   // Небольшая пауза на собранном доме перед следующим блоком
   tl.to({}, { duration: 0.8 });

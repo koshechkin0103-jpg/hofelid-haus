@@ -96,3 +96,16 @@ h1, h2, h3, p { margin: 0; font-weight: inherit; }
   font-weight: 400;
   letter-spacing: -.035em;
 }
+
+/* ===== Появление текста (js/components/reveal.js) ===== */
+.rv-pending { visibility: hidden; }
+.rv-pending.is-revealing { visibility: visible; }
+.rv-mask {
+  display: block;
+  overflow: clip;
+  padding-bottom: .1em;   /* хвосты букв не обрезаются */
+  margin-bottom: -.1em;
+}
+.rv-line { display: block; }
+.rv-word { display: inline-block; will-change: transform; }
+.is-reduced .rv-pending { visibility: visible; }

@@ -1,4 +1,4 @@
-import { compact, narrow, sceneTrigger } from '../utils/mode.js?v=d8598cf1';
+import { compact, narrow, sceneTrigger } from '../utils/mode.js?v=df97469c';
 
 // Как мы строим: секция закреплена; большая плашка поднимается снизу и сжимается в полосу,
 // первое фото этапа открывается снизу вверх, следующие плавно проявляются
@@ -41,8 +41,9 @@ export function initProcess({ reduced }) {
     scrollTrigger: sceneTrigger(section, pin, 850),
   });
 
-  const SHRINK = 2.2;     // когда плашка сжимается в полосу
-  const STAGES = 3.3;     // когда шкала полностью на месте
+  // На телефоне вступление держится дольше: иначе быстрый жест сразу проматывает к первому варианту
+  const SHRINK = compact ? 3.4 : 2.2;     // когда плашка сжимается в полосу
+  const STAGES = SHRINK + 1.1;   // когда шкала полностью на месте
   const STEP = 1.7;       // сколько длится один этап
   const FADE = 0.6;       // смена фото между этапами
 

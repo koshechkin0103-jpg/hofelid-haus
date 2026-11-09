@@ -46,7 +46,10 @@ export function initPreloader({ skip }) {
   const tick = () => {
     const pace = Math.min(1, (performance.now() - started) / (MIN_INTRO * 1000));
     const goal = Math.min(target, pace * 99);
-    shown += (goal - shown) * 0.12;
+    // Догоняем цель с одной и той же скоростью при любой частоте кадров
+    const now = performance.now();
+    shown += (goal - shown) * (1 - Math.exp(-(now - (tick.last || now)) / 120));
+    tick.last = now;
     paint();
   };
   gsap.ticker.add(tick);

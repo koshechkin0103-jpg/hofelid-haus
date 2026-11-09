@@ -28,6 +28,8 @@ p, li { text-wrap: pretty; }
   }
 
   html, body { max-width: 100%; overflow-x: clip; }
+  /* Браузер не должен сам подкручивать страницу, когда что-то выше меняет размер */
+  html { overflow-anchor: none; }
   html.is-menu-locked { overflow: hidden; }
 
   /* ---------- шапка: логотип, кнопка, Menu; пункты меню — на весь экран ---------- */
@@ -115,8 +117,8 @@ p, li { text-wrap: pretty; }
   .hero { height: 300svh; }
   .assembly { height: 340svh; }
   .rooms { height: 1000svh; }
-  .packages { height: 560svh; }
-  .process { height: 700svh; }
+  .packages { height: 640svh; }
+  .process { height: 780svh; }
   .assembly__pin,
   .rooms__pin,
   .packages__pin,

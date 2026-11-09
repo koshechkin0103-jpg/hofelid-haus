@@ -1,4 +1,4 @@
-import { compact, sceneTrigger } from '../utils/mode.js?v=d8598cf1';
+import { compact, sceneTrigger } from '../utils/mode.js?v=df97469c';
 
 // Комплектации: секция закреплена; большая плашка поднимается снизу, затем сжимается в карточку,
 // а фото комплектаций открываются снизу вверх поверх дома
@@ -63,7 +63,8 @@ export function initPackages({ reduced }) {
   tl.to(panel, { yPercent: 0, duration: 1.1 }, 0.3);
 
   // Шаг 2 — плашка сжимается в карточку, открывается коробка
-  const SHRINK = 2.2;
+  // На телефоне вступление держится дольше: иначе быстрый жест сразу проматывает к первому варианту
+  const SHRINK = compact ? 3.4 : 2.2;
   tl.to(intro, { opacity: 0, duration: 0.35, ease: 'power2.out' }, SHRINK)
     .fromTo(panel, {
       width: bigWidth,

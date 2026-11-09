@@ -1,15 +1,17 @@
-import { waitForImages } from './utils/preload.js?v=d8598cf1';
-import { resuming, watchModeChange } from './utils/mode.js?v=d8598cf1';
-import { initPreloader } from './components/preloader.js?v=d8598cf1';
-import { initHeader } from './components/header.js?v=d8598cf1';
-import { initHero } from './components/hero.js?v=d8598cf1';
-import { initAssembly } from './components/assembly.js?v=d8598cf1';
-import { initManifest } from './components/manifest.js?v=d8598cf1';
-import { initRooms } from './components/rooms.js?v=d8598cf1';
-import { initPackages } from './components/packages.js?v=d8598cf1';
-import { initProcess } from './components/process.js?v=d8598cf1';
-import { initGuarantees } from './components/guarantees.js?v=d8598cf1';
-import { initClosing } from './components/closing.js?v=d8598cf1';
+import { waitForImages } from './utils/preload.js?v=df97469c';
+import { resuming, watchModeChange } from './utils/mode.js?v=df97469c';
+import { initPreloader } from './components/preloader.js?v=df97469c';
+import { initHeader } from './components/header.js?v=df97469c';
+import { initHero } from './components/hero.js?v=df97469c';
+import { initAssembly } from './components/assembly.js?v=df97469c';
+import { initManifest } from './components/manifest.js?v=df97469c';
+import { initRooms } from './components/rooms.js?v=df97469c';
+import { initPackages } from './components/packages.js?v=df97469c';
+import { initProcess } from './components/process.js?v=df97469c';
+import { initGuarantees } from './components/guarantees.js?v=df97469c';
+import { initClosing } from './components/closing.js?v=df97469c';
+import { initReveal } from './components/reveal.js?v=df97469c';
+import { compact } from './utils/mode.js?v=df97469c';
 
 // Точка входа: предзагрузка → плавный скролл → компоненты → показ интерфейса
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -18,6 +20,11 @@ if (reduced) document.documentElement.classList.add('is-reduced');
 gsap.registerPlugin(ScrollTrigger);
 // Появление панели браузера на телефоне не должно пересчитывать всю страницу
 ScrollTrigger.config({ ignoreMobileResize: true });
+// Время анимаций не «проседает», когда телефон занят загрузкой: заставка не затягивается
+gsap.ticker.lagSmoothing(0);
+// На сенсорных экранах прокрутку ведёт ScrollTrigger: панель браузера перестаёт прятаться
+// и появляться, а с ней пропадают скачки липких сцен при прокрутке вверх
+if (compact && ScrollTrigger.isTouch === 1 && !reduced) ScrollTrigger.normalizeScroll(true);
 
 // Плавный скролл Lenis, синхронизированный с ScrollTrigger
 function initSmoothScroll() {
@@ -35,7 +42,8 @@ async function boot() {
   if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
   window.scrollTo(0, 0);
 
-  const preloader = initPreloader({ skip: reduced || resuming });
+  // ?nointro — открыть без заставки (для проверки)
+  const preloader = initPreloader({ skip: reduced || resuming || location.search.includes('nointro') });
 
   const lenis = initSmoothScroll();
   lenis?.stop();
@@ -66,10 +74,13 @@ async function boot() {
   initGuarantees({ reduced });
   initClosing({ reduced });
   initHeader({ lenis });
+  const reveal = initReveal({ reduced, compact });
 
   ScrollTrigger.refresh();
   await preloader.finish();
   document.body.classList.remove('is-loading');
+  reveal.playHero();
+  hero.startLoading();
   watchModeChange();
 }
 
