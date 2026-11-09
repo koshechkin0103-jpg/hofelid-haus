@@ -35,24 +35,30 @@ export function initPreloader({ skip }) {
   const counter = root.querySelector('[data-preloader-counter]');
   const digits = [...root.querySelectorAll('[data-preloader-digit]')];
 
-  // Счётчик идёт за реальной загрузкой, но не быстрее смены фото
-  let target = 0;
+  // Счётчик идёт от 0 до 100 со скоростью смены фото. Загрузка его только придерживает:
+  // пока она не дошла, число не уходит дальше (40 + доля загрузки), а в конце добегает до 100
+  let target = 40;
   let shown = 0;
   const started = performance.now();
   const paint = () => {
-    gsap.set(digits[0], { yPercent: -10 * Math.floor(shown / 10) });
-    gsap.set(digits[1], { yPercent: -(shown % 10) * 10 });
+    const n = Math.min(100, Math.floor(shown));
+    const [h, t, o] = [Math.floor(n / 100), Math.floor(n / 10) % 10, n % 10];
+    gsap.set(digits[0], { yPercent: -50 * h, display: h ? '' : 'none' });
+    gsap.set(digits[1], { yPercent: -10 * t, display: n >= 10 ? '' : 'none' });
+    gsap.set(digits[2], { yPercent: -10 * o });
   };
+  paint();
   const tick = () => {
     const pace = Math.min(1, (performance.now() - started) / (MIN_INTRO * 1000));
-    const goal = Math.min(target, pace * 99);
+    const goal = Math.min(target, pace * 100);
     // Догоняем цель с одной и той же скоростью при любой частоте кадров
     const now = performance.now();
     shown += (goal - shown) * (1 - Math.exp(-(now - (tick.last || now)) / 120));
     tick.last = now;
     paint();
   };
-  gsap.ticker.add(tick);
+  // Свой таймер, а не кадры анимации: счётчик идёт, даже когда телефон занят загрузкой
+  const timer = setInterval(tick, 30);
 
   // Смена фото: квадрат вырастает из точки, каждое следующее фото открывается снизу вверх
   const intro = gsap.timeline();
@@ -69,18 +75,18 @@ export function initPreloader({ skip }) {
 
   return {
     progress(fraction) {
-      target = Math.max(target, Math.min(99, fraction * 99));
+      target = Math.max(target, Math.min(99, 40 + fraction * 59));
     },
     async finish() {
-      target = 99;
+      target = 100;
       await intro.then();
       // Даём счётчику дойти до конца
       await new Promise((resolve) => {
-        const wait = () => (shown >= 98 ? resolve() : setTimeout(wait, 40));
+        const wait = () => (shown >= 99.5 ? resolve() : setTimeout(wait, 40));
         wait();
       });
-      gsap.ticker.remove(tick);
-      shown = 99;
+      clearInterval(timer);
+      shown = 100;
       paint();
       unlock();
 

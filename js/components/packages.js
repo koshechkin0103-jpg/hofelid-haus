@@ -1,4 +1,4 @@
-import { compact, sceneTrigger } from '../utils/mode.js?v=df97469c';
+import { compact, sceneTrigger } from '../utils/mode.js?v=d6311f48';
 
 // Комплектации: секция закреплена; большая плашка поднимается снизу, затем сжимается в карточку,
 // а фото комплектаций открываются снизу вверх поверх дома
@@ -50,7 +50,7 @@ export function initPackages({ reduced }) {
 
   const tl = gsap.timeline({
     defaults: { ease: EASE },
-    scrollTrigger: sceneTrigger(section, pin, 700),
+    scrollTrigger: sceneTrigger(section, pin, 700, { steps: true }),
   });
 
   // Открытие фото снизу вверх: обёртка и картинка движутся навстречу, кадр стоит на месте
@@ -60,7 +60,10 @@ export function initPackages({ reduced }) {
   };
 
   // Шаг 1 — дом снаружи, снизу поднимается большая плашка
+  tl.addLabel('start', 0);
   tl.to(panel, { yPercent: 0, duration: 1.1 }, 0.3);
+  // На телефоне сцена останавливается на большой плашке, пока её не пролистают дальше
+  tl.addLabel('intro', 1.6);
 
   // Шаг 2 — плашка сжимается в карточку, открывается коробка
   // На телефоне вступление держится дольше: иначе быстрый жест сразу проматывает к первому варианту
@@ -88,12 +91,20 @@ export function initPackages({ reduced }) {
       .to(packages[i], { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }, at + 0.4);
   });
 
-  // Полоска заполняется, пока её комплектация на экране, и доходит до конца к началу следующей смены
+  // Остановки на телефоне: каждая комплектация целиком на экране
+  tl.addLabel('shell', PACKAGE_START + 0.2);
+  [1, 2].forEach((i) => tl.addLabel(`package${i}`, PACKAGE_START + STEP * i + 0.2));
+
+  // Полоска заполняется, пока её комплектация на экране, и доходит до конца к началу следующей смены.
+  // На телефоне последняя полоска короче: после Turnkey блок отпускает быстрее
   bars.forEach((bar, i) => {
     const start = i ? PACKAGE_START + STEP * i - 0.9 + 0.5 : SHRINK + 0.75;
-    tl.to(bar, { scaleX: 1, duration: PACKAGE_START + STEP * (i + 1) - 0.9 - start, ease: 'none' }, start);
+    const last = i === bars.length - 1;
+    const duration = compact && last ? 1 : PACKAGE_START + STEP * (i + 1) - 0.9 - start;
+    tl.to(bar, { scaleX: 1, duration, ease: 'none' }, start);
   });
 
   // Пауза на последней комплектации перед выходом из блока
-  tl.to({}, { duration: 0.4 });
+  tl.to({}, { duration: compact ? 0.1 : 0.4 });
+  tl.addLabel('end');
 }

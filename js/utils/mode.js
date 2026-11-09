@@ -11,9 +11,22 @@ export const portraitFrames = compact && matchMedia('(orientation: portrait)').m
 
 // Настройки прокрутки сцены. В компактном режиме секция сама длинная, а экран внутри
 // липкий (CSS): это не дёргается при появлении панели браузера и инерции на телефоне
-export function sceneTrigger(section, pin, length) {
+// steps: на телефоне сцена листается шагами — после жеста дотягивается до ближайшей метки
+// таймлайна в сторону прокрутки. Так короткий жест не проскакивает состояние,
+// а длинный не застревает посреди перехода
+export function sceneTrigger(section, pin, length, { steps = false } = {}) {
   if (compact) {
-    return { trigger: section, start: 'top top', end: 'bottom bottom', scrub: 0.3, invalidateOnRefresh: true };
+    const trigger = { trigger: section, start: 'top top', end: 'bottom bottom', scrub: 0.3, invalidateOnRefresh: true };
+    if (steps) {
+      trigger.snap = {
+        snapTo: 'labelsDirectional',
+        duration: { min: 0.3, max: 0.9 },
+        delay: 0.08,
+        ease: 'power2.inOut',
+        inertia: false,
+      };
+    }
+    return trigger;
   }
   return { trigger: section, pin, start: 'top top', end: `+=${length}%`, scrub: 0.6, anticipatePin: 1, invalidateOnRefresh: true };
 }

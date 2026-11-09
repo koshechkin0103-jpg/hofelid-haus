@@ -1,4 +1,4 @@
-import { compact, narrow, sceneTrigger } from '../utils/mode.js?v=df97469c';
+import { compact, narrow, sceneTrigger } from '../utils/mode.js?v=d6311f48';
 
 // Как мы строим: секция закреплена; большая плашка поднимается снизу и сжимается в полосу,
 // первое фото этапа открывается снизу вверх, следующие плавно проявляются
@@ -38,7 +38,7 @@ export function initProcess({ reduced }) {
 
   const tl = gsap.timeline({
     defaults: { ease: EASE },
-    scrollTrigger: sceneTrigger(section, pin, 850),
+    scrollTrigger: sceneTrigger(section, pin, 850, { steps: true }),
   });
 
   // На телефоне вступление держится дольше: иначе быстрый жест сразу проматывает к первому варианту
@@ -48,8 +48,11 @@ export function initProcess({ reduced }) {
   const FADE = 0.6;       // смена фото между этапами
 
   // Вступление: готовый дом медленно приближается, снизу поднимается большая плашка
+  tl.addLabel('start', 0);
   tl.to(photos[0].firstElementChild, { scale: 1, duration: SHRINK + 1.1, ease: 'none' }, 0)
     .to(panel, { yPercent: 0, duration: 1.1 }, 0.3);
+  // На телефоне сцена останавливается на большой плашке с заголовком
+  tl.addLabel('intro', 1.6);
 
   // Плашка сжимается в полосу, снизу вверх открывается первый этап
   tl.to(intro, { opacity: 0, duration: 0.35, ease: 'power2.out' }, SHRINK)
@@ -72,11 +75,17 @@ export function initProcess({ reduced }) {
         .to(targets[i - 1], { opacity: idle, duration: narrow ? FADE / 2 : FADE, ease: 'power1.inOut' }, at)
         .to(targets[i], { opacity: 1, duration: FADE, ease: 'power1.inOut' }, narrow ? at + FADE / 2 : at);
     }
-    // Полоска заполняется, пока этап активен, и доходит до конца к началу следующей смены
+    // Остановка на телефоне: этап полностью на экране
+    tl.addLabel(`step${i}`, i ? switchAt(i) + FADE + 0.1 : STAGES + 0.1);
+    // Полоска заполняется, пока этап активен, и доходит до конца к началу следующей смены.
+    // На телефоне последняя короче: после переезда блок отпускает быстрее
     const start = i ? switchAt(i) + FADE / 2 : SHRINK + 0.75;
-    tl.to(bars[i], { scaleX: 1, duration: switchAt(i + 1) - start, ease: 'none' }, start);
+    const last = i === steps.length - 1;
+    const duration = compact && last ? 0.8 : switchAt(i + 1) - start;
+    tl.to(bars[i], { scaleX: 1, duration, ease: 'none' }, start);
   });
 
   // Пауза на готовой комнате перед выходом из блока
-  tl.to({}, { duration: 0.4 });
+  tl.to({}, { duration: compact ? 0.1 : 0.4 });
+  tl.addLabel('end');
 }

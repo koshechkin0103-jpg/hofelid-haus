@@ -1,4 +1,4 @@
-import { sceneTrigger } from '../utils/mode.js?v=df97469c';
+import { compact, sceneTrigger } from '../utils/mode.js?v=d6311f48';
 
 // Сборка дома: секция закреплена, слои выезжают по скроллу (scrub, работает в обе стороны)
 const EASE = 'power3.out';
@@ -17,6 +17,8 @@ export function initAssembly({ reduced }) {
   const shadow = layer('shadow');
   const stages = [...section.querySelectorAll('[data-stage]')];
   const counter = section.querySelector('[data-counter]');
+  const facts = [...section.querySelectorAll('.facts__item')];
+  const counts = [...section.querySelectorAll('[data-count]')];
 
   // Без анимации: дом сразу собран, видны все тексты
   if (reduced) {
@@ -38,7 +40,7 @@ export function initAssembly({ reduced }) {
 
   const tl = gsap.timeline({
     defaults: { ease: EASE },
-    scrollTrigger: sceneTrigger(section, pin, 420),
+    scrollTrigger: sceneTrigger(section, pin, 420, { steps: true }),
   });
 
   // Смена текста этапа: старый уезжает вверх и гаснет, новый появляется снизу
@@ -48,19 +50,25 @@ export function initAssembly({ reduced }) {
       .to(counter, { yPercent: -25 * to, duration: 0.6 }, at + 0.1);
   };
 
+  // Метки — точки, где сцена останавливается на телефоне после жеста
+  tl.addLabel('start', 0);
+
   // Этап 1 — фундамент поднимается снизу, под ним появляется тень
   tl.to(foundation, { opacity: 1, y: 0, duration: 1.2 }, 0)
     .to(shadow, { opacity: 1, scaleX: 1, duration: 1 }, 0.4);
 
   // Этап 2 — стены опускаются на фундамент
+  tl.addLabel('foundation', 1.3);
   swapText(0, 1, 1.6);
   tl.to(walls, { opacity: 1, y: 0, duration: 1.2 }, 1.6);
 
   // Этап 3 — стекло и интерьер проявляются поверх стен: «зажёгся свет»
+  tl.addLabel('walls', 2.9);
   swapText(1, 2, 3.2);
   tl.to(glass, { opacity: 1, duration: 1 }, 3.2);
 
   // Этап 4 — крыша опускается и закрывает дом
+  tl.addLabel('glass', 4.3);
   swapText(2, 3, 4.6);
   tl.to(roof, { opacity: 1, y: 0, duration: 1.2 }, 4.6);
 
@@ -68,6 +76,23 @@ export function initAssembly({ reduced }) {
   tl.to(full, { opacity: 1, duration: 0.5 }, 6.2)
     .to([roof, walls, glass, foundation], { opacity: 0, duration: 0.3 }, 6.7);
 
-  // Небольшая пауза на собранном доме перед следующим блоком
-  tl.to({}, { duration: 0.8 });
+  // На телефоне под домом проявляется строка цифр, числа досчитывают до своих значений
+  if (compact && facts.length) {
+    gsap.set(facts, { opacity: 0, y: 16 });
+    counts.forEach((el) => (el.textContent = '0'));
+    tl.to(facts, { opacity: 1, y: 0, duration: 0.6, stagger: 0.1 }, 6.2);
+    counts.forEach((el) => {
+      const value = { v: 0 };
+      tl.to(value, {
+        v: Number(el.dataset.count),
+        duration: 1.2,
+        onUpdate: () => (el.textContent = Math.round(value.v)),
+      }, 6.2);
+    });
+  }
+
+  // Небольшая пауза на собранном доме перед следующим блоком; на телефоне короче —
+  // чтобы уход из блока не требовал лишнего жеста
+  tl.to({}, { duration: compact ? 0.2 : 0.8 });
+  tl.addLabel('end');
 }

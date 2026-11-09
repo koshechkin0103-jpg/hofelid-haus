@@ -123,3 +123,6 @@
 .is-reduced .assembly__meta { display: none; }
 .is-reduced .assembly__stages { display: flex; flex-direction: column; gap: 22px; }
 .is-reduced .stage { opacity: 1 !important; }
+
+/* Строка цифр под домом: на компьютере её нет, на телефоне и планшете — см. adaptive.css */
+.facts { display: none; }

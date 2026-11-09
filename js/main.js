@@ -1,17 +1,17 @@
-import { waitForImages } from './utils/preload.js?v=df97469c';
-import { resuming, watchModeChange } from './utils/mode.js?v=df97469c';
-import { initPreloader } from './components/preloader.js?v=df97469c';
-import { initHeader } from './components/header.js?v=df97469c';
-import { initHero } from './components/hero.js?v=df97469c';
-import { initAssembly } from './components/assembly.js?v=df97469c';
-import { initManifest } from './components/manifest.js?v=df97469c';
-import { initRooms } from './components/rooms.js?v=df97469c';
-import { initPackages } from './components/packages.js?v=df97469c';
-import { initProcess } from './components/process.js?v=df97469c';
-import { initGuarantees } from './components/guarantees.js?v=df97469c';
-import { initClosing } from './components/closing.js?v=df97469c';
-import { initReveal } from './components/reveal.js?v=df97469c';
-import { compact } from './utils/mode.js?v=df97469c';
+import { waitForImages } from './utils/preload.js?v=d6311f48';
+import { resuming, watchModeChange } from './utils/mode.js?v=d6311f48';
+import { initPreloader } from './components/preloader.js?v=d6311f48';
+import { initHeader } from './components/header.js?v=d6311f48';
+import { initHero } from './components/hero.js?v=d6311f48';
+import { initAssembly } from './components/assembly.js?v=d6311f48';
+import { initManifest } from './components/manifest.js?v=d6311f48';
+import { initRooms } from './components/rooms.js?v=d6311f48';
+import { initPackages } from './components/packages.js?v=d6311f48';
+import { initProcess } from './components/process.js?v=d6311f48';
+import { initGuarantees } from './components/guarantees.js?v=d6311f48';
+import { initClosing } from './components/closing.js?v=d6311f48';
+import { initReveal } from './components/reveal.js?v=d6311f48';
+import { compact } from './utils/mode.js?v=d6311f48';
 
 // Точка входа: предзагрузка → плавный скролл → компоненты → показ интерфейса
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -22,9 +22,8 @@ gsap.registerPlugin(ScrollTrigger);
 ScrollTrigger.config({ ignoreMobileResize: true });
 // Время анимаций не «проседает», когда телефон занят загрузкой: заставка не затягивается
 gsap.ticker.lagSmoothing(0);
-// На сенсорных экранах прокрутку ведёт ScrollTrigger: панель браузера перестаёт прятаться
-// и появляться, а с ней пропадают скачки липких сцен при прокрутке вверх
-if (compact && ScrollTrigger.isTouch === 1 && !reduced) ScrollTrigger.normalizeScroll(true);
+// Прокрутку на телефоне не перехватываем: подменённая инерция гасла быстрее родной,
+// и из блоков приходилось выбираться несколькими жестами. Сцены листаются шагами (sceneTrigger)
 
 // Плавный скролл Lenis, синхронизированный с ScrollTrigger
 function initSmoothScroll() {

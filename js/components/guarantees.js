@@ -1,4 +1,4 @@
-import { compact, sceneTrigger } from '../utils/mode.js?v=df97469c';
+import { compact, sceneTrigger } from '../utils/mode.js?v=d6311f48';
 
 // Гарантии: секция закреплена, обещания появляются по одному лесенкой,
 // текущее становится белым, в конце их скрепляет росчерк-подпись

@@ -1,5 +1,5 @@
-import { FrameSequence } from '../utils/frames.js?v=df97469c';
-import { compact, portraitFrames, sceneTrigger } from '../utils/mode.js?v=df97469c';
+import { FrameSequence } from '../utils/frames.js?v=d6311f48';
+import { compact, portraitFrames, sceneTrigger } from '../utils/mode.js?v=d6311f48';
 
 // Прогулка по дому: секция закреплена; в каждой комнате сначала появляется текст,
 // потом по скроллу играет видео, по окончании следующее видео въезжает снизу шторкой
@@ -50,9 +50,11 @@ export function initRooms({ reduced, after }) {
 
   const tl = gsap.timeline({
     defaults: { ease: EASE },
-    scrollTrigger: sceneTrigger(section, pin, 1500),
+    scrollTrigger: sceneTrigger(section, pin, 1500, { steps: true }),
   });
 
+  // Метки — точки остановки на телефоне: начало каждой комнаты
+  tl.addLabel('start', 0);
   let t = 0;
   seqs.forEach((seq, room) => {
     if (room === 0) {
@@ -68,6 +70,8 @@ export function initRooms({ reduced, after }) {
       t += CURTAIN + 0.3;
     }
 
+    tl.addLabel(`room${room}`, t);
+
     // Видео комнаты проигрывается по скроллу; текст остаётся на экране
     const playhead = { frame: 0 };
     tl.to(playhead, {
@@ -80,5 +84,6 @@ export function initRooms({ reduced, after }) {
   });
 
   // Пауза на последнем кадре бассейна перед выходом из блока
-  tl.to({}, { duration: 0.6 }, t);
+  tl.to({}, { duration: compact ? 0.1 : 0.6 }, t);
+  tl.addLabel('end');
 }
