@@ -1,4 +1,4 @@
-import { compact, narrow, sceneTrigger } from '../utils/mode.js?v=4a204662';
+import { compact, narrow, sceneTrigger } from '../utils/mode.js?v=c75cd10f';
 
 // Как мы строим: секция закреплена; большая плашка поднимается снизу и сжимается в полосу,
 // первое фото этапа открывается снизу вверх, следующие плавно проявляются
@@ -31,11 +31,14 @@ export function initProcess({ reduced }) {
   const bigHeight = () => intro.offsetTop * 2 + intro.offsetHeight;
   const fullHeight = () => Math.max(bigHeight(), stripHeight());
   if (compact) gsap.set(panel, { height: fullHeight, '--clip': () => `${fullHeight() - bigHeight()}px` });
-  gsap.set(photos[0].firstElementChild, { scale: 1.1 });
+  // На телефоне фото не приближаются: шесть полноэкранных слоёв с постоянной перерисовкой
+  // iPhone не вытягивал и оставлял полупрозрачные полосы недорисованных кусков
+  const ZOOM = !compact;
+  if (ZOOM) gsap.set(photos[0].firstElementChild, { scale: 1.1 });
   gsap.set(photos[1], { yPercent: 100 });
   gsap.set(photos[1].firstElementChild, { yPercent: -100 });
   gsap.set(photos.slice(2), { autoAlpha: 0 });
-  gsap.set(photos.slice(2).map((p) => p.firstElementChild), { scale: 1.05 });
+  if (ZOOM) gsap.set(photos.slice(2).map((p) => p.firstElementChild), { scale: 1.05 });
   gsap.set(targets, { opacity: idle });
   gsap.set(heading, { opacity: 0, y: 24 });
 
@@ -52,8 +55,8 @@ export function initProcess({ reduced }) {
 
   // Вступление: готовый дом медленно приближается, снизу поднимается большая плашка
   tl.addLabel('start', 0);
-  tl.to(photos[0].firstElementChild, { scale: 1, duration: SHRINK + 1.1, ease: 'none' }, 0)
-    .to(panel, { yPercent: 0, duration: 1.1 }, 0.3);
+  if (ZOOM) tl.to(photos[0].firstElementChild, { scale: 1, duration: SHRINK + 1.1, ease: 'none' }, 0);
+  tl.to(panel, { yPercent: 0, duration: 1.1 }, 0.3);
   // На телефоне сцена останавливается на большой плашке с заголовком
   tl.addLabel('intro', 1.6);
 
@@ -66,6 +69,8 @@ export function initProcess({ reduced }) {
       : gsap.to(panel, { height: stripHeight, duration: 1.1, ease: EASE }), SHRINK)
     .to(photos[1], { yPercent: 0, duration: 1.1 }, SHRINK)
     .to(photos[1].firstElementChild, { yPercent: 0, duration: 1.1 }, SHRINK)
+    // Закрытое фото больше не рисуем — меньше слоёв в памяти телефона
+    .set(photos[0], { visibility: 'hidden' }, SHRINK + 1.1)
     .to(heading, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, SHRINK + 0.6)
     .to(timeline, { autoAlpha: 1, duration: 0.45, ease: 'power2.out' }, SHRINK + 0.75)
     .to(targets[0], { opacity: 1, duration: 0.45, ease: 'power2.out' }, SHRINK + 0.75);
@@ -78,7 +83,9 @@ export function initProcess({ reduced }) {
       const at = switchAt(i);
       // Фото плавно проявляется поверх предыдущего, колонка становится активной
       tl.to(photos[i + 1], { autoAlpha: 1, duration: FADE, ease: 'power1.inOut' }, at)
-        .to(photos[i + 1].firstElementChild, { scale: 1, duration: STEP, ease: 'none' }, at)
+        .set(photos[i], { visibility: 'hidden' }, at + FADE);
+      if (ZOOM) tl.to(photos[i + 1].firstElementChild, { scale: 1, duration: STEP, ease: 'none' }, at);
+      tl
         .to(targets[i - 1], { opacity: idle, duration: narrow ? FADE / 2 : FADE, ease: 'power1.inOut' }, at)
         .to(targets[i], { opacity: 1, duration: FADE, ease: 'power1.inOut' }, narrow ? at + FADE / 2 : at);
     }

@@ -1,5 +1,5 @@
-import { loadImage } from './preload.js?v=4a204662';
-import { compact } from './mode.js?v=4a204662';
+import { loadImage } from './preload.js?v=c75cd10f';
+import { compact } from './mode.js?v=c75cd10f';
 
 // Последовательность кадров видео, которая рисуется в canvas (object-fit: cover)
 export class FrameSequence {
@@ -60,12 +60,13 @@ export class FrameSequence {
   }
 
   // Остальные кадры «прореживанием»: каждый 16-й, потом 8-й, 4-й…
-  // прокрутка работает сразу, плавность догружается
-  loadAll(concurrency = 6) {
-    if (this.loading) return this.loading;
+  // прокрутка работает сразу, плавность догружается. upTo — остановиться на этом шаге
+  // (например, 4 — каждый четвёртый кадр), повторный вызов догрузит остальное
+  loadAll(concurrency = 6, upTo = 1) {
+    if (upTo === 1 && this.loading) return this.loading;
     const order = [];
     const seen = new Set();
-    for (let step = 16; step >= 1; step /= 2) {
+    for (let step = 16; step >= upTo; step /= 2) {
       for (let i = 0; i < this.count; i += step) {
         if (!seen.has(i)) { seen.add(i); order.push(i); }
       }
@@ -81,7 +82,8 @@ export class FrameSequence {
         } catch (_) { /* пропущенный кадр заменится соседним */ }
       }
     };
-    this.loading = Promise.all(Array.from({ length: concurrency }, worker));
-    return this.loading;
+    const done = Promise.all(Array.from({ length: concurrency }, worker));
+    if (upTo === 1) this.loading = done;
+    return done;
   }
 }

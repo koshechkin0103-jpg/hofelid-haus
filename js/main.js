@@ -1,17 +1,17 @@
-import { waitForImages } from './utils/preload.js?v=4a204662';
-import { resuming, watchModeChange } from './utils/mode.js?v=4a204662';
-import { initPreloader } from './components/preloader.js?v=4a204662';
-import { initHeader } from './components/header.js?v=4a204662';
-import { initHero } from './components/hero.js?v=4a204662';
-import { initAssembly } from './components/assembly.js?v=4a204662';
-import { initManifest } from './components/manifest.js?v=4a204662';
-import { initRooms } from './components/rooms.js?v=4a204662';
-import { initPackages } from './components/packages.js?v=4a204662';
-import { initProcess } from './components/process.js?v=4a204662';
-import { initGuarantees } from './components/guarantees.js?v=4a204662';
-import { initClosing } from './components/closing.js?v=4a204662';
-import { initReveal } from './components/reveal.js?v=4a204662';
-import { compact, scroller, scrollToY } from './utils/mode.js?v=4a204662';
+import { waitForImages } from './utils/preload.js?v=c75cd10f';
+import { resuming, watchModeChange } from './utils/mode.js?v=c75cd10f';
+import { initPreloader } from './components/preloader.js?v=c75cd10f';
+import { initHeader } from './components/header.js?v=c75cd10f';
+import { initHero } from './components/hero.js?v=c75cd10f';
+import { initAssembly } from './components/assembly.js?v=c75cd10f';
+import { initManifest } from './components/manifest.js?v=c75cd10f';
+import { initRooms } from './components/rooms.js?v=c75cd10f';
+import { initPackages } from './components/packages.js?v=c75cd10f';
+import { initProcess } from './components/process.js?v=c75cd10f';
+import { initGuarantees } from './components/guarantees.js?v=c75cd10f';
+import { initClosing } from './components/closing.js?v=c75cd10f';
+import { initReveal } from './components/reveal.js?v=c75cd10f';
+import { compact, scroller, scrollToY } from './utils/mode.js?v=c75cd10f';
 
 // Точка входа: предзагрузка → плавный скролл → компоненты → показ интерфейса
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

@@ -1,4 +1,4 @@
-import { compact, sceneTrigger } from '../utils/mode.js?v=4a204662';
+import { compact, sceneTrigger } from '../utils/mode.js?v=c75cd10f';
 
 // Комплектации: секция закреплена; большая плашка поднимается снизу, затем сжимается в карточку,
 // а фото комплектаций открываются снизу вверх поверх дома
@@ -56,7 +56,9 @@ export function initPackages({ reduced }) {
   // Открытие фото снизу вверх: обёртка и картинка движутся навстречу, кадр стоит на месте
   const revealPhoto = (i, at, duration) => {
     tl.to(photos[i], { yPercent: 0, duration }, at)
-      .to(photos[i].firstElementChild, { yPercent: 0, scale: 1, duration }, at);
+      .to(photos[i].firstElementChild, { yPercent: 0, scale: 1, duration }, at)
+      // Фото под новым больше не видно — не держим его слой в памяти
+      .set(photos[i - 1], { visibility: 'hidden' }, at + duration);
   };
 
   // Шаг 1 — дом снаружи, снизу поднимается большая плашка

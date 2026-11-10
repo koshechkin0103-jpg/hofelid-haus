@@ -1,5 +1,5 @@
-import { FrameSequence } from '../utils/frames.js?v=4a204662';
-import { compact, portraitFrames, sceneTrigger } from '../utils/mode.js?v=4a204662';
+import { FrameSequence } from '../utils/frames.js?v=c75cd10f';
+import { compact, portraitFrames, sceneTrigger } from '../utils/mode.js?v=c75cd10f';
 
 // Прогулка по дому: секция закреплена; в каждой комнате сначала появляется текст,
 // потом по скроллу играет видео, по окончании следующее видео въезжает снизу шторкой
@@ -24,20 +24,18 @@ export function initRooms({ reduced, after }) {
     })
   );
 
-  // Загрузка не блокирует показ страницы: после видео подлёта — первые кадры всех комнат
-  // (шторка никогда не откроет пустоту), затем остальные кадры комната за комнатой
+  // Загрузка не блокирует показ страницы и начинается сразу после видео первого экрана,
+  // ещё до того, как человек дойдёт до блока: первые кадры всех комнат (шторка не откроет
+  // пустоту), потом каждый четвёртый кадр всех комнат (все видео уже играют), затем
+  // остальные кадры комната за комнатой
   const load = async () => {
     await after;
     await Promise.all(seqs.map((s) => s.loadFirst()));
     if (reduced) return;
-    for (const s of seqs) await s.loadAll(4);
+    await Promise.all(seqs.map((s) => s.loadAll(2, 4)));
+    for (const s of seqs) await s.loadAll(compact ? 4 : 6);
   };
-  // На телефоне начинаем загрузку, только когда блок близко: кому-то он не понадобится
-  if (compact) {
-    ScrollTrigger.create({ trigger: section, start: 'top 400%', once: true, onEnter: load });
-  } else {
-    load();
-  }
+  load();
 
   if (reduced) return;
 

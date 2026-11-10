@@ -273,6 +273,8 @@ p, li { text-wrap: pretty; }
     clip-path: inset(var(--clip, 0px) 0 0 0 round 16px);
     will-change: transform;
   }
+  /* Слои фото не держим постоянно в видеопамяти телефона */
+  .process__photo, .process__image, .packages__photo, .packages__image { will-change: auto; }
   .process__panel::after {
     content: '';
     position: absolute;
