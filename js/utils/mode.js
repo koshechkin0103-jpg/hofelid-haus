@@ -6,6 +6,12 @@ export const compact = matchMedia('(max-width: 1199.98px)').matches;
 // Узкий планшет и телефон: шкала этапов показывает один этап за раз
 export const narrow = matchMedia('(max-width: 999.98px)').matches;
 
+// Что прокручивается: на телефоне и планшете — слой .scroller, на компьютере — окно
+export const scroller = (compact && document.querySelector('[data-scroller]')) || window;
+const scrollEl = scroller === window ? document.documentElement : scroller;
+export const scrollTop = () => (scroller === window ? window.scrollY : scroller.scrollTop);
+export const scrollToY = (y) => scroller.scrollTo(0, y);
+
 // Вертикальный экран — отдельный комплект кадров, обрезанных под него
 export const portraitFrames = compact && matchMedia('(orientation: portrait)').matches;
 
@@ -48,7 +54,7 @@ export function watchModeChange() {
   ['(max-width: 1199.98px)', '(max-width: 999.98px)', '(orientation: portrait)'].forEach((query) => {
     matchMedia(query).addEventListener('change', () => {
       try {
-        sessionStorage.setItem(KEY, String(window.scrollY / document.documentElement.scrollHeight));
+        sessionStorage.setItem(KEY, String(scrollTop() / scrollEl.scrollHeight));
       } catch (_) { /* без хранилища просто начнём сверху */ }
       location.reload();
     });
@@ -57,7 +63,7 @@ export function watchModeChange() {
     const saved = sessionStorage.getItem(KEY);
     if (saved !== null) {
       sessionStorage.removeItem(KEY);
-      window.scrollTo(0, Number(saved) * document.documentElement.scrollHeight);
+      scrollToY(Number(saved) * scrollEl.scrollHeight);
     }
   } catch (_) { /* см. выше */ }
 }

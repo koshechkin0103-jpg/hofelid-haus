@@ -1,17 +1,17 @@
-import { waitForImages } from './utils/preload.js?v=94c996b2';
-import { resuming, watchModeChange } from './utils/mode.js?v=94c996b2';
-import { initPreloader } from './components/preloader.js?v=94c996b2';
-import { initHeader } from './components/header.js?v=94c996b2';
-import { initHero } from './components/hero.js?v=94c996b2';
-import { initAssembly } from './components/assembly.js?v=94c996b2';
-import { initManifest } from './components/manifest.js?v=94c996b2';
-import { initRooms } from './components/rooms.js?v=94c996b2';
-import { initPackages } from './components/packages.js?v=94c996b2';
-import { initProcess } from './components/process.js?v=94c996b2';
-import { initGuarantees } from './components/guarantees.js?v=94c996b2';
-import { initClosing } from './components/closing.js?v=94c996b2';
-import { initReveal } from './components/reveal.js?v=94c996b2';
-import { compact } from './utils/mode.js?v=94c996b2';
+import { waitForImages } from './utils/preload.js?v=4a204662';
+import { resuming, watchModeChange } from './utils/mode.js?v=4a204662';
+import { initPreloader } from './components/preloader.js?v=4a204662';
+import { initHeader } from './components/header.js?v=4a204662';
+import { initHero } from './components/hero.js?v=4a204662';
+import { initAssembly } from './components/assembly.js?v=4a204662';
+import { initManifest } from './components/manifest.js?v=4a204662';
+import { initRooms } from './components/rooms.js?v=4a204662';
+import { initPackages } from './components/packages.js?v=4a204662';
+import { initProcess } from './components/process.js?v=4a204662';
+import { initGuarantees } from './components/guarantees.js?v=4a204662';
+import { initClosing } from './components/closing.js?v=4a204662';
+import { initReveal } from './components/reveal.js?v=4a204662';
+import { compact, scroller, scrollToY } from './utils/mode.js?v=4a204662';
 
 // Точка входа: предзагрузка → плавный скролл → компоненты → показ интерфейса
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -20,6 +20,8 @@ if (reduced) document.documentElement.classList.add('is-reduced');
 gsap.registerPlugin(ScrollTrigger);
 // Появление панели браузера на телефоне не должно пересчитывать всю страницу
 ScrollTrigger.config({ ignoreMobileResize: true });
+// На телефоне и планшете все сцены следят за прокручиваемым слоем, а не за окном
+if (scroller !== window) ScrollTrigger.defaults({ scroller });
 // Время анимаций не «проседает», когда телефон занят загрузкой: заставка не затягивается
 gsap.ticker.lagSmoothing(0);
 // Прокрутку на телефоне не перехватываем: подменённая инерция гасла быстрее родной,
@@ -39,7 +41,7 @@ function initSmoothScroll() {
 async function boot() {
   // Браузер не должен восстанавливать позицию посреди закреплённых секций
   if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-  window.scrollTo(0, 0);
+  scrollToY(0);
 
   // ?nointro — открыть без заставки (для проверки)
   const preloader = initPreloader({ skip: reduced || resuming || location.search.includes('nointro') });

@@ -27,10 +27,20 @@ p, li { text-wrap: pretty; }
     --fs-micro: clamp(.75rem, .722rem + .121vw, .8125rem);
   }
 
-  html, body { max-width: 100%; overflow-x: clip; }
-  /* Браузер не должен сам подкручивать страницу, когда что-то выше меняет размер */
-  html { overflow-anchor: none; }
-  html.is-menu-locked { overflow: hidden; }
+  /* Как на likova.space: сама страница не прокручивается, прокручивается слой .scroller
+     на весь экран. Панели браузера тогда не прячутся и не выезжают, высота экрана
+     не меняется — нет ни скачков, ни пустой полосы внизу. Инерция остаётся родной */
+  html, body { height: 100%; overflow: hidden; }
+  .scroller {
+    position: fixed;
+    inset: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior-y: none;
+    -webkit-overflow-scrolling: touch;
+    overflow-anchor: none;
+  }
+  html.is-menu-locked .scroller { overflow: hidden; }
 
   /* ---------- шапка: логотип, кнопка, Menu; пункты меню — на весь экран ---------- */
   .header {
@@ -126,19 +136,12 @@ p, li { text-wrap: pretty; }
     position: sticky;
     top: 0;
   }
-  /* Экран сцены — высотой с окно без панелей браузера (lvh): когда панель уезжает,
-     фото и фон доходят до самого низа. Высота постоянная, поэтому ничего не прыгает.
-     Всё, что прижато к низу, поднимаем на высоту панели — оно всегда остаётся на виду */
+  /* Экран сцены — ровно видимая часть окна: панели браузера не меняются (см. .scroller) */
   .hero__sticky,
   .assembly__pin,
   .rooms__pin,
   .packages__pin,
-  .process__pin {
-    height: 100svh;
-    height: 100lvh;
-    --safe-bottom: env(safe-area-inset-bottom, 0px);
-    --safe-bottom: calc(100lvh - 100svh + env(safe-area-inset-bottom, 0px));
-  }
+  .process__pin { height: 100svh; }
 
   /* Кадрирование фото на вертикальном экране */
   .packages__photo:nth-of-type(1) img { object-position: 62% center; }

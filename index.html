@@ -16,18 +16,18 @@
   <link rel="preload" as="image" href="assets/hero/frames-m/001.webp" fetchpriority="high" media="(max-width: 1199.98px) and (orientation: portrait)">
 
   <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.13/dist/lenis.css">
-  <link rel="stylesheet" href="css/base.css?v=94c996b2">
-  <link rel="stylesheet" href="css/header.css?v=94c996b2">
-  <link rel="stylesheet" href="css/hero.css?v=94c996b2">
-  <link rel="stylesheet" href="css/assembly.css?v=94c996b2">
-  <link rel="stylesheet" href="css/manifest.css?v=94c996b2">
-  <link rel="stylesheet" href="css/rooms.css?v=94c996b2">
-  <link rel="stylesheet" href="css/packages.css?v=94c996b2">
-  <link rel="stylesheet" href="css/process.css?v=94c996b2">
-  <link rel="stylesheet" href="css/guarantees.css?v=94c996b2">
-  <link rel="stylesheet" href="css/closing.css?v=94c996b2">
-  <link rel="stylesheet" href="css/preloader.css?v=94c996b2">
-  <link rel="stylesheet" href="css/adaptive.css?v=94c996b2">
+  <link rel="stylesheet" href="css/base.css?v=4a204662">
+  <link rel="stylesheet" href="css/header.css?v=4a204662">
+  <link rel="stylesheet" href="css/hero.css?v=4a204662">
+  <link rel="stylesheet" href="css/assembly.css?v=4a204662">
+  <link rel="stylesheet" href="css/manifest.css?v=4a204662">
+  <link rel="stylesheet" href="css/rooms.css?v=4a204662">
+  <link rel="stylesheet" href="css/packages.css?v=4a204662">
+  <link rel="stylesheet" href="css/process.css?v=4a204662">
+  <link rel="stylesheet" href="css/guarantees.css?v=4a204662">
+  <link rel="stylesheet" href="css/closing.css?v=4a204662">
+  <link rel="stylesheet" href="css/preloader.css?v=4a204662">
+  <link rel="stylesheet" href="css/adaptive.css?v=4a204662">
 </head>
 <body class="is-loading">
 
@@ -64,6 +64,8 @@
     <button class="header__burger" type="button" data-menu-toggle aria-expanded="false" aria-controls="site-menu">Menu</button>
   </header>
 
+  <!-- На телефоне и планшете прокручивается этот слой, а не страница (см. adaptive.css) -->
+  <div class="scroller" data-scroller>
   <main>
     <!-- ============ 1. Первый экран: видео по скроллу ============ -->
     <section class="hero" id="top" data-hero data-theme="dark">
@@ -632,11 +634,12 @@
       <span class="footer__note">Portfolio concept. Haldern is a fictional developer, and the forms on this page send no data.</span>
     </div>
   </footer>
+  </div>
 
   <!-- Библиотеки: GSAP + ScrollTrigger + Lenis -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-  <script type="module" src="js/main.js?v=94c996b2"></script>
+  <script type="module" src="js/main.js?v=4a204662"></script>
 </body>
 </html>
