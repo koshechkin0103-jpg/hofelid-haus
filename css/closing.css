@@ -45,7 +45,8 @@
 }
 .form__submit {
   height: max(44px, calc(52 * var(--u)));
-  padding: 0 calc(28 * var(--u));
+  padding: 0 calc(5 * var(--u)) 0 calc(24 * var(--u));
+  gap: calc(16 * var(--u));
   border: 0;
   font-family: inherit;
   font-size: var(--fs-small);
@@ -233,6 +234,12 @@
 .footer__text a:hover,
 .footer__bottom a:hover { opacity: .6; }
 .footer__button { margin-top: calc(24 * var(--u)); }
+.form__submit .btn__icon,
+.footer__button .btn__icon,
+.assembly__info .btn__icon {
+  width: max(34px, calc(42 * var(--u)));
+  height: max(34px, calc(42 * var(--u)));
+}
 
 .footer__bottom {
   display: grid;

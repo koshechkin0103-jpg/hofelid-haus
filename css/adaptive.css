@@ -383,7 +383,8 @@ p, li { text-wrap: pretty; }
   .form__fields { grid-template-columns: 1fr; gap: 22px; }
   .field__input { height: 44px; font-size: max(16px, var(--fs-lead)); }  /* меньше 16 px iPhone увеличивает страницу */
   .form__foot { flex-direction: column; align-items: stretch; gap: 12px; margin-top: 28px; }
-  .form__submit { justify-content: center; width: 100%; height: 52px; font-size: var(--fs-body); }
+  .form__submit { justify-content: space-between; width: 100%; height: 52px; padding: 0 5px 0 20px; font-size: var(--fs-body); }
+  .form__submit .btn__icon { width: 42px; height: 42px; }
 
   /* ---------- финал: заголовок и плашка прижаты к низу ---------- */
   .final {
@@ -413,7 +414,8 @@ p, li { text-wrap: pretty; }
   }
   .footer__label { margin-bottom: 12px; }
   .footer__nav { line-height: 1.4; }
-  .footer__button { justify-content: center; align-self: stretch; height: 48px; margin-top: 16px; font-size: var(--fs-body); }
+  .footer__button { justify-content: space-between; align-self: stretch; height: 52px; margin-top: 16px; padding: 0 5px 0 20px; font-size: var(--fs-body); }
+  .footer__button .btn__icon { width: 42px; height: 42px; }
   .footer__bottom { grid-template-columns: 1fr; gap: 8px; }
   .footer__note { margin-top: 8px; }
 
@@ -457,7 +459,7 @@ p, li { text-wrap: pretty; }
   .reserve { grid-template-columns: 1fr 1fr; gap: 32px; }
   .form__fields { grid-template-columns: 1fr 1fr; gap: 24px; }
   .form__foot { flex-direction: row; align-items: center; }
-  .form__submit { width: auto; flex: none; padding: 0 28px; }
+  .form__submit { width: auto; flex: none; gap: 16px; }
   .final__panel { align-self: flex-end; width: 440px; }
   .final__title { position: absolute; left: var(--gutter); bottom: calc(var(--gutter) + var(--safe-bottom)); max-width: 40%; }
   .hero__cta { align-self: flex-start; width: auto; gap: 16px; }

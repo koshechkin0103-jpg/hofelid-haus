@@ -65,13 +65,13 @@ h1, h2, h3, p { margin: 0; font-weight: inherit; }
   font-weight: 400;
   letter-spacing: -.005em;
   white-space: nowrap;
-  transition: transform .4s var(--ease), background-color .3s, color .3s;
+  transition: transform .4s var(--ease), background-color .35s var(--ease), color .35s var(--ease), border-color .35s var(--ease);
 }
 .btn:hover { transform: translateY(-1px); }
 .btn:active { transform: scale(.98); }
 
 .btn--light { background: var(--white); color: var(--ink); }
-.btn--dark  { background: var(--ink);   color: var(--white); }
+.btn--dark  { background: var(--ink);   color: var(--white); box-shadow: inset 0 0 0 1px transparent; }
 
 .btn--arrow { padding-right: 5px; height: 52px; padding-left: 24px; gap: 16px; font-size: var(--fs-small); }
 .btn__icon {
@@ -82,6 +82,28 @@ h1, h2, h3, p { margin: 0; font-weight: inherit; }
   border-radius: 50%;
   background: var(--ink);
   color: var(--white);
+  overflow: hidden;
+  transition: background-color .35s var(--ease), color .35s var(--ease);
+}
+.btn--dark .btn__icon { background: var(--white); color: var(--ink); }
+
+/* Наведение: кнопка меняет цвет на противоположный, стрелка улетает вверх-вправо
+   и возвращается снизу-слева. Только для мыши: на телефоне цвет «залипал» бы после касания */
+@keyframes btn-arrow {
+  0%   { transform: translate(0, 0); }
+  45%  { transform: translate(150%, -150%); }
+  46%  { transform: translate(-150%, 150%); }
+  100% { transform: translate(0, 0); }
+}
+@media (hover: hover) and (pointer: fine) {
+  .btn--light:hover { background: var(--ink); color: var(--white); }
+  .btn--light:hover .btn__icon { background: var(--white); color: var(--ink); }
+  .btn--dark:hover { background: var(--white); color: var(--ink); box-shadow: inset 0 0 0 1px var(--line); }
+  .btn--dark:hover .btn__icon { background: var(--ink); color: var(--white); }
+  .btn:hover .btn__icon svg { animation: btn-arrow .6s var(--ease); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn:hover .btn__icon svg { animation: none; }
 }
 
 .visually-hidden {

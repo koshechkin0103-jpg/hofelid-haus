@@ -54,3 +54,6 @@
 .header.is-dark .pill { border-color: var(--line); background: rgba(245, 242, 236, .7); }
 .header.is-dark .pill:hover { background: var(--ink); color: var(--white); border-color: var(--ink); }
 .header.is-dark .header__cta { background: var(--ink); color: var(--white); }
+@media (hover: hover) and (pointer: fine) {
+  .header.is-dark .header__cta:hover { background: var(--white); color: var(--ink); box-shadow: inset 0 0 0 1px var(--line); }
+}
