@@ -297,16 +297,23 @@ p, li { text-wrap: pretty; }
   /* ---------- гарантии: без закрепления, карточки идут поверх липкого фото ---------- */
   .guarantees__pin { height: auto; overflow: visible; }
   /* Фото держится внутри своего слоя и уходит вместе с блоком */
-  .guarantees__media { display: block; position: absolute; inset: 0; }
-  .guarantees__photo,
-  .guarantees__shade {
+  /* overflow: clip — ничего из слоя фото не вылезает за границы блока */
+  .guarantees__media { display: block; position: absolute; inset: 0; overflow: clip; }
+  .guarantees__photo {
     position: sticky;
     top: 0;
     display: block;
     height: 100svh;
   }
-  .guarantees__shade {
-    margin-top: -100svh;
+  /* Затемнение — часть самого фото. Раньше это был отдельный липкий слой со сдвигом
+     вверх на высоту экрана: пока блок не доехал, он висел над концом «Seven months»
+     и поднимался вместе с прокруткой тёмной полосой */
+  .guarantees__shade { display: none; }
+  .guarantees__photo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
     background:
       linear-gradient(180deg, rgba(10, 10, 9, .4) 0%, rgba(10, 10, 9, 0) 20%),
       linear-gradient(0deg, rgba(10, 10, 9, .62) 0%, rgba(10, 10, 9, 0) 60%);

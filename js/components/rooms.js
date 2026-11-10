@@ -1,5 +1,5 @@
-import { FrameSequence } from '../utils/frames.js?v=2bfb0872';
-import { compact, portraitFrames, sceneTrigger } from '../utils/mode.js?v=2bfb0872';
+import { FrameSequence } from '../utils/frames.js?v=18d07d70';
+import { compact, portraitFrames, sceneTrigger } from '../utils/mode.js?v=18d07d70';
 
 // Прогулка по дому: секция закреплена; в каждой комнате сначала появляется текст,
 // потом по скроллу играет видео, по окончании следующее видео въезжает снизу шторкой
